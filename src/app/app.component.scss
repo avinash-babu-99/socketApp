@@ -1,0 +1,35 @@
+.contact {
+  height: 40px;
+  width: 100%;
+  padding: 5px;
+}
+
+.message-block {
+  height: 500px;
+  width: 200px;
+  border: 1px solid;
+  border-radius: 5px;
+  position: relative;
+  .message {
+    position: relative;
+    border: 1px solid;
+    padding: 3px;
+    width: 33%;
+    border-radius: 3px;
+    background-color: #dff1d9;
+    padding-left: 15px;
+    border: none;
+    overflow-wrap: break-word;
+  }
+  .sent-message {
+    position: relative;
+    border: 1px solid;
+    padding: 3px;
+    width: 33%;
+    border-radius: 3px;
+    background-color: beige;
+    padding-left: 15px;
+    margin-left: 115px;
+    border: none;
+  }
+}
