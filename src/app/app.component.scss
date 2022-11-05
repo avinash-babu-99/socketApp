@@ -1,23 +1,45 @@
 .contact {
   height: 40px;
-  width: 100%;
-  padding: 5px;
+  width: 80%;
+  padding: 13px 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: x-large;
+  font-style: oblique;
 }
 
 .message-block {
-  height: 500px;
-  width: 200px;
+  height: 320px;
+  width: 100%;
   border: 1px solid;
   border-radius: 5px;
   position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 5px 10px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  .message-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  .sent-message-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
   .message {
     position: relative;
     border: 1px solid;
     padding: 3px;
-    width: 33%;
+    width: 450px;
     border-radius: 3px;
     background-color: #dff1d9;
-    padding-left: 15px;
+    padding: 20px 10px;
     border: none;
     overflow-wrap: break-word;
   }
@@ -25,11 +47,181 @@
     position: relative;
     border: 1px solid;
     padding: 3px;
-    width: 33%;
+    width: 450px;
     border-radius: 3px;
     background-color: beige;
-    padding-left: 15px;
+    padding: 20px 10px;
     margin-left: 115px;
     border: none;
   }
+}
+
+.main-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+.login-container {
+  height: 100%;
+  background: linear-gradient(to right, grey, white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.login-input {
+  padding: 15px 10px;
+  width: 260px;
+  border: none;
+  outline: none;
+  color: gray;
+  border-radius: 5px;
+  height: auto;
+  font-style: italic;
+  transition: 500ms;
+  z-index: 1;
+  font-size: large;
+}
+
+.login-input:focus {
+  padding: 20px 15px;
+  width: 280px;
+  border: 1px solid grey;
+  border-radius: 7px;
+  box-shadow: 5px 10px gray;
+}
+
+.login-button {
+  padding: 10px 10px;
+  width: 275px;
+  border: none;
+  outline: none;
+  color: white;
+  background: cornflowerblue;
+  border-radius: 5px;
+  height: auto;
+  font-style: italic;
+  transition: 500ms;
+  z-index: 1;
+  font-size: large;
+}
+
+.login-button:hover {
+  opacity: 75%;
+  color: whitesmoke;
+  cursor: pointer;
+}
+
+.login-input-container {
+  position: relative;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  font-size: large;
+}
+
+.login-error-container {
+  position: absolute;
+  top: -54px;
+  border: 1px solid #b80b22ad;
+  padding: 10px 10px;
+  color: #b80b22ad;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.signUp-button {
+  padding: 10px 10px;
+  width: 275px;
+  border: none;
+  outline: none;
+  color: white;
+  background: grey;
+  border-radius: 5px;
+  height: auto;
+  font-style: italic;
+  transition: 500ms;
+  z-index: 1;
+  font-size: large;
+}
+
+.signUp-button:hover {
+  opacity: 75%;
+  color: whitesmoke;
+  cursor: pointer;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: row;
+  border: 25px solid #ababe5;
+  background: #ababe5;
+  padding: 15px;
+  gap: 5px;
+  overflow: hidden;
+}
+
+.contacts-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  background: #cacaf3;
+  width: 280px;
+  overflow: hidden;
+}
+
+.chat-header {
+  height: 50px;
+  padding: 17px;
+  width: 100px;
+  font-size: x-large;
+  font-style: initial;
+  color: #645e5e;
+}
+
+.chat-list {
+  height: 450px;
+  background: aliceblue;
+  width: 297px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-radius: 5px;
+}
+
+.chat-screen {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: aliceblue;
+  overflow-x: hidden;
+}
+
+.chat-profile {
+  width: 100%;
+  background: #cacaf3;
+  padding: 20px 45px;
+  font-size: x-large;
+  display: flex;
+  gap: 25px;
+  align-items: flex-start;
+}
+
+.chat-text-box {
+  height: 30px;
+  padding: 5px 10px;
+  border: none;
+  background: #e1f7c1;
+  outline: none;
+  width: 700px;
+}
+
+.chat-text-box-wrapper {
+  margin-left: 100px;
 }
