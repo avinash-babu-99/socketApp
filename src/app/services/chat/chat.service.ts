@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ChatService {
   private socket: Socket;
+  public boUrl = 'http://127.0.0.1:400';
   private url: any = 'http://localhost:3001';
 
   private contactUrl = 'http://127.0.0.1:400/contacts';
@@ -75,5 +76,18 @@ export class ChatService {
 
   public getChatMessages(roomId: any): Observable<any> {
     return this.http.get(`http://127.0.0.1:400/messages/getMessages/${roomId}`);
+  }
+
+  public getRoom(ids: any[]): Observable<any> {
+    console.log(ids, 'ids');
+    return this.http.get(`${this.boUrl}/rooms/getRoom`, {
+      params: {
+        ids: [...ids],
+      },
+    });
+  }
+
+  public newRoom(ids: any[]): Observable<any> {
+    return this.http.post(`${this.boUrl}/rooms/newRoom/`, { users: [...ids] });
   }
 }

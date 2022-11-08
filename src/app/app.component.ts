@@ -91,13 +91,39 @@ export class AppComponent implements OnInit, AfterViewChecked {
     this.isViewCheckCall = true;
     this.messageArray = [];
     this.selectedUser = selectedUser;
-    this.roomId = selectedUser.roomId;
-    this.chatService.getChatMessages(this.roomId).subscribe((response) => {
-      if (response && response.messages) {
-        this.messageArray = [...this.messageArray, ...response.messages];
-        console.log(this.messageArray);
-        this.scrollToBottom();
-        this.join(this.currentUser, this.roomId);
+    // this.roomId = selectedUser.roomId;
+    const ids = [selectedUser.id, this.currentUser._id];
+    this.chatService.getRoom(ids).subscribe((data) => {
+      console.log(data, 'response for get');
+      if (data.data && !data.data.length) {
+        console.log('room id not available');
+        this.chatService.newRoom(ids).subscribe((response) => {
+          console.log('new room created', response);
+          this.roomId = response.data._id;
+          this.chatService
+            .getChatMessages(this.roomId)
+            .subscribe((response) => {
+              if (response && response.messages) {
+                this.messageArray = [
+                  ...this.messageArray,
+                  ...response.messages,
+                ];
+                console.log(this.messageArray);
+                this.scrollToBottom();
+                this.join(this.currentUser, this.roomId);
+              }
+            });
+        });
+      } else {
+        this.roomId = data.data[0]._id;
+        this.chatService.getChatMessages(this.roomId).subscribe((response) => {
+          if (response && response.messages) {
+            this.messageArray = [...this.messageArray, ...response.messages];
+            console.log(this.messageArray);
+            this.scrollToBottom();
+            this.join(this.currentUser, this.roomId);
+          }
+        });
       }
     });
   }
