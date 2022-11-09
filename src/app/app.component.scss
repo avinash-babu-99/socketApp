@@ -95,6 +95,34 @@
       }
     }
 }
+.button-container{
+  position: relative;
+  // width: 150px;
+  height: 60px;
+  transition: .25s all ease-in;
+  width: fit-content;
+  &:hover{
+    .tooltip{
+      opacity: 1;
+    }
+  }
+  img{
+    width: 100px;
+    height: 100px;
+    transition: .5s all ease-in-out;
+  }
+
+  .tooltip{
+    position: absolute;
+    top: -70px;
+    background: #FF4;
+    padding: 20px;
+    border-radius: 10px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+}
 .message-block {
   height: calc(100% - 140px);
   width: 100%;

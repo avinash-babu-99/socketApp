@@ -25,6 +25,12 @@ export class ChatService {
 
   public joinRoom(data: any): void {
     this.socket.emit('join', data);
+    this.socket.emit('bot message', 'heyy', (response: any) => {
+      console.log('response from bot', response)
+    })
+    this.socket.on("hello", (data) => {
+      console.log('hello event received');
+    })
   }
 
   public sendMessage(data: any): any {
