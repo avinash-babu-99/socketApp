@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Socket, io } from 'socket.io-client';
 import { HttpClient } from '@angular/common/http';
 
@@ -25,12 +25,10 @@ export class ChatService {
 
   public joinRoom(data: any): void {
     this.socket.emit('join', data);
-    this.socket.emit('bot message', 'heyy', (response: any) => {
-      console.log('response from bot', response)
-    })
-    this.socket.on("hello", (data) => {
+
+    this.socket.on('hello', (data) => {
       console.log('hello event received');
-    })
+    });
   }
 
   public sendMessage(data: any): any {
@@ -95,5 +93,13 @@ export class ChatService {
 
   public newRoom(ids: any[]): Observable<any> {
     return this.http.post(`${this.boUrl}/rooms/newRoom/`, { users: [...ids] });
+  }
+
+  public sendMessageToBot(text: string): Observable<any> {
+    return new Observable<any>((observer) => {
+      this.socket.emit('bot message', text, (response: any) => {
+        observer.next(response);
+      });
+    });
   }
 }

@@ -13,10 +13,10 @@ import { ChatService } from './services/chat/chat.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewChecked {
+  @ViewChild('messageBlock') public messageBlockEle: any;
   public roomId: string = '';
   public messageText: string = '';
   public messageArray: any[];
-  @ViewChild('messageBlock') public messageBlockEle: any;
 
   public phone: string = '';
   public currentUser: any;
@@ -30,12 +30,19 @@ export class AppComponent implements OnInit, AfterViewChecked {
 
   public isViewCheckCall: boolean;
 
+  public isBotModalOpen: boolean;
+  public robotMessageModel: string;
+  public chatBotMessage: string;
+
   constructor(private chatService: ChatService) {
     this.isLoggedIn = false;
     this.contactsList = [];
     this.messageArray = [];
     this.isPhoneNumberWrong = false;
     this.isViewCheckCall = false;
+    this.isBotModalOpen = false;
+    this.robotMessageModel = '';
+    this.chatBotMessage = 'Hey!!!!';
   }
 
   ngOnInit(): void {
@@ -158,5 +165,16 @@ export class AppComponent implements OnInit, AfterViewChecked {
         console.log('template error');
       }
     }
+  }
+
+  public sendMessageToBot(): void {
+    this.chatService
+      .sendMessageToBot(this.robotMessageModel)
+      .subscribe((response) => {
+        console.log(response, 'response');
+
+        this.chatBotMessage = response;
+        this.robotMessageModel = '';
+      });
   }
 }

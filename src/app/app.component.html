@@ -1,76 +1,171 @@
-<div class="main-container">
-  <div *ngIf="isLoggedIn" class="chat-container">
-    <div class="contacts-container">
-      <div class="chat-header">
-        <div>
+<div style="position: relative; overflow-x: hidden">
+  <div class="main-container">
+    <!-- Chat container -->
+    <div *ngIf="isLoggedIn" class="chat-container">
+      <div class="contacts-container">
+        <div class="chat-header">
+          <div class="chat-header-container">
             Chats
+            <div class="button-container">
+              <img
+                (click)="
+                  isBotModalOpen = !isBotModalOpen; chatBotMessage = 'Hey!!!!'
+                "
+                src="../assets/images/chatbot (1).png"
+              />
+              <div class="tooltip">Wanna talk?</div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="chat-list">
-        <div class="contact" *ngFor="let user of contactsList" (click)="selectedUserHandler(user)">
-          <img src="../assets/images/waiter.png" width="40" height="40" alt="user" />
-          {{ user.name }}
+        <div class="chat-list">
+          <div
+            class="contact"
+            *ngFor="let user of contactsList"
+            (click)="selectedUserHandler(user)"
+          >
+            <img
+              src="../assets/images/waiter.png"
+              width="40"
+              height="40"
+              alt="user"
+            />
+            {{ user.name }}
+          </div>
         </div>
-      </div>
-      <div class="logout">
-        <div class="out" (click)="isLoggedIn = false">
-          <img src="../assets/images/icons8-left-arrow-32.png">
-          <div class="logoutbut">Log Out</div>
-        </div>
-      </div>
-      <div class="button-container">
-        <img src = "../assets/images/waiter.png">
-        <div class="tooltip">Hi'Avinash</div>
-      </div>
-    </div>
-    <div class="chat-screen">
-      <div class="chat-init-image" *ngIf="!selectedUser">
-      </div>
-      <div class="chat-profile" *ngIf="selectedUser">
-        <img src="../assets/images/waiter.png" width="60" height="60" alt="user" />
-        <div class="profilehd">
-          {{ selectedUser.name }}
-        </div>
-      </div>
-      <div #messageBlock class="message-block" *ngIf="selectedUser">
-        <div [ngClass]="
-            user.sender === currentUser.phone
-              ? 'sent-message-wrap'
-              : 'message-wrap'
-          " *ngFor="let user of messageArray">
-          <div class="message" [ngClass]="
-              user.sender === currentUser.phone ? 'sent-message' : 'message'
-            ">
-            {{ user.message }}
+        <div class="logout">
+          <div class="out" (click)="isLoggedIn = false">
+            <img src="../assets/images/icons8-left-arrow-32.png" />
+            <div class="logoutbut">Log Out</div>
           </div>
         </div>
       </div>
-      <!-- <div class="spacer"></div> -->
-      <div class="chat-text-box-wrapper" *ngIf="selectedUser">
-        <input class="chat-text-box" type="text" placeholder="type the text....." [(ngModel)]="messageText" (keyup)="$event.keyCode === 13 && sendMessage()" />
-      </div>
-    </div>
-  </div>
 
-  <!-- Login page -->
-
-  <div class="login-container" *ngIf="!isLoggedIn">
-    <img width="120" height="130" src="../assets/images/chatting-app.png" alt="Chat-image" />
-    <br />
-    <br />
-    <div>
-      <div class="login-input-container">
-        <input class="login-input" type="text" [(ngModel)]="phone" placeholder="Enter your phone number..." (keyup)="$event.keyCode === 13 && login()" />
-        <br />
-        <div *ngIf="isPhoneNumberWrong" class="login-error-container">
-          <img width="15" height="15" src="../assets/images/warning.png" alt="" />
-          Number you have entered does not exists
+      <div class="chat-screen">
+        <div class="chat-init-image" *ngIf="!selectedUser"></div>
+        <div class="chat-profile" *ngIf="selectedUser">
+          <img
+            src="../assets/images/waiter.png"
+            width="60"
+            height="60"
+            alt="user"
+          />
+          <div class="profilehd">
+            {{ selectedUser.name }}
+          </div>
+        </div>
+        <div #messageBlock class="message-block" *ngIf="selectedUser">
+          <div
+            [ngClass]="
+              user.sender === currentUser.phone
+                ? 'sent-message-wrap'
+                : 'message-wrap'
+            "
+            *ngFor="let user of messageArray"
+          >
+            <div
+              class="message"
+              [ngClass]="
+                user.sender === currentUser.phone ? 'sent-message' : 'message'
+              "
+            >
+              {{ user.message }}
+            </div>
+          </div>
+        </div>
+        <!-- <div class="spacer"></div> -->
+        <div class="chat-text-box-wrapper" *ngIf="selectedUser">
+          <input
+            class="chat-text-box"
+            type="text"
+            placeholder="type the text....."
+            [(ngModel)]="messageText"
+            (keyup)="$event.keyCode === 13 && sendMessage()"
+          />
         </div>
       </div>
     </div>
-    <button class="login-button" (click)="login()">Login</button>
-    <span style="color: grey">--------------------- or ---------------------
-    </span>
-    <button class="signUp-button">Sign up</button>
+
+    <!-- Login page -->
+
+    <div class="login-container" *ngIf="!isLoggedIn">
+      <img
+        width="120"
+        height="130"
+        src="../assets/images/chatting-app.png"
+        alt="Chat-image"
+      />
+      <br />
+      <br />
+      <div>
+        <div class="login-input-container">
+          <input
+            class="login-input"
+            type="text"
+            [(ngModel)]="phone"
+            placeholder="Enter your phone number..."
+            (keyup)="$event.keyCode === 13 && login()"
+          />
+          <br />
+          <div *ngIf="isPhoneNumberWrong" class="login-error-container">
+            <img
+              width="15"
+              height="15"
+              src="../assets/images/warning.png"
+              alt=""
+            />
+            Number you have entered does not exists
+          </div>
+        </div>
+      </div>
+      <button class="login-button" (click)="login()">Login</button>
+      <span style="color: grey"
+        >--------------------- or ---------------------
+      </span>
+      <button class="signUp-button">Sign up</button>
+    </div>
+  </div>
+
+  <!-- Bot modal container -->
+  <div
+    class="chat-bot-modal"
+    [ngStyle]="
+      isBotModalOpen
+        ? { opacity: '1' }
+        : {
+            color: 'red',
+            'background-color': 'yellow',
+            transform: 'translate(200rem, 12rem)'
+          }
+    "
+  >
+    <div class="bot-modal-container">
+      <div class="modal-header">
+        <img
+          class="modal-close-button"
+          src="../assets/images/close.png"
+          alt=""
+          (click)="isBotModalOpen = !isBotModalOpen"
+        />
+      </div>
+      <div class="modal-body">
+        <div class="robot-chat-space">
+          <div class="robot-chat-box">
+            {{ chatBotMessage }}
+          </div>
+          <div class="user-chat-space">
+            <input
+              placeholder="text here..."
+              [(ngModel)]="robotMessageModel"
+              class="user-chat-input"
+              type="text"
+              (keyup)="$event.keyCode === 13 && sendMessageToBot()"
+            />
+          </div>
+        </div>
+        <div class="robot-icon-space">
+          <img class="robot-icon" src="../assets/images/robot.png" alt="" />
+        </div>
+      </div>
+    </div>
   </div>
 </div>
