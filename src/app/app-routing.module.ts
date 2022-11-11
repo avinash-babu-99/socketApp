@@ -1,7 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+// component imports
+import { LoginComponent } from './components/login/login.component'
+import { ChatMainComponent } from './components/chat-main/chat-main.component';
+
+//gaurd imports
+import { AuthGaurdGuard } from './gaurds/auth-gaurd.guard';
+
+const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'chat',
+    component: ChatMainComponent,
+    canActivate: [AuthGaurdGuard]
+  },
+  { path: '', redirectTo:'login', pathMatch: 'full' },
+  { path: '**', redirectTo:'login', pathMatch: 'full' },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

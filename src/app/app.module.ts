@@ -6,9 +6,11 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from './services/chat/chat.service';
+import { LoginComponent } from './components/login/login.component';
+import { ChatMainComponent } from './components/chat-main/chat-main.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoginComponent, ChatMainComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [ChatService],
   bootstrap: [AppComponent],

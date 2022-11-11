@@ -46,23 +46,23 @@ export class AppComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit(): void {
-    this.chatService.getMessage().subscribe((data) => {
-      console.log(data, 'from subject');
-      this.messageArray.push(data);
-    });
+    // this.chatService.getMessage().subscribe((data) => {
+    //   console.log(data, 'from subject');
+    //   this.messageArray.push(data);
+    // });
 
-    this.chatService.getContacts().subscribe(
-      (data) => {
-        console.log(data, 'contacts response');
-      },
-      (err) => {
-        console.log(err, 'contact error');
-      }
-    );
+    // this.chatService.getContacts().subscribe(
+    //   (data) => {
+    //     console.log(data, 'contacts response');
+    //   },
+    //   (err) => {
+    //     console.log(err, 'contact error');
+    //   }
+    // );
 
-    this.isViewCheckCall = false;
+    // this.isViewCheckCall = false;
 
-    this.scrollToBottom();
+    // this.scrollToBottom();
   }
 
   ngAfterViewChecked(): void {

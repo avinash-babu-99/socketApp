@@ -1,11 +1,7 @@
-<!-- <div style="position: relative; overflow-x: hidden"> -->
-  <!-- <div class="main-container"> -->
-
-    <router-outlet></router-outlet>
-
+<div style="position: relative; overflow-x: hidden">
+  <div class="main-container">
     <!-- Chat container -->
-
-    <!-- <div *ngIf="isLoggedIn" class="chat-container">
+    <div class="chat-container">
       <div class="contacts-container">
         <div class="chat-header">
           <div class="chat-header-container">
@@ -25,7 +21,7 @@
           </div>
         </div>
         <div class="logout">
-          <div class="out" (click)="isLoggedIn = false">
+          <div class="out">
             <img src="../assets/images/icons8-left-arrow-32.png" />
             <div class="logoutbut">Log Out</div>
           </div>
@@ -53,39 +49,16 @@
             </div>
           </div>
         </div>
-
+        <!-- <div class="spacer"></div> -->
         <div class="chat-text-box-wrapper" *ngIf="selectedUser">
           <input class="chat-text-box" type="text" placeholder="type the text....." [(ngModel)]="messageText" (keyup)="$event.keyCode === 13 && sendMessage()" />
         </div>
       </div>
-    </div> -->
-
-    <!-- Login page -->
-
-    <!-- <div class="login-container" *ngIf="!isLoggedIn">
-      <img width="120" height="130" src="../assets/images/chatting-app.png" alt="Chat-image" />
-      <br />
-      <br />
-      <div>
-        <div class="login-input-container">
-          <input class="login-input" type="text" [(ngModel)]="phone" placeholder="Enter your phone number..." (keyup)="$event.keyCode === 13 && login()" />
-          <br />
-          <div *ngIf="isPhoneNumberWrong" class="login-error-container">
-            <img width="15" height="15" src="../assets/images/warning.png" alt="" />
-            Number you have entered does not exists
-          </div>
-        </div>
-      </div>
-      <button class="login-button" (click)="login()">Login</button>
-      <span style="color: grey">--------------------- or ---------------------
-      </span>
-      <button class="signUp-button">Sign up</button>
-    </div> -->
-  <!-- </div> -->
+    </div>
+  </div>
 
   <!-- Bot modal container -->
-
-  <!-- <div class="chat-bot-modal" [ngStyle]="
+  <div class="chat-bot-modal" [ngStyle]="
       isBotModalOpen
         ? { opacity: '1' }
         : {
@@ -114,6 +87,5 @@
         </div>
       </div>
     </div>
-  </div> -->
-
-<!-- </div> -->
+  </div>
+</div>
