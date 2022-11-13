@@ -7,21 +7,39 @@
           <div class="chat-header-container">
             Chats
             <div class="button-container">
-              <img (click)="
+              <img
+                (click)="
                   isBotModalOpen = !isBotModalOpen; chatBotMessage = 'Hey!!!!'
-                " src="../assets/images/chatbot (1).png" />
+                "
+                src="../assets/images/chatbot (1).png"
+              />
               <div class="tooltip">Wanna talk?</div>
             </div>
           </div>
         </div>
         <div class="chat-list">
-          <div class="contact" *ngFor="let user of contactsList" (click)="selectedUserHandler(user)">
-            <img src="../assets/images/waiter.png" width="40" height="40" alt="user" />
+          <div
+            class="contact"
+            *ngFor="let user of contactsList"
+            (click)="selectedUserHandler(user)"
+          >
+            <img
+              src="../assets/images/waiter.png"
+              width="40"
+              height="40"
+              alt="user"
+            />
             {{ user.name }}
           </div>
         </div>
+        <div class="add-friends-block">
+          <button class="add-friends-button" (click)="openAddFriendsModal()">
+            Add friends
+            <img src="../../../assets/images/add-user.png" alt="" />
+          </button>
+        </div>
         <div class="logout">
-          <div class="out">
+          <div class="out" (click)="logout()">
             <img src="../assets/images/icons8-left-arrow-32.png" />
             <div class="logoutbut">Log Out</div>
           </div>
@@ -31,34 +49,53 @@
       <div class="chat-screen">
         <div class="chat-init-image" *ngIf="!selectedUser"></div>
         <div class="chat-profile" *ngIf="selectedUser">
-          <img src="../assets/images/waiter.png" width="60" height="60" alt="user" />
+          <img
+            src="../assets/images/waiter.png"
+            width="60"
+            height="60"
+            alt="user"
+          />
           <div class="profilehd">
             {{ selectedUser.name }}
           </div>
         </div>
         <div #messageBlock class="message-block" *ngIf="selectedUser">
-          <div [ngClass]="
+          <div
+            [ngClass]="
               user.sender === currentUser.phone
                 ? 'sent-message-wrap'
                 : 'message-wrap'
-            " *ngFor="let user of messageArray">
-            <div class="message" [ngClass]="
+            "
+            *ngFor="let user of messageArray"
+          >
+            <div
+              class="message"
+              [ngClass]="
                 user.sender === currentUser.phone ? 'sent-message' : 'message'
-              ">
+              "
+            >
               {{ user.message }}
             </div>
           </div>
         </div>
         <!-- <div class="spacer"></div> -->
         <div class="chat-text-box-wrapper" *ngIf="selectedUser">
-          <input class="chat-text-box" type="text" placeholder="type the text....." [(ngModel)]="messageText" (keyup)="$event.keyCode === 13 && sendMessage()" />
+          <input
+            class="chat-text-box"
+            type="text"
+            placeholder="type the text....."
+            [(ngModel)]="messageText"
+            (keyup)="$event.keyCode === 13 && sendMessage()"
+          />
         </div>
       </div>
     </div>
   </div>
 
   <!-- Bot modal container -->
-  <div class="chat-bot-modal" [ngStyle]="
+  <div
+    class="chat-bot-modal"
+    [ngStyle]="
       isBotModalOpen
         ? { opacity: '1' }
         : {
@@ -66,10 +103,16 @@
             'background-color': 'yellow',
             transform: 'translate(200%, -50%)'
           }
-    ">
+    "
+  >
     <div class="bot-modal-container">
       <div class="modal-header">
-        <img class="modal-close-button" src="../assets/images/close.png" alt="" (click)="isBotModalOpen = !isBotModalOpen" />
+        <img
+          class="modal-close-button"
+          src="../assets/images/close.png"
+          alt=""
+          (click)="isBotModalOpen = !isBotModalOpen"
+        />
       </div>
       <div class="modal-body">
         <div class="robot-chat-space">
@@ -79,7 +122,13 @@
             </div>
           </div>
           <div class="user-chat-space">
-            <input placeholder="text here..." [(ngModel)]="robotMessageModel" class="user-chat-input" type="text" (keyup)="$event.keyCode === 13 && sendMessageToBot()" />
+            <input
+              placeholder="text here..."
+              [(ngModel)]="robotMessageModel"
+              class="user-chat-input"
+              type="text"
+              (keyup)="$event.keyCode === 13 && sendMessageToBot()"
+            />
           </div>
         </div>
         <div class="robot-icon-space">
@@ -88,4 +137,11 @@
       </div>
     </div>
   </div>
+
+  <!-- Add friends modal -->
+  <app-add-friends-modal
+    [isModalOpen]="isAddFriendsModalOpen"
+    [SearchArray]="addFriendsSearchArray"
+    (modalStatusEventEmitter)="changeAddFriendsModalState($event)"
+  ></app-add-friends-modal>
 </div>

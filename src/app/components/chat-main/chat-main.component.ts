@@ -1,37 +1,38 @@
 // Angular imports
 import { Component, OnInit, AfterViewChecked, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 // Services imports
 import { ChatService } from '../../services/chat/chat.service';
 
-
 @Component({
   selector: 'app-chat-main',
   templateUrl: './chat-main.component.html',
-  styleUrls: ['./chat-main.component.scss']
+  styleUrls: ['./chat-main.component.scss'],
 })
 export class ChatMainComponent implements OnInit, AfterViewChecked {
   @ViewChild('messageBlock') public messageBlockEle: any;
 
   public isBotModalOpen: boolean;
-  public chatBotMessage: string
-  public contactsList: any[]
-  public messageArray: any[]
+  public chatBotMessage: string;
+  public contactsList: any[];
+  public messageArray: any[];
   public selectedUser: any;
   public currentUser: any;
-  public roomId: any
+  public roomId: any;
   public messageText: string = '';
-  public robotMessageModel: string
+  public robotMessageModel: string;
+  public isAddFriendsModalOpen: boolean;
+  public addFriendsSearchArray: any[];
 
-  constructor(
-    private chatService: ChatService
-  ) {
-
-    this.isBotModalOpen = false
-    this.chatBotMessage = ''
+  constructor(private chatService: ChatService, private router: Router) {
+    this.isBotModalOpen = false;
+    this.chatBotMessage = '';
     this.contactsList = [];
-    this.messageArray = []
+    this.messageArray = [];
     this.robotMessageModel = '';
+    this.isAddFriendsModalOpen = false;
+    this.addFriendsSearchArray = [];
   }
 
   ngOnInit(): void {
@@ -49,24 +50,24 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
       }
     );
 
-    this.currentUser = this.chatService.currentUser
+    this.currentUser = this.chatService.currentUser;
 
-    this.contactsList = this.currentUser.contacts
+    this.contactsList = this.currentUser.contacts;
 
     this.scrollToBottom();
   }
 
   ngAfterViewChecked(): void {
-
     this.scrollToBottom();
-
   }
 
   public selectedUserHandler(selectedUser: any) {
     this.messageArray = [];
     this.selectedUser = selectedUser;
+    console.log(selectedUser);
+
     // this.roomId = selectedUser.roomId;
-    const ids = [selectedUser.id, this.currentUser._id];
+    const ids = [selectedUser._id, this.currentUser._id];
     this.chatService.getRoom(ids).subscribe((data) => {
       console.log(data, 'response for get');
       if (data.data && !data.data.length) {
@@ -145,5 +146,19 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
       });
   }
 
+  public logout(): void {
+    this.router.navigate(['/login']);
+  }
 
+  public changeAddFriendsModalState(state: boolean): void {
+    this.isAddFriendsModalOpen = state;
+  }
+
+  public openAddFriendsModal() {
+    console.log(this.currentUser, 'this.currentUser');
+    console.log(this.contactsList, 'contactsList');
+    let searchArray = [this.currentUser, ...this.contactsList];
+    this.addFriendsSearchArray = searchArray;
+    this.isAddFriendsModalOpen = !this.isAddFriendsModalOpen;
+  }
 }

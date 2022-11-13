@@ -1,0 +1,56 @@
+<div
+  class="modal"
+  [ngStyle]="
+    isModalOpen
+      ? { opacity: '1' }
+      : {
+          color: 'red',
+          'background-color': 'yellow',
+          transform: 'translate(200%, -50%)'
+        }
+  "
+>
+  <div class="modal-container">
+    <div class="modal-header">
+      <img
+        class="modal-close-button"
+        src="../assets/images/close.png"
+        alt=""
+        (click)="modalStatusEventEmitter.emit(false)"
+      />
+    </div>
+    <div class="modal-body">
+      <div class="friend-search-input">
+        <input type="text" placeholder="Search for people..." />
+      </div>
+      <div class="add-friends-list">
+        <div *ngFor="let contact of addFriendsList" class="contact">
+          <img src="../../../assets/images/waiter.png" alt="" />
+          {{ contact.name }}
+          <div class="actions">
+            <img
+              *ngIf="contact?.isRequestReceived"
+              src="../../../assets//images/icons8-accept-67.png"
+              alt=""
+            />
+            <img
+              *ngIf="contact?.isRequestReceived"
+              src="../../../assets/images/cross.png"
+              alt=""
+            />
+            <img
+              *ngIf="contact?.isRequestSent"
+              src="../../../assets/images/send.png"
+              alt=""
+            />
+            <img
+              *ngIf="!contact?.isRequestSent && !contact?.isRequestReceived"
+              src="../../../assets/images/plus.png"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

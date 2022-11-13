@@ -10,8 +10,8 @@ export class ChatService {
   private socket: Socket;
   public boUrl = 'http://127.0.0.1:400';
   private url: any = 'http://localhost:3001';
-  public isLoggedIn: boolean
-  public currentUser: any
+  public isLoggedIn: boolean;
+  public currentUser: any;
 
   private contactUrl = 'http://127.0.0.1:400/contacts';
 
@@ -19,8 +19,8 @@ export class ChatService {
     this.socket = io(this.url, {
       transports: ['websocket', 'polling', 'flashsocket'],
     });
-    this.isLoggedIn = false
-    this.currentUser = {}
+    this.isLoggedIn = false;
+    this.currentUser = {};
   }
 
   public getContacts(): Observable<any> {
@@ -104,6 +104,12 @@ export class ChatService {
       this.socket.emit('bot message', text, (response: any) => {
         observer.next(response);
       });
+    });
+  }
+
+  public getAddNewFriendsList(searchArray: string[]): Observable<any> {
+    return this.http.post(`${this.boUrl}/contacts/addFriendsList/`, {
+      searchArray,
     });
   }
 }

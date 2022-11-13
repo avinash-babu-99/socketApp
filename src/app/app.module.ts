@@ -8,9 +8,10 @@ import { FormsModule } from '@angular/forms';
 import { ChatService } from './services/chat/chat.service';
 import { LoginComponent } from './components/login/login.component';
 import { ChatMainComponent } from './components/chat-main/chat-main.component';
+import { AddFriendsModalComponent } from './components/add-friends-modal/add-friends-modal.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, ChatMainComponent],
+  declarations: [AppComponent, LoginComponent, ChatMainComponent, AddFriendsModalComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [ChatService],
   bootstrap: [AppComponent],
