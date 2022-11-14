@@ -6,14 +6,18 @@
         <div class="chat-header">
           <div class="chat-header-container">
             Chats
-            <div class="button-container">
+            <div
+              class="friend-requests-container"
+              (click)="openFriendRequestsModal()"
+            >
               <img
-                (click)="
-                  isBotModalOpen = !isBotModalOpen; chatBotMessage = 'Hey!!!!'
-                "
-                src="../assets/images/chatbot (1).png"
+                class="friend-requests-icon"
+                src="../../../assets/images/icons8-add-friend-58.png"
+                alt=""
               />
-              <div class="tooltip">Wanna talk?</div>
+              <div class="requests-count">
+                {{ receivedFriendRequests?.length }}
+              </div>
             </div>
           </div>
         </div>
@@ -37,6 +41,15 @@
             Add friends
             <img src="../../../assets/images/add-user.png" alt="" />
           </button>
+          <div class="button-container">
+            <img
+              (click)="
+                isBotModalOpen = !isBotModalOpen; chatBotMessage = 'Hey!!!!'
+              "
+              src="../assets/images/chatbot (1).png"
+            />
+            <div class="tooltip">Wanna talk?</div>
+          </div>
         </div>
         <div class="logout">
           <div class="out" (click)="logout()">
@@ -144,4 +157,11 @@
     [SearchArray]="addFriendsSearchArray"
     (modalStatusEventEmitter)="changeAddFriendsModalState($event)"
   ></app-add-friends-modal>
+
+  <!-- Friend requests modal -->
+  <app-friend-requests-modal
+    [isModalOpen]="isFriendRequestsModalOpen"
+    [friendRequests]="receivedFriendRequests"
+    (modalStatusEventEmitter)="changeFriendRequestsModalState($event)"
+  ></app-friend-requests-modal>
 </div>

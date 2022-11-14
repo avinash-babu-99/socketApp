@@ -1,0 +1,38 @@
+<div
+  class="modal"
+  [ngStyle]="
+    isModalOpen
+      ? { opacity: '1' }
+      : {
+          color: 'red',
+          'background-color': 'yellow',
+          transform: 'translate(200%, -50%)'
+        }
+  "
+>
+  <div class="modal-container">
+    <div class="modal-header">
+      <img
+        class="modal-close-button"
+        src="../assets/images/close.png"
+        alt=""
+        (click)="modalStatusEventEmitter.emit(false)"
+      />
+    </div>
+    <div class="modal-body">
+      <div *ngIf="friendRequests?.length" class="add-friends-list">
+        <div *ngFor="let contact of friendRequests" class="contact">
+          <img src="../../../assets/images/waiter.png" alt="" />
+          {{ contact.name }}
+          <div class="actions" (click)="notifyPeople(contact)">
+            <img src="../../../assets//images/icons8-accept-67.png" alt="" />
+            <img src="../../../assets/images/cross.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!friendRequests?.length" class="no-requests-container">
+        No Friend requests received
+      </div>
+    </div>
+  </div>
+</div>

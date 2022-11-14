@@ -23,7 +23,9 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
   public messageText: string = '';
   public robotMessageModel: string;
   public isAddFriendsModalOpen: boolean;
+  public isFriendRequestsModalOpen: boolean;
   public addFriendsSearchArray: any[];
+  public receivedFriendRequests: any[];
 
   constructor(private chatService: ChatService, private router: Router) {
     this.isBotModalOpen = false;
@@ -33,25 +35,29 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
     this.robotMessageModel = '';
     this.isAddFriendsModalOpen = false;
     this.addFriendsSearchArray = [];
+    this.receivedFriendRequests = [];
+    this.isFriendRequestsModalOpen = false;
   }
 
   ngOnInit(): void {
+    console.log(this.chatService.currentUser, 'currentUser');
+
+    if (this.chatService?.currentUser?.receivedFriendRequests) {
+      this.receivedFriendRequests =
+        this.chatService.currentUser.receivedFriendRequests;
+    }
+
     this.chatService.getMessage().subscribe((data) => {
-      console.log(data, 'from subject');
       this.messageArray.push(data);
     });
 
-    this.chatService.listenNotification().subscribe(data => {
+    this.chatService.listenNotification().subscribe((data) => {
       console.log('you are notified');
-    })
+    });
 
     this.chatService.getContacts().subscribe(
-      (data) => {
-        console.log(data, 'contacts response');
-      },
-      (err) => {
-        console.log(err, 'contact error');
-      }
+      (data) => {},
+      (err) => {}
     );
 
     this.currentUser = this.chatService.currentUser;
@@ -73,7 +79,6 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
     // this.roomId = selectedUser.roomId;
     const ids = [selectedUser._id, this.currentUser._id];
     this.chatService.getRoom(ids).subscribe((data) => {
-      console.log(data, 'response for get');
       if (data.data && !data.data.length) {
         console.log('room id not available');
         this.chatService.newRoom(ids).subscribe((response) => {
@@ -158,11 +163,17 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
     this.isAddFriendsModalOpen = state;
   }
 
-  public openAddFriendsModal() {
-    console.log(this.currentUser, 'this.currentUser');
-    console.log(this.contactsList, 'contactsList');
+  public changeFriendRequestsModalState(state: boolean): void {
+    this.isFriendRequestsModalOpen = state;
+  }
+
+  public openAddFriendsModal(): void {
     let searchArray = [this.currentUser, ...this.contactsList];
     this.addFriendsSearchArray = searchArray;
     this.isAddFriendsModalOpen = !this.isAddFriendsModalOpen;
+  }
+
+  public openFriendRequestsModal(): void {
+    this.isFriendRequestsModalOpen = !this.isFriendRequestsModalOpen;
   }
 }

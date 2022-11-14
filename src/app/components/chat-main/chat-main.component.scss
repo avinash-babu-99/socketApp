@@ -144,15 +144,40 @@
   .chat-header-container {
     display: flex;
     align-items: center;
-    gap: 120px;
+    justify-content: space-between;
+    padding: 10px;
     letter-spacing: 2px;
+    .friend-requests-container {
+      position: relative;
+      .friend-requests-icon {
+        height: 30px;
+        width: 35px;
+        cursor: pointer;
+      }
+      .requests-count {
+        position: absolute;
+        top: -5px;
+        left: 15px;
+        min-width: 15px;
+        max-width: 45px;
+        min-height: 15px;
+        max-height: 15px;
+        padding: 2px;
+        background: red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        font-size: 10px;
+      }
+    }
   }
 }
 
 .button-container {
   position: relative;
   // width: 150px;
-  height: 60px;
+  height: 40px;
   transition: 0.25s all ease-in;
   width: fit-content;
 
@@ -163,19 +188,19 @@
   }
 
   img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     transition: 0.5s all ease-in-out;
     cursor: pointer;
   }
 
   .tooltip {
     position: absolute;
-    top: -15px;
-    right: 54px;
+    top: -25px;
+    right: 33px;
     background: #fff;
     color: gray;
-    padding: 10px;
+    padding: 4px;
     border-radius: 10px 10px 0px 10px;
     opacity: 0;
     pointer-events: none;
@@ -226,7 +251,8 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 10px;
+  justify-content: space-around;
   .add-friends-button {
     width: 55%;
     height: 40px;
