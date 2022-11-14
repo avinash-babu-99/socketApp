@@ -27,7 +27,7 @@
         <div *ngFor="let contact of addFriendsList" class="contact">
           <img src="../../../assets/images/waiter.png" alt="" />
           {{ contact.name }}
-          <div class="actions">
+          <div class="actions" (click)="notifyPeople(contact)">
             <img
               *ngIf="contact?.isRequestReceived"
               src="../../../assets//images/icons8-accept-67.png"

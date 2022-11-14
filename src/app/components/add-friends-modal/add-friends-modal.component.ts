@@ -73,4 +73,9 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
       }
     });
   }
+
+  public notifyPeople(contact: any){
+    let data = {}
+    this.chatService.notifyUser(contact)
+  }
 }

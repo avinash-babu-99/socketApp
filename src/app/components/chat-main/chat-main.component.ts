@@ -41,6 +41,10 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
       this.messageArray.push(data);
     });
 
+    this.chatService.listenNotification().subscribe(data => {
+      console.log('you are notified');
+    })
+
     this.chatService.getContacts().subscribe(
       (data) => {
         console.log(data, 'contacts response');
