@@ -46,19 +46,10 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
         let finalList: any[] = [];
         this.addFriendsList.forEach((contact) => {
           let finalContact = contact;
-          if (
-            this.chatService.currentUser.receivedFriendRequests.includes(
-              contact._id
-            )
-          ) {
-            finalContact.isRequestReceived = true;
-          } else {
-            finalContact.isRequestReceived = false;
-          }
 
           if (
-            this.chatService.currentUser.sentFriendRequests.includes(
-              contact._id
+            contact.receivedFriendRequests.includes(
+              this.chatService.currentUser._id
             )
           ) {
             finalContact.isRequestSent = true;
@@ -66,10 +57,22 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
             finalContact.isRequestSent = false;
           }
 
+          if (
+            contact.sentFriendRequests.includes(
+              this.chatService.currentUser._id
+            )
+          ) {
+            finalContact.isRequestReceived = true;
+
+          } else {
+            finalContact.isRequestReceived = false;
+          }
+
           finalList.push(finalContact);
         });
 
         this.addFriendsList = finalList;
+
       }
     });
   }
