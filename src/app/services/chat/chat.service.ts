@@ -114,20 +114,19 @@ export class ChatService {
   }
 
   public notifyUser(data: any): void {
-    this.socket.emit('notify', { data })
+    this.socket.emit('notify', { data });
   }
 
   public listenNotification(): Observable<any> {
-    return new Observable<any>(observer => {
-      this.socket.on('new notfication', (data) => {
+    return new Observable<any>((observer) => {
+      this.socket.on('new notification', (data) => {
         console.log('new notification received in service');
         console.log(data, 'new notification data received in service');
         console.log(data?.data?.data?._id);
         console.log(this.currentUser._id);
 
-
-        if (data?.data?.data?._id === this.currentUser._id) observer.next(data)
-      })
-    })
+        if (data?.data?.data?._id === this.currentUser._id) observer.next(data);
+      });
+    });
   }
 }

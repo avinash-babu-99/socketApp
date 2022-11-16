@@ -40,6 +40,7 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
 
   public getAddFriendsList(): void {
     this.chatService.getAddNewFriendsList(this.SearchArray).subscribe((res) => {
+      console.log(this.chatService.currentUser, ' current user');
       if (res?.users) {
         this.addFriendsList = res.users;
 
@@ -74,8 +75,8 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
     });
   }
 
-  public notifyPeople(contact: any){
-    let data = {}
-    this.chatService.notifyUser(contact)
+  public notifyPeople(contact: any) {
+    let data = {};
+    this.chatService.notifyUser(contact);
   }
 }
