@@ -88,7 +88,7 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
       from: {},
       to: {},
     };
-    let fromObeject = {
+    let fromObject = {
       _id: this.chatService.currentUser._id,
       sentFriendRequests: [
         ...this.chatService.currentUser.sentFriendRequests,
@@ -104,7 +104,7 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
       ],
     };
 
-    finalObject.from = fromObeject;
+    finalObject.from = fromObject;
     finalObject.to = toObject;
 
     console.log('final object', finalObject);
@@ -119,6 +119,7 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
       .subscribe(() => {
         console.log('friend request added');
         this.getAddFriendsList();
+        this.notifyPeople(contact);
       });
   }
 
@@ -127,11 +128,9 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
     finalObject = {
       from: {
         _id: this.chatService.currentUser._id,
-        toId: contact._id,
       },
       to: {
         _id: contact._id,
-        toId: this.chatService.currentUser._id,
       },
     };
 
@@ -148,6 +147,8 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
       )
       .subscribe(() => {
         console.log('request updated');
+        this.notifyPeople(contact);
+        this.chatService.refreshContactSubject$.next(true);
       });
   }
 }

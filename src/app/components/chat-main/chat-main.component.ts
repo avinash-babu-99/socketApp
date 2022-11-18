@@ -1,6 +1,7 @@
 // Angular imports
 import { Component, OnInit, AfterViewChecked, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs';
 
 // Services imports
 import { ChatService } from '../../services/chat/chat.service';
@@ -52,6 +53,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
     });
 
     this.chatService.listenNotification().subscribe((data) => {
+      this.refreshContacts();
       console.log('you are notified');
     });
 
@@ -63,6 +65,14 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
     this.currentUser = this.chatService.currentUser;
 
     this.contactsList = this.currentUser.contacts;
+
+    this.chatService.refreshContactSubject$.subscribe((data: boolean) => {
+      console.log(data, 'subject from service');
+
+      if (data) {
+        this.refreshContacts();
+      }
+    });
 
     this.scrollToBottom();
   }
@@ -76,7 +86,6 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
     this.selectedUser = selectedUser;
     console.log(selectedUser);
 
-    // this.roomId = selectedUser.roomId;
     const ids = [selectedUser._id, this.currentUser._id];
     this.chatService.getRoom(ids).subscribe((data) => {
       if (data.data && !data.data.length) {
@@ -175,5 +184,58 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
 
   public openFriendRequestsModal(): void {
     this.isFriendRequestsModalOpen = !this.isFriendRequestsModalOpen;
+  }
+
+  public removeContact(contact: any): void {
+    let finalObject: any = {};
+
+    if (contact._id && this.chatService.currentUser._id) {
+      finalObject._id = this.chatService.currentUser._id;
+      finalObject.contactId = contact._id;
+
+      this.chatService
+        .removeFriend(finalObject)
+        .pipe(
+          catchError((): any => {
+            console.log('error removing contact');
+          })
+        )
+        .subscribe((response: any) => {
+          this.refreshContacts();
+          this.notifyPeople(contact);
+        });
+    }
+  }
+
+  public refreshContacts(): void {
+    if (this.chatService.isLoggedIn) {
+      this.chatService
+        .loginContact(this.chatService.currentUser.phone)
+        .pipe(catchError((): any => {}))
+        .subscribe((data) => {
+          if (data && data.user[0]) {
+            console.log(data, 'data fro refresh contacts');
+
+            this.chatService.currentUser = data.user[0];
+
+            if (this.chatService?.currentUser?.receivedFriendRequests) {
+              this.receivedFriendRequests =
+                this.chatService.currentUser.receivedFriendRequests;
+            }
+
+            this.currentUser = this.chatService.currentUser;
+
+            this.contactsList = this.currentUser.contacts;
+
+            let searchArray = [this.currentUser, ...this.contactsList];
+            this.addFriendsSearchArray = searchArray;
+          }
+        });
+    }
+  }
+
+  public notifyPeople(contact: any) {
+    let data = {};
+    this.chatService.notifyUser(contact);
   }
 }

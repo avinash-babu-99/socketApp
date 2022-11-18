@@ -217,33 +217,54 @@
   flex-direction: column;
   gap: 10px;
   padding: 5px;
+  .contact {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: 1000ms;
+    font-family: system-ui;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 10%);
+    backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+    .contact-profile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .contact-remove {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      img {
+        height: 30px;
+        width: 30px;
+        cursor: pointer;
+        opacity: 75%;
+        &:hover {
+          height: 32px;
+          width: 32px;
+          opacity: 100%;
+        }
+      }
+    }
+  }
+
+  .contact:hover {
+    background-color: #fff;
+    color: #263238;
+    padding: 12px;
+    transition: 0.5s all ease-in-out;
+  }
 }
 
 .chat-list::-webkit-scrollbar {
   display: none;
-}
-
-.contact {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  cursor: pointer;
-  transition: 1000ms;
-  font-family: system-ui;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgb(31 38 135 / 10%);
-  backdrop-filter: blur(4px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: #fff;
-}
-
-.contact:hover {
-  background-color: #fff;
-  color: #263238;
-  gap: 5px;
-  transition: 0.5s all ease-in-out;
 }
 
 .add-friends-block {
@@ -313,8 +334,8 @@
     }
 
     img {
-      // transform: translateX(-40px);
-      transform: scale(1.5);
+      transform: translateX(-40px);
+      // transform: scale(1.5);
       opacity: 1;
     }
   }
@@ -494,9 +515,6 @@
   img {
     width: 50px;
     height: 50px;
-  }
-
-  .profilehd {
   }
 }
 

@@ -24,9 +24,17 @@
         <div *ngFor="let contact of friendRequests" class="contact">
           <img src="../../../assets/images/waiter.png" alt="" />
           {{ contact.name }}
-          <div class="actions" (click)="notifyPeople(contact)">
-            <img src="../../../assets//images/icons8-accept-67.png" alt="" />
-            <img src="../../../assets/images/cross.png" alt="" />
+          <div class="actions">
+            <img
+              src="../../../assets//images/icons8-accept-67.png"
+              alt=""
+              (click)="acceptFriend(contact, true)"
+            />
+            <img
+              src="../../../assets/images/cross.png"
+              alt=""
+              (click)="acceptFriend(contact, false)"
+            />
           </div>
         </div>
       </div>

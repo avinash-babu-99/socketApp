@@ -22,18 +22,19 @@
           </div>
         </div>
         <div class="chat-list">
-          <div
-            class="contact"
-            *ngFor="let user of contactsList"
-            (click)="selectedUserHandler(user)"
-          >
-            <img
-              src="../assets/images/waiter.png"
-              width="40"
-              height="40"
-              alt="user"
-            />
-            {{ user.name }}
+          <div class="contact" *ngFor="let user of contactsList">
+            <div class="contact-profile" (click)="selectedUserHandler(user)">
+              <img
+                src="../assets/images/waiter.png"
+                width="40"
+                height="40"
+                alt="user"
+              />
+              {{ user.name }}
+            </div>
+            <div class="contact-remove" (click)="removeContact(user)">
+              <img src="../../../assets/images/icons8-minus-48.png" alt="" />
+            </div>
           </div>
         </div>
         <div class="add-friends-block">

@@ -7,6 +7,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { catchError } from 'rxjs';
 
 import { ChatService } from 'src/app/services/chat/chat.service';
 
@@ -36,5 +37,36 @@ export class FriendRequestsModalComponent implements OnInit, OnChanges {
   public notifyPeople(contact: any) {
     let data = {};
     this.chatService.notifyUser(contact);
+  }
+
+  public acceptFriend(contact: any, accept?: boolean): void {
+    let finalObject: any = {};
+    finalObject = {
+      from: {
+        _id: this.chatService.currentUser._id,
+        toId: contact._id,
+      },
+      to: {
+        _id: contact._id,
+        toId: this.chatService.currentUser._id,
+      },
+    };
+
+    if (accept) {
+      finalObject.action = 'accept';
+    }
+
+    this.chatService
+      .acceptOrRejectFriendRequest(finalObject)
+      .pipe(
+        catchError((): any => {
+          console.log('error updating request');
+        })
+      )
+      .subscribe(() => {
+        console.log('request updated');
+        this.notifyPeople(contact);
+        this.chatService.refreshContactSubject$.next(true);
+      });
   }
 }

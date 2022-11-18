@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { Socket, io } from 'socket.io-client';
 import { HttpClient } from '@angular/common/http';
 
@@ -12,6 +12,7 @@ export class ChatService {
   private url: any = 'http://localhost:3001';
   public isLoggedIn: boolean;
   public currentUser: any;
+  public refreshContactSubject$: Subject<any>;
 
   private contactUrl = 'http://127.0.0.1:400/contacts';
 
@@ -21,6 +22,7 @@ export class ChatService {
     });
     this.isLoggedIn = false;
     this.currentUser = {};
+    this.refreshContactSubject$ = new Subject();
   }
 
   public getContacts(): Observable<any> {
@@ -139,5 +141,9 @@ export class ChatService {
       `${this.boUrl}/contacts/acceptOrRejectFriendRequest`,
       payload
     );
+  }
+
+  public removeFriend(payload: any): Observable<any> {
+    return this.http.patch(`${this.boUrl}/contacts/removeContact`, payload);
   }
 }
