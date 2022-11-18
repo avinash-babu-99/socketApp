@@ -47,6 +47,7 @@
               *ngIf="!contact?.isRequestSent && !contact?.isRequestReceived"
               src="../../../assets/images/plus.png"
               alt=""
+              (click)="addFriend(contact)"
             />
           </div>
         </div>

@@ -129,4 +129,8 @@ export class ChatService {
       });
     });
   }
+
+  public addFriend(payload: any): Observable<any> {
+    return this.http.patch(`${this.boUrl}/contacts/addFriendRequest/`,payload)
+  }
 }
