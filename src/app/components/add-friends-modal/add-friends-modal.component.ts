@@ -82,7 +82,7 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
     this.chatService.notifyUser(contact);
   }
 
-  public addFriend(contact: any) {
+  public addFriend(contact: any): void {
     let finalObject: any = {};
     finalObject = {
       from: {},
@@ -119,6 +119,35 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
       .subscribe(() => {
         console.log('friend request added');
         this.getAddFriendsList();
+      });
+  }
+
+  public acceptFriend(contact: any, accept?: boolean): void {
+    let finalObject: any = {};
+    finalObject = {
+      from: {
+        _id: this.chatService.currentUser._id,
+        toId: contact._id,
+      },
+      to: {
+        _id: contact._id,
+        toId: this.chatService.currentUser._id,
+      },
+    };
+
+    if (accept) {
+      finalObject.action = 'accept';
+    }
+
+    this.chatService
+      .acceptOrRejectFriendRequest(finalObject)
+      .pipe(
+        catchError((): any => {
+          console.log('error updating request');
+        })
+      )
+      .subscribe(() => {
+        console.log('request updated');
       });
   }
 }

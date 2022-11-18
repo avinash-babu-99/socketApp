@@ -32,11 +32,13 @@
               *ngIf="contact?.isRequestReceived"
               src="../../../assets//images/icons8-accept-67.png"
               alt=""
+              (click)="acceptFriend(contact, true)"
             />
             <img
               *ngIf="contact?.isRequestReceived"
               src="../../../assets/images/cross.png"
               alt=""
+              (click)="acceptFriend(contact, false)"
             />
             <img
               *ngIf="contact?.isRequestSent"
