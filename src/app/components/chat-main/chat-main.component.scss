@@ -6,7 +6,7 @@
 .chat-container {
   display: flex;
   flex-direction: row;
-  background: #f9f9f9;
+  background: #263238ab;
   gap: 10px;
   overflow: auto;
   height: 100%;
@@ -543,5 +543,12 @@
 .chat-init-image {
   width: 100%;
   height: 100%;
-  background-image: url("../../../assets/images/chatBackground.png");
+  background-image: url("../../../assets/images/pexels-miguel-á-padriñán-745365.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #263238;
 }

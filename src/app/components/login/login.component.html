@@ -1,25 +1,30 @@
 <!-- Login page -->
 
 <div class="main-container">
-
-  <div class="login-container">
-    <img width="120" height="130" src="../assets/images/chatting-app.png" alt="Chat-image" />
-    <br />
-    <br />
-    <div>
-      <div class="login-input-container">
-        <input class="login-input" type="text" [(ngModel)]="phone" placeholder="Enter your phone number..." (keyup)="$event.keyCode === 13 && login()" />
-        <br />
-        <div *ngIf="isPhoneNumberWrong" class="login-error-container">
-          <img width="15" height="15" src="../assets/images/warning.png" alt="" />
-          Number you have entered does not exists
+  <div class="loader">
+  </div>
+  <div class="h-100 w-100 main-background p-2 flex-al-c-jc-end">
+    <div class="login-container">
+      <div>
+        <div class="login-input-container">
+          <div class="input-focus-design">
+            <input class="login-input" type="text" [(ngModel)]="phone" placeholder="Enter your phone number..." (keyup)="$event.keyCode === 13 && login()" />
+            <div class="upper-border"></div>
+            <div class="bottom-border"></div>
+          </div>
+          <br />
+          <div *ngIf="isPhoneNumberWrong" class="login-error-container">
+            <img width="15" height="15" src="../assets/images/warning.png" alt="" />
+            Number you have entered does not exists
+          </div>
         </div>
       </div>
+      <button class="login-button" (click)="login()">Login
+      </button>
+      <span style="color: grey">--------------------- or ---------------------
+      </span>
+      <button class="signUp-button">Sign up</button>
     </div>
-    <button class="login-button" (click)="login()">Login</button>
-    <span style="color: grey">--------------------- or ---------------------
-    </span>
-    <button class="signUp-button">Sign up</button>
   </div>
 
 </div>
