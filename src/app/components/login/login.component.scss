@@ -83,6 +83,12 @@
   background: linear-gradient(45deg, black, gray, gray, gray);
 }
 
+@keyframes example {
+0% {
+  background: linear-gradient(45deg, gray,black,  gray, gray);
+}
+}
+
 .login-button:hover {
   opacity: 75%;
   color: whitesmoke;
