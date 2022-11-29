@@ -79,7 +79,9 @@
 }
 
 .loading-icon{
-  position: sticky;
+  position: fixed;
+  width: 100%;
+  height: 100%;
   top: 0;
   .loader-container {
     min-height: 20px;

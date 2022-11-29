@@ -27,6 +27,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
   public isFriendRequestsModalOpen: boolean;
   public addFriendsSearchArray: any[];
   public receivedFriendRequests: any[];
+  public isChatContainerExpanded: boolean
 
   constructor(private chatService: ChatService, private router: Router) {
     this.isBotModalOpen = false;
@@ -38,9 +39,11 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
     this.addFriendsSearchArray = [];
     this.receivedFriendRequests = [];
     this.isFriendRequestsModalOpen = false;
+    this.isChatContainerExpanded = false
   }
 
   ngOnInit(): void {
+    this.isChatContainerExpanded = false
     console.log(this.chatService.currentUser, 'currentUser');
 
     if (this.chatService?.currentUser?.receivedFriendRequests) {

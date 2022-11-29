@@ -1,7 +1,7 @@
 <!-- Login page -->
 
 <div class="main-container">
-  <div class="loading-icon">
+  <div *ngIf="componentStatus === 'loading'" class="loading-icon">
     <div class="loader-container">
       <div class="loader">
       </div>

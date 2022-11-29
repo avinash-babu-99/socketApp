@@ -2,24 +2,31 @@
   <div class="main-container">
     <!-- Chat container -->
     <div class="chat-container">
-      <div class="contacts-container">
+      <div [ngClass]="isChatContainerExpanded ? 'contacts-container-expanded': 'contacts-container'">
         <div class="chat-header">
           <div class="chat-header-container">
-            Chats
+            <span>
+              Chats
+            </span>
             <div class="friend-requests-container" (click)="openFriendRequestsModal()">
               <img class="friend-requests-icon" src="../../../assets/images/icons8-add-friend-58.png" alt="" />
               <div class="requests-count">
                 {{ receivedFriendRequests?.length }}
               </div>
             </div>
+            <div>
+              <img (click)="isChatContainerExpanded = !isChatContainerExpanded" class="expand-icon" [ngClass]="isChatContainerExpanded ? 'expand-icon-expanded': 'expand-icon'" src="../../../assets/images/right-chevron.png" alt="">
+            </div>
           </div>
         </div>
-        <div class="chat-list">
+        <div class="chat-list" [ngStyle]="{isChatContainerExpanded: 'width: 0'}">
           <div class="contact" *ngFor="let user of contactsList">
             <div class="contact-profile" (click)="selectedUserHandler(user)">
               <img src="../assets/images/waiter.png" width="40" height="40" alt="user" />
-              {{ user.name }}
             </div>
+            <span class="contact-name">
+              {{ user.name }}
+             </span>
             <div class="contact-remove" (click)="removeContact(user)">
               <img src="../../../assets/images/icons8-minus-48.png" alt="" />
             </div>

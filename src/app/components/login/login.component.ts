@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
 
   public phone: string = '';
   public isPhoneNumberWrong: boolean;
+  public componentStatus: string = 'loaded' || 'loading' || 'error'
 
   constructor(
     private chatService: ChatService,
@@ -23,10 +24,12 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.componentStatus = 'loaded'
   }
 
   public login() {
     if (this.phone) {
+    this.componentStatus = 'loading'
       this.chatService.loginContact(this.phone).subscribe(
         (data) => {
           if (data && data.user[0]) {
@@ -37,6 +40,7 @@ export class LoginComponent implements OnInit {
             this.chatService.currentUser = data.user[0]
             this.router.navigate(['/chat'])
           }
+          this.componentStatus = 'loaded'
         },
         () => {
           this.isPhoneNumberWrong = true;
