@@ -2,32 +2,80 @@
   <div class="main-container">
     <!-- Chat container -->
     <div class="chat-container">
-      <div appOutsideClickListener (clickedOutside)="isChatContainerExpanded = false" [ngClass]="isChatContainerExpanded ? 'contacts-container-expanded': 'contacts-container'">
+      <div
+        appOutsideClickListener
+        (clickedOutside)="isChatContainerExpanded = false"
+        [ngClass]="
+          isChatContainerExpanded
+            ? 'contacts-container-expanded'
+            : 'contacts-container'
+        "
+      >
         <div class="chat-header">
           <div class="chat-header-container">
-            <span>
-              Chats
-            </span>
-            <div class="friend-requests-container" (click)="openFriendRequestsModal()">
-              <img class="friend-requests-icon" src="../../../assets/images/icons8-add-friend-58.png" alt="" />
+            <span> Chats </span>
+            <div
+              class="friend-requests-container"
+              (click)="openFriendRequestsModal()"
+            >
+              <img
+                class="friend-requests-icon"
+                src="../../../assets/images/icons8-add-friend-58.png"
+                alt=""
+              />
               <div class="requests-count">
                 {{ receivedFriendRequests?.length }}
               </div>
             </div>
             <div>
-              <img (click)="isChatContainerExpanded = !isChatContainerExpanded" class="expand-icon" [ngClass]="isChatContainerExpanded ? 'expand-icon-expanded': 'expand-icon'" src="../../../assets/images/right-chevron.png" alt="">
+              <img
+                (click)="isChatContainerExpanded = !isChatContainerExpanded"
+                class="expand-icon"
+                [ngClass]="
+                  isChatContainerExpanded
+                    ? 'expand-icon-expanded'
+                    : 'expand-icon'
+                "
+                src="../../../assets/images/right-chevron.png"
+                alt=""
+              />
             </div>
           </div>
         </div>
         <div class="chat-list">
           <div class="contact" *ngFor="let user of contactsList">
-            <div  [ngClass]="!isChatContainerExpanded ? 'contact-profile-hidden': 'contact-profile'" (click)="selectedUserHandler(user)">
-              <img src="../assets/images/waiter.png" width="40" height="40" alt="user" />
+            <div
+              [ngClass]="
+                !isChatContainerExpanded
+                  ? 'contact-profile-hidden'
+                  : 'contact-profile'
+              "
+              (click)="selectedUserHandler(user)"
+            >
+              <img
+                src="../assets/images/waiter.png"
+                width="40"
+                height="40"
+                alt="user"
+              />
             </div>
-            <span [ngClass]="!isChatContainerExpanded ? 'contact-name-hidden': 'contact-name'">
+            <span
+              [ngClass]="
+                !isChatContainerExpanded
+                  ? 'contact-name-hidden'
+                  : 'contact-name'
+              "
+            >
               {{ user.name }}
-             </span>
-            <div [ngClass]="!isChatContainerExpanded ? 'contact-remove-hidden': 'contact-remove'" (click)="removeContact(user)">
+            </span>
+            <div
+              [ngClass]="
+                !isChatContainerExpanded
+                  ? 'contact-remove-hidden'
+                  : 'contact-remove'
+              "
+              (click)="removeContact(user)"
+            >
               <img src="../../../assets/images/icons8-minus-48.png" alt="" />
             </div>
           </div>
@@ -38,9 +86,12 @@
             <img src="../../../assets/images/add-user.png" alt="" />
           </button>
           <div #robotModalTrigger class="button-container">
-            <img (click)="
+            <img
+              (click)="
                 isBotModalOpen = !isBotModalOpen; chatBotMessage = 'Hey!!!!'
-              " src="../assets/images/chatbot (1).png" />
+              "
+              src="../assets/images/chatbot (1).png"
+            />
             <div class="tooltip">Wanna talk?</div>
           </div>
         </div>
@@ -57,34 +108,56 @@
           <span>Select a contact to chat</span>
         </div>
         <div class="chat-profile" *ngIf="selectedUser">
-          <img src="../assets/images/waiter.png" width="60" height="60" alt="user" />
+          <img
+            src="../assets/images/waiter.png"
+            width="60"
+            height="60"
+            alt="user"
+          />
           <div class="profilehd">
             {{ selectedUser.name }}
           </div>
         </div>
         <div #messageBlock class="message-block" *ngIf="selectedUser">
-          <div [ngClass]="
+          <div
+            [ngClass]="
               user.sender === currentUser.phone
                 ? 'sent-message-wrap'
                 : 'message-wrap'
-            " *ngFor="let user of messageArray">
-            <div class="message" [ngClass]="
+            "
+            *ngFor="let user of messageArray"
+          >
+            <div
+              class="message"
+              [ngClass]="
                 user.sender === currentUser.phone ? 'sent-message' : 'message'
-              ">
+              "
+            >
               {{ user.message }}
             </div>
           </div>
         </div>
         <!-- <div class="spacer"></div> -->
         <div class="chat-text-box-wrapper" *ngIf="selectedUser">
-          <input class="chat-text-box" type="text" placeholder="type the text....." [(ngModel)]="messageText" (keyup)="$event.keyCode === 13 && sendMessage()" />
+          <input
+            class="chat-text-box"
+            type="text"
+            placeholder="type the text....."
+            [(ngModel)]="messageText"
+            (keyup)="$event.keyCode === 13 && sendMessage()"
+          />
         </div>
       </div>
     </div>
   </div>
 
   <!-- Bot modal container -->
-  <div appOutsideClickListener [toggleTrigger]="robotModalTrigger" (clickedOutside)="toggleBot()" class="chat-bot-modal" [ngStyle]="
+  <div
+    appOutsideClickListener
+    [toggleTrigger]="botModalEleRef"
+    (clickedOutside)="toggleBot()"
+    class="chat-bot-modal"
+    [ngStyle]="
       isBotModalOpen
         ? { opacity: '1' }
         : {
@@ -92,10 +165,16 @@
             'background-color': 'yellow',
             transform: 'translate(200%, -50%)'
           }
-    ">
+    "
+  >
     <div class="bot-modal-container">
       <div class="modal-header">
-        <img class="modal-close-button" src="../assets/images/close.png" alt="" (click)="isBotModalOpen = !isBotModalOpen" />
+        <img
+          class="modal-close-button"
+          src="../assets/images/close.png"
+          alt=""
+          (click)="isBotModalOpen = !isBotModalOpen"
+        />
       </div>
       <div class="modal-body">
         <div class="robot-chat-space">
@@ -105,7 +184,13 @@
             </div>
           </div>
           <div class="user-chat-space">
-            <input placeholder="text here..." [(ngModel)]="robotMessageModel" class="user-chat-input" type="text" (keyup)="$event.keyCode === 13 && sendMessageToBot()" />
+            <input
+              placeholder="text here..."
+              [(ngModel)]="robotMessageModel"
+              class="user-chat-input"
+              type="text"
+              (keyup)="$event.keyCode === 13 && sendMessageToBot()"
+            />
           </div>
         </div>
         <div class="robot-icon-space">
@@ -116,8 +201,16 @@
   </div>
 
   <!-- Add friends modal -->
-  <app-add-friends-modal [isModalOpen]="isAddFriendsModalOpen" [SearchArray]="addFriendsSearchArray" (modalStatusEventEmitter)="changeAddFriendsModalState($event)"></app-add-friends-modal>
+  <app-add-friends-modal
+    [isModalOpen]="isAddFriendsModalOpen"
+    [SearchArray]="addFriendsSearchArray"
+    (modalStatusEventEmitter)="changeAddFriendsModalState($event)"
+  ></app-add-friends-modal>
 
   <!-- Friend requests modal -->
-  <app-friend-requests-modal [isModalOpen]="isFriendRequestsModalOpen" [friendRequests]="receivedFriendRequests" (modalStatusEventEmitter)="changeFriendRequestsModalState($event)"></app-friend-requests-modal>
+  <app-friend-requests-modal
+    [isModalOpen]="isFriendRequestsModalOpen"
+    [friendRequests]="receivedFriendRequests"
+    (modalStatusEventEmitter)="changeFriendRequestsModalState($event)"
+  ></app-friend-requests-modal>
 </div>

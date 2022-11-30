@@ -1,34 +1,36 @@
-import { Directive, ElementRef, Output, EventEmitter, HostListener, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Output,
+  EventEmitter,
+  HostListener,
+  Input,
+} from '@angular/core';
 
 @Directive({
-  selector: '[appOutsideClickListener]'
+  selector: '[appOutsideClickListener]',
 })
-export class OutsideClickListenerDirective implements OnChanges {
-
-  @Output()clickedOutside: EventEmitter<boolean> = new EventEmitter()
-  @Input() toggleTrigger: any
+export class OutsideClickListenerDirective {
+  @Output() clickedOutside: EventEmitter<boolean> = new EventEmitter();
+  @Input() toggleTrigger: ElementRef = {} as ElementRef;
 
   @HostListener('document:click', ['$event.target'])
-  public onClick(event: Event){
+  public onClick(event: Event) {
+    console.log(this.toggleTrigger, 'toggle trigger');
 
-    if ( !this.elementRef.nativeElement.contains(event) ) {
+    if (
+      !this.elementRef?.nativeElement?.contains(event) &&
+      !this.toggleTrigger?.nativeElement?.contains(event)
+    ) {
+      console.log(
+        'coming in if',
+        this.toggleTrigger?.nativeElement?.contains(event),
+        this.elementRef?.nativeElement?.contains(event)
+      );
 
-      console.log(this.elementRef, 'this.elementRef');
-
-
-      this.clickedOutside.emit(true)
-
+      this.clickedOutside.emit(true);
     }
-
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.toggleTrigger, 'toggleTrigger');
-
-  }
-
-  constructor(private elementRef: ElementRef) {
-
-   }
-
+  constructor(private elementRef: ElementRef) {}
 }

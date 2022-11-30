@@ -1,5 +1,11 @@
 // Angular imports
-import { Component, OnInit, AfterViewChecked, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewChecked,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
 
@@ -13,6 +19,7 @@ import { ChatService } from '../../services/chat/chat.service';
 })
 export class ChatMainComponent implements OnInit, AfterViewChecked {
   @ViewChild('messageBlock') public messageBlockEle: any;
+  @ViewChild('robotModalTrigger') botModalEleRef: ElementRef = {} as ElementRef;
 
   public isBotModalOpen: boolean;
   public chatBotMessage: string;
@@ -27,7 +34,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
   public isFriendRequestsModalOpen: boolean;
   public addFriendsSearchArray: any[];
   public receivedFriendRequests: any[];
-  public isChatContainerExpanded: boolean
+  public isChatContainerExpanded: boolean;
 
   constructor(private chatService: ChatService, private router: Router) {
     this.isBotModalOpen = false;
@@ -39,11 +46,11 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
     this.addFriendsSearchArray = [];
     this.receivedFriendRequests = [];
     this.isFriendRequestsModalOpen = false;
-    this.isChatContainerExpanded = false
+    this.isChatContainerExpanded = false;
   }
 
   ngOnInit(): void {
-    this.isChatContainerExpanded = false
+    this.isChatContainerExpanded = false;
     console.log(this.chatService.currentUser, 'currentUser');
 
     if (this.chatService?.currentUser?.receivedFriendRequests) {
@@ -242,11 +249,9 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
     this.chatService.notifyUser(contact);
   }
 
-  public toggleBot(): void{
-    if ( this.isBotModalOpen ) {
-
-      this.isBotModalOpen = false
-
+  public toggleBot(): void {
+    if (this.isBotModalOpen) {
+      this.isBotModalOpen = false;
     }
   }
 }
