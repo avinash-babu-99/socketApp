@@ -241,4 +241,12 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
     let data = {};
     this.chatService.notifyUser(contact);
   }
+
+  public toggleBot(): void{
+    if ( this.isBotModalOpen ) {
+
+      this.isBotModalOpen = false
+
+    }
+  }
 }

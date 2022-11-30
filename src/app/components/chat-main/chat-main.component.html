@@ -2,7 +2,7 @@
   <div class="main-container">
     <!-- Chat container -->
     <div class="chat-container">
-      <div [ngClass]="isChatContainerExpanded ? 'contacts-container-expanded': 'contacts-container'">
+      <div appOutsideClickListener (clickedOutside)="isChatContainerExpanded = false" [ngClass]="isChatContainerExpanded ? 'contacts-container-expanded': 'contacts-container'">
         <div class="chat-header">
           <div class="chat-header-container">
             <span>
@@ -19,15 +19,15 @@
             </div>
           </div>
         </div>
-        <div class="chat-list" [ngStyle]="{isChatContainerExpanded: 'width: 0'}">
+        <div class="chat-list">
           <div class="contact" *ngFor="let user of contactsList">
-            <div class="contact-profile" (click)="selectedUserHandler(user)">
+            <div  [ngClass]="!isChatContainerExpanded ? 'contact-profile-hidden': 'contact-profile'" (click)="selectedUserHandler(user)">
               <img src="../assets/images/waiter.png" width="40" height="40" alt="user" />
             </div>
-            <span class="contact-name">
+            <span [ngClass]="!isChatContainerExpanded ? 'contact-name-hidden': 'contact-name'">
               {{ user.name }}
              </span>
-            <div class="contact-remove" (click)="removeContact(user)">
+            <div [ngClass]="!isChatContainerExpanded ? 'contact-remove-hidden': 'contact-remove'" (click)="removeContact(user)">
               <img src="../../../assets/images/icons8-minus-48.png" alt="" />
             </div>
           </div>
@@ -37,7 +37,7 @@
             Add friends
             <img src="../../../assets/images/add-user.png" alt="" />
           </button>
-          <div class="button-container">
+          <div #robotModalTrigger class="button-container">
             <img (click)="
                 isBotModalOpen = !isBotModalOpen; chatBotMessage = 'Hey!!!!'
               " src="../assets/images/chatbot (1).png" />
@@ -84,7 +84,7 @@
   </div>
 
   <!-- Bot modal container -->
-  <div class="chat-bot-modal" [ngStyle]="
+  <div appOutsideClickListener [toggleTrigger]="robotModalTrigger" (clickedOutside)="toggleBot()" class="chat-bot-modal" [ngStyle]="
       isBotModalOpen
         ? { opacity: '1' }
         : {
