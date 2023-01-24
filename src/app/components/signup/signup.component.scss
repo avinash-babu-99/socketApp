@@ -1,0 +1,149 @@
+.main-background {
+  background-image: url('../../../assets/images/signup_bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: auto;
+}
+
+.sign-up-form-container {
+  form {
+    min-width: 300px;
+    height: auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: rgb(169 169 169 / 80%);
+    height: 25rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px 0 rgb(10 10 9 / 94%);
+
+    label {
+      width: 120px;
+    }
+
+    .form-error-message {
+      text-align: right;
+      padding-top: 8px;
+      color: #950e26db;
+    }
+  }
+}
+
+.save-btn {
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #a14b0f;
+  background: #a52a2a24;
+  cursor: pointer;
+  font-size: 15px;
+  color: rgb(8 8 8 / 61%);
+
+}
+
+.save-btn:disabled{
+  opacity: 50%;
+}
+.save-btn:hover {
+  background: #a52a2a5e;
+}
+
+.save-btn:hover:disabled {
+  cursor: not-allowed;
+  background: #a52a2a24;
+}
+
+.form-control-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.input-focus-design {
+  position: relative;
+  transition: 5000ms;
+  height: auto;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .upper-border {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    border-top: 2px solid #141414;
+    border-left: 2px solid #141414;
+    border-bottom: none;
+    border-right: none;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+    transition: .5s;
+  }
+
+  .bottom-border {
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    border-bottom: 2px solid #141414;
+    border-right: 2px solid #141414;
+    border-top: none;
+    border-left: none;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    opacity: 1;
+    transition: .5s;
+  }
+
+  ::placeholder {
+    color: rgba(0, 0, 0, 0.596);
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    padding: 15px 10px;
+    width: 260px;
+    border: none;
+    outline: none;
+    color: rgb(8 8 8 / 50%);
+    border-radius: 5px;
+    height: auto;
+    font-style: italic;
+    transition: 2000ms;
+    z-index: 1;
+    font-size: 15px;
+    box-shadow: 3px 5px 15px 0px rgb(10 10 9 / 49%);
+    border-top: 0px;
+    background: #f9f9f9;
+
+
+    &:focus~.upper-border {
+      height: 100%;
+      border-top: 2px solid #141414;
+      border-left: 2px solid #141414;
+      border-bottom: none;
+      border-right: none;
+      width: 100%;
+      opacity: 1;
+      border-radius: 5px;
+    }
+
+    &:focus~.bottom-border {
+      height: 100%;
+      border-bottom: 2px solid #141414;
+      border-right: 2px solid #141414;
+      border-top: none;
+      border-left: none;
+      width: 100%;
+      opacity: 1;
+      border-radius: 5px;
+    }
+  }
+
+}

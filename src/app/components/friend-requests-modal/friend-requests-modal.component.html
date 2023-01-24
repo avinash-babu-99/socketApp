@@ -22,8 +22,11 @@
     <div class="modal-body">
       <div *ngIf="friendRequests?.length" class="add-friends-list">
         <div *ngFor="let contact of friendRequests" class="contact">
-          <img src="../../../assets/images/waiter.png" alt="" />
-          {{ contact.name }}
+          <div>
+            <img src="../../../assets/images/waiter.png" alt="" />
+            <span>&nbsp;</span>
+            {{ contact.name }}
+          </div>
           <div class="actions">
             <img
               src="../../../assets//images/icons8-accept-67.png"

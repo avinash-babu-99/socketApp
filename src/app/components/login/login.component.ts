@@ -28,6 +28,8 @@ export class LoginComponent implements OnInit {
   }
 
   public login() {
+    console.log('coming in login');
+
     if (this.phone) {
     this.componentStatus = 'loading'
       this.chatService.loginContact(this.phone).subscribe(
@@ -51,6 +53,12 @@ export class LoginComponent implements OnInit {
         }
       );
     }
+  }
+
+  public navigationToSignUp() {
+
+    this.router.navigate(['/signUp'])
+
   }
 
 }

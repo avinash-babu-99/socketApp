@@ -254,4 +254,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
       this.isBotModalOpen = false;
     }
   }
+
 }
+
+

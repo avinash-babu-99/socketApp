@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 // component imports
 import { LoginComponent } from './components/login/login.component'
+import { SignupComponent } from './components/signup/signup.component';
 import { ChatMainComponent } from './components/chat-main/chat-main.component';
 
 //gaurd imports
@@ -14,12 +15,16 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'signUp',
+    component: SignupComponent
+  },
+  {
     path: 'chat',
     component: ChatMainComponent,
     canActivate: [AuthGaurdGuard]
   },
-  { path: '', redirectTo:'login', pathMatch: 'full' },
-  { path: '**', redirectTo:'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({
