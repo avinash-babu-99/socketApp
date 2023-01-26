@@ -61,6 +61,12 @@
   box-shadow: 0 8px 32px 0 rgb(10 10 9 / 94%);
   background: rgb(0 0 0 / 74%);
   backdrop-filter: saturate(265%) blur(10px);
+  .inputs{
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px 0px;
+  }
 }
 
 .login-button {
@@ -76,6 +82,17 @@
   transition: 500ms;
   z-index: 1;
   font-size: 16px;
+}
+
+.login-button:hover {
+  opacity: 75%;
+  color: whitesmoke;
+  cursor: pointer;
+}
+
+.login-button:disabled{
+  opacity: 50%;
+  cursor: not-allowed;
 }
 
 .loading-icon{
@@ -112,12 +129,6 @@
   100% {
     width: 100%;
   }
-}
-
-.login-button:hover {
-  opacity: 75%;
-  color: whitesmoke;
-  cursor: pointer;
 }
 
 .login-input-container {
