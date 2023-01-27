@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { AuthenticationServiceService } from 'src/app/services/chat/authentication-service.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +16,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authenticationServiceService: AuthenticationServiceService,
-    private router: Router
+    private router: Router,
+    private cookieService: CookieService
   ) {
     this.signUpForm = this.fb.group({
       userName: ['', [Validators.required]],
@@ -59,9 +61,18 @@ export class SignupComponent implements OnInit {
     }
 
     this.authenticationServiceService.signUp(payload).subscribe(data=>{
-      console.log(data, 'sign up res');
 
-      this.router.navigate(['/chat'])
+      let token
+
+      if(data && data.token) {
+
+        token = data.token
+
+      }
+
+      this.cookieService.set('Auth-token', token)
+
+      this.router.navigate(['/chat/Message'])
 
     })
 

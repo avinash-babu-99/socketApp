@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 interface signUp {
   name: String,
@@ -17,14 +18,26 @@ export class AuthenticationServiceService {
   public boUrl = 'http://127.0.0.1:400';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private cookieService: CookieService
   ) {
 
   }
 
   public signUp(payload: signUp): Observable<any> {
 
-    return this.http.post(`${this.boUrl}/contactsAuth/signUp`, payload)
+    return this.http.post(`${this.boUrl}/contactsAuth/signUp`, payload, { observe: 'response', withCredentials: true })
 
   }
+
+  public isLoggedIn(): Boolean{
+
+    const token = this.cookieService.get('Auth-token')
+
+    if( token ) return true
+
+    return false
+
+  }
+
 }

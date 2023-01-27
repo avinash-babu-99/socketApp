@@ -1,36 +1,59 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { CanLoad, Route, Router, UrlSegment } from '@angular/router';
 import { CanActivate, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
 // service imports
 import { ChatService } from '../services/chat/chat.service';
+import { AuthenticationServiceService } from '../services/chat/authentication-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGaurdGuard implements CanActivate {
+export class AuthGaurdGuard implements CanActivate, CanLoad {
 
   constructor(
     private chatService: ChatService,
-    private router: Router
+    private router: Router,
+    private authenticationServiceService: AuthenticationServiceService
   ) {
 
   }
 
-  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.chatService.isLoggedIn) {
+  canLoad(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
 
-      return true;
 
-    } else {
+    let token
 
-      this.router.navigate(['/login'])
+    token = this.authenticationServiceService.isLoggedIn()
 
-      return false
+    if (token) {
+
+      return true
 
     }
 
+    this.router.navigate(['authenticate/login'])
+
+    return false
+
+  }
+
+  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    let token
+
+    token = this.authenticationServiceService.isLoggedIn()
+
+
+    if (token) {
+
+      return true
+
+    }
+
+    this.router.navigate(['authenticate/login'])
+
+    return false
   }
 
 }

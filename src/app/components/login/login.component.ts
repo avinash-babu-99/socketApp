@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ChatService } from '../../services/chat/chat.service';
 
 import { HttpClient } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private chatService: ChatService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private cookieService: CookieService
   ) {
 
     this.isPhoneNumberWrong = false
@@ -50,8 +52,9 @@ export class LoginComponent implements OnInit {
             // this.contactsList = this.currentUser.contacts;
             // this.isLoggedIn = true;
             this.chatService.isLoggedIn = true
+            this.cookieService.set('Auth-token', '213123123')
             this.chatService.currentUser = data.user[0]
-            this.router.navigate(['/chat'])
+            this.router.navigate(['/Chat/Message'])
           }
           this.componentStatus = 'loaded'
         },
@@ -68,7 +71,7 @@ export class LoginComponent implements OnInit {
 
   public navigationToSignUp() {
 
-    this.router.navigate(['/signUp'])
+    this.router.navigate(['/Authenticate/Sign-up'])
 
   }
 

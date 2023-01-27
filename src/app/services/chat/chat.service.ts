@@ -121,7 +121,7 @@ export class ChatService {
 
   public listenNotification(): Observable<any> {
     return new Observable<any>((observer) => {
-      this.socket.on('new notification', (data) => {
+      this.socket.on('new notification', (data: any) => {
         console.log('new notification received in service');
         console.log(data, 'new notification data received in service');
         console.log(data?.data?.data?._id);

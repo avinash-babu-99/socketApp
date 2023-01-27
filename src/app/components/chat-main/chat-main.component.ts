@@ -11,6 +11,7 @@ import { catchError } from 'rxjs';
 
 // Services imports
 import { ChatService } from '../../services/chat/chat.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-chat-main',
@@ -36,7 +37,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
   public receivedFriendRequests: any[];
   public isChatContainerExpanded: boolean;
 
-  constructor(private chatService: ChatService, private router: Router) {
+  constructor(private chatService: ChatService, private router: Router, private cookieService: CookieService) {
     this.isBotModalOpen = false;
     this.chatBotMessage = '';
     this.contactsList = [];
@@ -175,6 +176,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
   }
 
   public logout(): void {
+    this.cookieService.deleteAll('Auth-token')
     this.router.navigate(['/login']);
   }
 

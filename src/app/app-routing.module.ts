@@ -1,30 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-// component imports
-import { LoginComponent } from './components/login/login.component'
-import { SignupComponent } from './components/signup/signup.component';
-import { ChatMainComponent } from './components/chat-main/chat-main.component';
-
-//gaurd imports
 import { AuthGaurdGuard } from './gaurds/auth-gaurd.guard';
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LoginComponent
+    path: 'Authenticate',
+    loadChildren: () => import('./modules/authentication/authentication.module').then((m) => {
+      return m.AuthenticationModule
+    })
   },
   {
-    path: 'signUp',
-    component: SignupComponent
+    path: 'Chat',
+    loadChildren: () => import('./modules/chat/chat.module').then((m) => {
+      return m.ChatModule
+    }),
+    canActivate : [AuthGaurdGuard]
   },
-  {
-    path: 'chat',
-    component: ChatMainComponent,
-    canActivate: [AuthGaurdGuard]
-  },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'Authenticate', pathMatch: 'full' },
+  { path: '**', redirectTo: 'Authenticate', pathMatch: 'full' },
 ];
 
 @NgModule({
