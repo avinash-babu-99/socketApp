@@ -1,11 +1,12 @@
 <!-- Login page -->
-<div class="main-container">
+<div class="main-container flex-al-c-jc-center">
   <div *ngIf="componentStatus === 'loading'" class="loading-icon">
     <div class="loader-container">
       <div class="loader">
       </div>
     </div>
   </div>
+  <img src="../../../assets/images/3350440.png " class="w-100 h-100" alt="">
   <div class="h-100 w-100 main-background p-2 flex-al-c-jc-end">
     <div class="login-container">
       <div class="inputs">
@@ -18,7 +19,7 @@
           <br />
           <div *ngIf="isPhoneNumberWrong" class="login-error-container">
             <img width="15" height="15" src="../assets/images/warning.png" alt="" />
-            Number you have entered does not exists
+            Number or Password is invalid
           </div>
         </div>
         <div class="login-input-container">
@@ -28,13 +29,9 @@
             <div class="bottom-border"></div>
           </div>
           <br />
-          <div *ngIf="isPhoneNumberWrong" class="login-error-container">
-            <img width="15" height="15" src="../assets/images/warning.png" alt="" />
-            Number you have entered does not exists
-          </div>
         </div>
       </div>
-      <button class="login-button"  [disabled]="!phone.length || !password.length " (click)="login()">Login
+      <button class="login-button" [disabled]="!phone.length || !password.length " (click)="login()">Login
       </button>
       <span style="color: grey">--------------------- or ---------------------
       </span>

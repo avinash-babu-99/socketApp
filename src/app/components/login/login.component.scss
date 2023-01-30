@@ -2,11 +2,14 @@
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  background-image: url('../../../assets/images/Untitled-3.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 
   .main-background {
-    background-image: url('../../../assets/images/login_bgIMG.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
+    // background-image: url('../../../assets/images/Untitled-3.png');
+    // background-size: cover;
+    // background-repeat: no-repeat;
     overflow: auto;
   }
 }
@@ -48,6 +51,11 @@
   }
 }
 
+.logo-img{
+  max-width: 400px;
+  max-width: 400px;
+}
+
 .login-container {
   height: 100%;
   display: flex;
@@ -58,8 +66,7 @@
   background: #fff;
   height: 25rem;
   border-radius: 10px;
-  box-shadow: 0 8px 32px 0 rgb(10 10 9 / 94%);
-  background: rgb(0 0 0 / 74%);
+  box-shadow: 0 0px 10px 0 rgb(0 0 0 / 15%);
   backdrop-filter: saturate(265%) blur(10px);
   .inputs{
       display: flex;
@@ -75,7 +82,7 @@
   border: none;
   outline: none;
   color: white;
-  background: cornflowerblue;
+  background: #1f66e5;
   border-radius: 35px;
   height: auto;
   font-style: italic;
@@ -191,7 +198,6 @@
       font-size: 15px;
       box-shadow: 3px 5px 15px 0px rgb(10 10 9 / 23%);
       border-top: 0px;
-      background: transparent;
 
       &:focus~.upper-border {
         height: 100%;

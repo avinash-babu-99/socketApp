@@ -78,9 +78,9 @@ export class ChatService {
     localStorage.setItem('chats', JSON.stringify(data));
   }
 
-  public loginContact(phone: any): Observable<any> {
-    return this.http.post('http://127.0.0.1:400/contacts/contactLogin', {
-      phone,
+  public loginContact(payload: any): Observable<any> {
+    return this.http.post('http://127.0.0.1:400/contactsAuth/login', {
+      ...payload
     });
   }
 

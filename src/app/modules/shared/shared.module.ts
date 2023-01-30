@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import {MatInputModule} from '@angular/material/input';
+
 import { OutsideClickListenerDirective } from 'src/app/directives/outside-click-listener.directive';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -10,8 +12,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatInputModule
   ],
-  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule]
+  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule, MatInputModule]
 })
 export class SharedModule { }

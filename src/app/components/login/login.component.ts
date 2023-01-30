@@ -43,17 +43,20 @@ export class LoginComponent implements OnInit {
   public login() {
     console.log('coming in login');
 
-    if (this.phone) {
+    if (this.phone && this.password) {
       this.componentStatus = 'loading'
-      this.chatService.loginContact(this.phone).subscribe(
+      this.chatService.loginContact({
+        phone: this.phone,
+        password: this.password
+      }).subscribe(
         (data) => {
-          if (data && data.user[0]) {
-            // this.currentUser = data.user[0];
-            // this.contactsList = this.currentUser.contacts;
-            // this.isLoggedIn = true;
-            this.chatService.isLoggedIn = true
-            this.cookieService.set('Auth-token', '213123123')
-            this.chatService.currentUser = data.user[0]
+          if (data && data.user) {
+
+            if (data && data.token) {
+
+              this.cookieService.set('Auth-token', data.token)
+            }
+            this.chatService.currentUser = data.user
             this.router.navigate(['/Chat/Message'])
           }
           this.componentStatus = 'loaded'
