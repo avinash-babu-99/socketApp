@@ -2,7 +2,7 @@
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-image: url('../../../assets/images/Untitled-3.png');
+  background-image: url("../../../assets/images/Untitled-3.png");
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -51,7 +51,7 @@
   }
 }
 
-.logo-img{
+.logo-img {
   max-width: 400px;
   max-width: 400px;
 }
@@ -61,17 +61,35 @@
   width: 700px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  padding: 35px 55px;
   gap: 20px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 0px 10px 0 rgb(0 0 0 / 15%);
   backdrop-filter: saturate(265%) blur(10px);
-  .inputs{
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      padding: 20px 0px;
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 0px;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+  padding: 35px 55px;
+  .image-container {
+    height: 120px;
+    width: 215px;
+    img {
+      object-fit: contain;
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
 }
 
@@ -96,12 +114,12 @@
   cursor: pointer;
 }
 
-.login-button:disabled{
-  opacity: 50%;
+.login-button:disabled {
+  opacity: 25%;
   cursor: not-allowed;
 }
 
-.loading-icon{
+.loading-icon {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -139,9 +157,7 @@
 
 .login-input-container {
   position: relative;
-  width: 500px;
   display: flex;
-  justify-content: center;
   font-size: large;
 
   .input-focus-design {
@@ -165,7 +181,7 @@
       left: 0;
       z-index: 1;
       opacity: 0;
-      transition: .5s;
+      transition: 0.5s;
     }
 
     .bottom-border {
@@ -180,7 +196,7 @@
       right: 0;
       z-index: 1;
       opacity: 1;
-      transition: .5s;
+      transition: 0.5s;
     }
 
     .login-input {
@@ -198,7 +214,7 @@
       // box-shadow: 3px 5px 15px 0px rgb(10 10 9 / 23%);
       border-top: 0px;
 
-      &:focus~.upper-border {
+      &:focus ~ .upper-border {
         height: 100%;
         border-top: 2px solid rgb(169 169 169 / 50%);
         border-left: 2px solid rgb(169 169 169 / 50%);
@@ -209,7 +225,7 @@
         border-radius: 7px;
       }
 
-      &:focus~.bottom-border {
+      &:focus ~ .bottom-border {
         height: 100%;
         border-bottom: 2px solid rgb(169 169 169 / 50%);
         border-right: 2px solid rgb(169 169 169 / 50%);
@@ -220,7 +236,6 @@
         border-radius: 7px;
       }
     }
-
   }
 }
 
