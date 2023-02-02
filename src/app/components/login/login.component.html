@@ -1,30 +1,11 @@
 <!-- Login page -->
-<div
-  style="padding-left: 200px; padding-right: 100px"
-  class="main-container flex-al-c-jc-center"
->
-  <div *ngIf="componentStatus === 'loading'" class="loading-icon">
-    <div class="loader-container">
-      <div class="loader"></div>
-    </div>
-  </div>
-  <img src="../../../assets/images/3350440.png " alt="" />
-  <div class="h-100 w-100 main-background p-2 flex-al-c-jc-end">
-    <div class="login-container">
-      <div class="header">
-        <div class="image-container">
-          <img
-            src="../../../assets/images/Screenshot 2023-01-30 185648 (1).png"
-            alt=""
-          />
-        </div>
-        <div class="nav-buttons">
-          <span>Login</span>
-          <span>Sign Up</span>
-        </div>
-      </div>
+
       <div>
         <div class="inputs">
+          <div class="page-header">
+            <h2>SIGN IN</h2>
+            <h4>sign in to continue to our application</h4>
+          </div>
           <div class="login-input-container">
             <div class="input-focus-design">
               <input
@@ -33,6 +14,7 @@
                 [(ngModel)]="phone"
                 placeholder="Enter your phone number"
                 (keyup)="$event.keyCode === 13 && login()"
+                autocomplete="off"
               />
               <div class="upper-border"></div>
               <div class="bottom-border"></div>
@@ -77,6 +59,3 @@
           Sign up
         </button> -->
       </div>
-    </div>
-  </div>
-</div>

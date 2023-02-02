@@ -67,14 +67,12 @@
   border-radius: 10px;
   box-shadow: 0 0px 10px 0 rgb(0 0 0 / 15%);
   backdrop-filter: saturate(265%) blur(10px);
-
-}
-
-.inputs {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px 0px;
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 0px;
+  }
 }
 
 .header {
@@ -103,6 +101,15 @@
     background: transparent;
     cursor: pointer;
   }
+  .login{
+    border: none;
+    outline: none;
+    color: gray;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    transition: 500ms;
+  }
 
   .signUp{
     border: none;
@@ -111,15 +118,11 @@
     padding: 10px;
     font-size: 20px;
     font-weight: bold;
+    transition: 500ms;
   }
 
-  .login{
-    border: none;
-    outline: none;
+  .active{
     color: rgb(145 213 229);
-    padding: 10px;
-    font-size: 20px;
-    font-weight: bold;
   }
 }
 
