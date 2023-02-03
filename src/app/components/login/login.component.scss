@@ -243,6 +243,7 @@
       color: gray;
       border-radius: 5px;
       height: auto;
+      background: rgb(232, 240, 254);
       font-style: italic;
       transition: 2000ms;
       z-index: 1;
@@ -252,8 +253,8 @@
 
       &:focus ~ .upper-border {
         height: 100%;
-        border-top: 2px solid rgb(145 213 229);
-        border-left: 2px solid rgb(145 213 229);
+        border-top: 2px solid #7e86f3;
+        border-left: 2px solid #7e86f3;
         border-bottom: none;
         border-right: none;
         width: 100%;
@@ -263,8 +264,8 @@
 
       &:focus ~ .bottom-border {
         height: 100%;
-        border-bottom: 2px solid rgb(145 213 229);
-        border-right: 2px solid rgb(145 213 229);
+        border-bottom: 2px solid #7e86f3;
+        border-right: 2px solid #7e86f3;
         border-top: none;
         border-left: none;
         width: 100%;
@@ -275,9 +276,16 @@
   }
 }
 
+.forgot-password-text{
+  color: gray;
+  cursor: pointer;
+  text-align: end;
+  letter-spacing: 1.5px;
+}
+
 .login-error-container {
-  position: absolute;
-  top: -54px;
+  // position: absolute;
+
   border: 1px solid #b80b22ad;
   padding: 10px 10px;
   color: #b80b22ad;

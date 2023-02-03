@@ -5,6 +5,7 @@ import { ChatService } from '../../services/chat/chat.service';
 
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
     private chatService: ChatService,
     private router: Router,
     private http: HttpClient,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private spinner: NgxSpinnerService
   ) {
 
     this.isPhoneNumberWrong = false
@@ -43,6 +45,8 @@ export class LoginComponent implements OnInit {
   public login() {
     console.log('coming in login');
 
+    this.spinner.show()
+
     if (this.phone && this.password) {
       this.componentStatus = 'loading'
       this.chatService.loginContact({
@@ -50,6 +54,7 @@ export class LoginComponent implements OnInit {
         password: this.password
       }).subscribe(
         (data) => {
+          this.spinner.hide();
           if (data && data.user) {
 
             if (data && data.token) {
@@ -63,6 +68,7 @@ export class LoginComponent implements OnInit {
         },
         () => {
           this.isPhoneNumberWrong = true;
+          this.spinner.hide()
           setTimeout(() => {
             console.log(1);
             this.isPhoneNumberWrong = false;

@@ -1,61 +1,45 @@
 <!-- Login page -->
-
-      <div>
-        <div class="inputs">
-          <div class="page-header">
-            <h2>SIGN IN</h2>
-            <h4>sign in to continue to our application</h4>
-          </div>
-          <div class="login-input-container">
-            <div class="input-focus-design">
-              <input
-                class="login-input"
-                type="text"
-                [(ngModel)]="phone"
-                placeholder="Enter your phone number"
-                (keyup)="$event.keyCode === 13 && login()"
-                autocomplete="off"
-              />
-              <div class="upper-border"></div>
-              <div class="bottom-border"></div>
-            </div>
-            <br />
-            <div *ngIf="isPhoneNumberWrong" class="login-error-container">
-              <img
-                width="15"
-                height="15"
-                src="../assets/images/warning.png"
-                alt=""
-              />
-              Number or Password is invalid
-            </div>
-          </div>
-          <div class="login-input-container">
-            <div class="input-focus-design">
-              <input
-                class="login-input"
-                type="password"
-                [(ngModel)]="password"
-                placeholder="Enter your password"
-                (keyup)="$event.keyCode === 13 && login()"
-              />
-              <div class="upper-border"></div>
-              <div class="bottom-border"></div>
-            </div>
-            <br />
-          </div>
-        </div>
-        <button
-          class="login-button"
-          [disabled]="!phone.length || !password.length"
-          (click)="login()"
-        >
-          Login
-        </button>
-        <!-- <span style="color: grey"
+<!-- <ngx-spinner [fullScreen]="true" type="ball-clip-rotate-multiple" size="medium">
+  <p class="loading">Loading Awesomeness...</p>
+</ngx-spinner> -->
+<div>
+  <ngx-spinner type="ball-circus" size="medium" [fullScreen]="false"></ngx-spinner>
+  <div class="inputs">
+    <div class="page-header">
+      <h2>SIGN IN</h2>
+      <h4 style="color: gray;">sign in to continue to our application</h4>
+    </div>
+    <div class="login-input-container">
+      <div class="input-focus-design">
+        <input class="login-input" type="text" [(ngModel)]="phone" placeholder="Enter your phone number" (keyup)="$event.keyCode === 13 && login()" autocomplete="off" />
+        <div class="upper-border"></div>
+        <div class="bottom-border"></div>
+      </div>
+    </div>
+    <div class="login-input-container">
+      <div class="input-focus-design">
+        <input class="login-input" type="password" [(ngModel)]="password" placeholder="Enter your password" (keyup)="$event.keyCode === 13 && login()" />
+        <div class="upper-border"></div>
+        <div class="bottom-border"></div>
+      </div>
+      <br />
+    </div>
+    <div *ngIf="isPhoneNumberWrong" class="login-error-container">
+      <img width="15" height="15" src="../assets/images/warning.png" alt="" />
+      Number or Password is invalid
+    </div>
+    <div class="flex-dir-r-al-c-jc-spb">
+      <mat-checkbox >Remember me</mat-checkbox>
+      <h4 class="forgot-password-text">Forgot Password ?</h4>
+    </div>
+  </div>
+  <button class="login-button" [disabled]="!phone.length || !password.length" (click)="login()">
+    Login
+  </button>
+  <!-- <span style="color: grey"
           >--------------------- or ---------------------
         </span>
         <button class="signUp-button" (click)="navigationToSignUp()">
           Sign up
         </button> -->
-      </div>
+</div>
