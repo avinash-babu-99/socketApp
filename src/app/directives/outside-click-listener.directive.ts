@@ -16,7 +16,6 @@ export class OutsideClickListenerDirective {
 
   @HostListener('document:click', ['$event.target'])
   public onClick(event: Event) {
-    console.log(this.toggleTrigger, 'toggle trigger');
 
     if (
       !this.elementRef?.nativeElement?.contains(event) &&

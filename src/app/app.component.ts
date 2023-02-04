@@ -5,15 +5,19 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { ChatService } from './services/chat/chat.service';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  constructor() {
+  constructor(private router: Router, private route: ActivatedRoute, private cookieService: CookieService) {
+  }
+
+  public ngOnInit(): void {
+
   }
 }

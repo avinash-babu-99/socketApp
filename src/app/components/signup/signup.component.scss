@@ -6,22 +6,26 @@
 }
 
 .sign-up-form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
   form {
-    min-width: 300px;
+    width: auto;
     height: auto;
-    padding: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    background: rgb(169 169 169 / 80%);
-    height: 25rem;
-    border-radius: 10px;
-    box-shadow: 0 8px 32px 0 rgb(10 10 9 / 94%);
+    // background: rgb(169 169 169 / 80%);
+    // height: 25rem;
+    // border-radius: 10px;
+    // box-shadow: 0 8px 32px 0 rgb(10 10 9 / 94%);
 
     label {
-      width: 120px;
+      width: 250px;
     }
 
     .form-error-message {
@@ -32,8 +36,16 @@
   }
 }
 
+.footer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: gray;
+}
+
 .save-btn {
-  width: 100px;
+  width: 250px;
   height: 40px;
   border-radius: 5px;
   border: 1px solid #a14b0f;
@@ -44,9 +56,10 @@
 
 }
 
-.save-btn:disabled{
+.save-btn:disabled {
   opacity: 50%;
 }
+
 .save-btn:hover {
   background: #a52a2a5e;
 }
@@ -60,6 +73,11 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  label{
+    font-size: larger;
+    letter-spacing: 1px;
+    color: #aaabb9;
+  }
 }
 
 .input-focus-design {
@@ -75,8 +93,8 @@
     position: absolute;
     height: 1px;
     width: 1px;
-    border-top: 2px solid #141414;
-    border-left: 2px solid #141414;
+    border-top: 2px solid #68636369;
+    border-left: 2px solid #68636369;
     border-bottom: none;
     border-right: none;
     top: 0;
@@ -90,8 +108,8 @@
     position: absolute;
     height: 1px;
     width: 100%;
-    border-bottom: 2px solid #141414;
-    border-right: 2px solid #141414;
+    border-bottom: 2px solid #68636369;
+    border-right: 2px solid #68636369;
     border-top: none;
     border-left: none;
     bottom: 0;
@@ -118,15 +136,11 @@
     transition: 2000ms;
     z-index: 1;
     font-size: 15px;
-    box-shadow: 3px 5px 15px 0px rgb(10 10 9 / 49%);
-    border-top: 0px;
-    background: #f9f9f9;
-
 
     &:focus~.upper-border {
       height: 100%;
-      border-top: 2px solid #141414;
-      border-left: 2px solid #141414;
+      border-top: 2px solid #68636369;
+      border-left: 2px solid #68636369;
       border-bottom: none;
       border-right: none;
       width: 100%;
@@ -136,8 +150,8 @@
 
     &:focus~.bottom-border {
       height: 100%;
-      border-bottom: 2px solid #141414;
-      border-right: 2px solid #141414;
+      border-bottom: 2px solid #68636369;
+      border-right: 2px solid #68636369;
       border-top: none;
       border-left: none;
       width: 100%;

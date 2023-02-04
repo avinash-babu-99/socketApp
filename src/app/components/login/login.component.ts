@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   public password: String = '';
   public isPhoneNumberWrong: boolean;
   public componentStatus: string = 'loaded' || 'loading' || 'error'
+  public isPasswordVisible: boolean = false
 
   constructor(
     private chatService: ChatService,
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.componentStatus = 'loaded'
+    this.cookieService.deleteAll()
   }
 
   test(): void {
@@ -59,8 +61,11 @@ export class LoginComponent implements OnInit {
 
             if (data && data.token) {
 
-              this.cookieService.set('Auth-token', data.token)
+              this.cookieService.set(`Auth-token-${data.user.phone}`, data.token)
             }
+
+            console.log(data.user, 'data.user');
+
             this.chatService.currentUser = data.user
             this.router.navigate(['/Chat/Message'])
           }

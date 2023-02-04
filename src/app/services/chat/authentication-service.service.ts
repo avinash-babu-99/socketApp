@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { ChatService } from './chat.service';
 
 interface signUp {
   name: String,
@@ -19,7 +20,8 @@ export class AuthenticationServiceService {
 
   constructor(
     private http: HttpClient,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private chatService: ChatService
   ) {
 
   }
@@ -32,7 +34,7 @@ export class AuthenticationServiceService {
 
   public isLoggedIn(): Boolean{
 
-    const token = this.cookieService.get('Auth-token')
+    const token = this.cookieService.get(`Auth-token-${this.chatService.currentUser.phone}`)
 
     if( token ) return true
 

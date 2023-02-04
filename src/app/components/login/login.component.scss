@@ -191,13 +191,13 @@
   font-size: large;
   width: 100%;
 
-  input:focus::placeholder {
-    color: rgb(145 213 229);
-  }
+  // input:focus::placeholder {
+  //   color: rgb(145 213 229);
+  // }
 
-  input:focus{
-    color: rgb(145 213 229);
-  }
+  // input:focus{
+  //   color: rgb(145 213 229);
+  // }
 
   .input-focus-design {
     position: relative;
@@ -274,6 +274,17 @@
       }
     }
   }
+}
+
+.visibility-icon{
+  position: absolute;
+  right: 1%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .forgot-password-text{

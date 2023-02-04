@@ -1,12 +1,13 @@
 
     <div class="sign-up-form-container">
-      <form [formGroup]="signUpForm" autocomplete="off">
+      <div class="header"><h2 style="color: gray;">Create your Account</h2></div>
+      <form [formGroup]="signUpForm"  autocomplete="off">
 
         <div>
           <div class="form-control-container">
             <label for="name">User name <span style="color: #950e26db;">*</span> </label>
             <div class="input-focus-design">
-              <input formControlName="userName" type="text" placeholder="Enter a name" id="name">
+              <input formControlName="userName" autocomplete="random1" type="text" placeholder="Enter a name" id="name">
               <div class="upper-border"></div>
               <div class="bottom-border"></div>
             </div>
@@ -22,7 +23,7 @@
           <div class="form-control-container">
             <label for="phone">Phone <span style="color: #950e26db;">*</span> </label>
             <div class="input-focus-design">
-              <input formControlName="phone" type="text" placeholder="Enter the phone number" id="phone">
+              <input formControlName="phone" autocomplete="random2" type="text" placeholder="Enter the phone number" id="phone">
               <div class="upper-border"></div>
               <div class="bottom-border"></div>
             </div>
@@ -38,7 +39,7 @@
           <div class="form-control-container">
             <label for="password">Password <span style="color: #950e26db;">*</span> </label>
             <div class="input-focus-design">
-              <input formControlName="password" type="password" placeholder="Enter the password" id="password">
+              <input formControlName="password" autocomplete="random3" type="password" placeholder="Enter the password" id="password">
               <div class="upper-border"></div>
               <div class="bottom-border"></div>
             </div>
@@ -54,7 +55,8 @@
           <div class="form-control-container">
             <label for="confirmPassword">Confirm password <span style="color: #950e26db;">*</span> </label>
             <div class="input-focus-design">
-              <input formControlName="confirmPassword" type="password" placeholder="Enter the password again" id="confirmPassword">
+              <input type="hidden" name="randomValue">
+              <input formControlName="confirmPassword" id="user" autocomplete="random4" type="password" placeholder="Enter the password again" id="confirmPassword">
               <div class="upper-border"></div>
               <div class="bottom-border"></div>
             </div>
@@ -71,9 +73,17 @@
           </div>
         </div>
 
-        <div>
+        <div style="margin-top: 20px;">
           <input type="button" (click)="signUp()" value="Sign up" [disabled]="!this.signUpForm.valid" class="save-btn">
         </div>
 
       </form>
+      <div class="footer">
+        <span>
+          By clicking the Sign Up button, you agree to our
+        </span>
+        <span>
+          <span style="color: #5870b3;">terms & Conditions</span> and <span style="color: #5870b3;">private Policy</span>
+        </span>
+        </div>
     </div>

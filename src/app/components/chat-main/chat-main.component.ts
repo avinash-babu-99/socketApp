@@ -73,9 +73,15 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
       (err) => {}
     );
 
+    console.log(this.chatService.currentUser, 'this.chatService.currentUser');
+
+
     this.currentUser = this.chatService.currentUser;
 
     this.contactsList = this.currentUser.contacts;
+
+    console.log(this.contactsList, 'this.contactsList');
+
 
     this.chatService.refreshContactSubject$.subscribe((data: boolean) => {
       console.log(data, 'subject from service');
@@ -176,7 +182,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
   }
 
   public logout(): void {
-    this.cookieService.deleteAll('Auth-token')
+    this.cookieService.deleteAll(`Auth-token-${this.currentUser.phone}`)
     this.router.navigate(['/login']);
   }
 
@@ -220,30 +226,30 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
   }
 
   public refreshContacts(): void {
-    if (this.chatService.isLoggedIn) {
-      this.chatService
-        .loginContact(this.chatService.currentUser.phone)
-        .pipe(catchError((): any => {}))
-        .subscribe((data) => {
-          if (data && data.user[0]) {
-            console.log(data, 'data fro refresh contacts');
+    // if (this.chatService.isLoggedIn) {
+    //   this.chatService
+    //     .loginContact(this.chatService.currentUser.phone)
+    //     .pipe(catchError((): any => {}))
+    //     .subscribe((data) => {
+    //       if (data && data.user[0]) {
+    //         console.log(data, 'data fro refresh contacts');
 
-            this.chatService.currentUser = data.user[0];
+    //         this.chatService.currentUser = data.user[0];
 
-            if (this.chatService?.currentUser?.receivedFriendRequests) {
-              this.receivedFriendRequests =
-                this.chatService.currentUser.receivedFriendRequests;
-            }
+    //         if (this.chatService?.currentUser?.receivedFriendRequests) {
+    //           this.receivedFriendRequests =
+    //             this.chatService.currentUser.receivedFriendRequests;
+    //         }
 
-            this.currentUser = this.chatService.currentUser;
+    //         this.currentUser = this.chatService.currentUser;
 
-            this.contactsList = this.currentUser.contacts;
+    //         this.contactsList = this.currentUser.contacts;
 
-            let searchArray = [this.currentUser, ...this.contactsList];
-            this.addFriendsSearchArray = searchArray;
-          }
-        });
-    }
+    //         let searchArray = [this.currentUser, ...this.contactsList];
+    //         this.addFriendsSearchArray = searchArray;
+    //       }
+    //     });
+    // }
   }
 
   public notifyPeople(contact: any) {

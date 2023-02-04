@@ -18,7 +18,11 @@
     </div>
     <div class="login-input-container">
       <div class="input-focus-design">
-        <input class="login-input" type="password" [(ngModel)]="password" placeholder="Enter your password" (keyup)="$event.keyCode === 13 && login()" />
+        <div class="visibility-icon" (click)="isPasswordVisible = !isPasswordVisible">
+          <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="!isPasswordVisible">visibility_off</mat-icon>
+          <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="isPasswordVisible">visibility</mat-icon>
+        </div>
+        <input class="login-input" [type]="isPasswordVisible ? 'text' : 'password'"  [(ngModel)]="password" placeholder="Enter your password" (keyup)="$event.keyCode === 13 && login()" />
         <div class="upper-border"></div>
         <div class="bottom-border"></div>
       </div>

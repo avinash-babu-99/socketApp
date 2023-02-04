@@ -7,6 +7,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
 
 import { OutsideClickListenerDirective } from 'src/app/directives/outside-click-listener.directive';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon';
+
 
 
 @NgModule({
@@ -17,8 +19,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     FormsModule,
     MatInputModule,
     MatCheckboxModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatIconModule
   ],
-  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule, MatInputModule, MatCheckboxModule, NgxSpinnerModule]
+  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule, MatInputModule, MatCheckboxModule, NgxSpinnerModule, MatIconModule]
 })
 export class SharedModule { }

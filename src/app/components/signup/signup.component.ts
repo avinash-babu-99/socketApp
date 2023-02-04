@@ -29,6 +29,7 @@ export class SignupComponent implements OnInit {
 
 
    ngOnInit(): void {
+    this.cookieService.deleteAll()
    }
 
   public get userNameValue() : any  {
@@ -70,7 +71,7 @@ export class SignupComponent implements OnInit {
 
       }
 
-      this.cookieService.set('Auth-token', token)
+      this.cookieService.set(`Auth-token-${data.phone}`, token)
 
       this.router.navigate(['/chat/Message'])
 
