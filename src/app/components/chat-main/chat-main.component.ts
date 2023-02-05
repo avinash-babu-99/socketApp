@@ -37,7 +37,11 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
   public receivedFriendRequests: any[];
   public isChatContainerExpanded: boolean;
 
-  constructor(private chatService: ChatService, private router: Router, private cookieService: CookieService) {
+  constructor(
+    private chatService: ChatService,
+    private router: Router,
+    private cookieService: CookieService
+  ) {
     this.isBotModalOpen = false;
     this.chatBotMessage = '';
     this.contactsList = [];
@@ -75,13 +79,11 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
 
     console.log(this.chatService.currentUser, 'this.chatService.currentUser');
 
-
     this.currentUser = this.chatService.currentUser;
 
     this.contactsList = this.currentUser.contacts;
 
     console.log(this.contactsList, 'this.contactsList');
-
 
     this.chatService.refreshContactSubject$.subscribe((data: boolean) => {
       console.log(data, 'subject from service');
@@ -182,7 +184,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
   }
 
   public logout(): void {
-    this.cookieService.deleteAll(`Auth-token-${this.currentUser.phone}`)
+    this.cookieService.deleteAll(`Auth-token-${this.currentUser.phone}`);
     this.router.navigate(['/login']);
   }
 
@@ -226,30 +228,27 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
   }
 
   public refreshContacts(): void {
-    // if (this.chatService.isLoggedIn) {
-    //   this.chatService
-    //     .loginContact(this.chatService.currentUser.phone)
-    //     .pipe(catchError((): any => {}))
-    //     .subscribe((data) => {
-    //       if (data && data.user[0]) {
-    //         console.log(data, 'data fro refresh contacts');
+    this.chatService
+      .getContactDetails(this.chatService.currentUser._id)
+      .pipe(catchError((): any => {}))
+      .subscribe((data) => {
+        console.log(data, 'data fro refresh contacts');
+        if (data && data.response) {
+          this.chatService.currentUser = data.response;
 
-    //         this.chatService.currentUser = data.user[0];
+          if (this.chatService?.currentUser?.receivedFriendRequests) {
+            this.receivedFriendRequests =
+              this.chatService.currentUser.receivedFriendRequests;
+          }
 
-    //         if (this.chatService?.currentUser?.receivedFriendRequests) {
-    //           this.receivedFriendRequests =
-    //             this.chatService.currentUser.receivedFriendRequests;
-    //         }
+          this.currentUser = this.chatService.currentUser;
 
-    //         this.currentUser = this.chatService.currentUser;
+          this.contactsList = this.currentUser.contacts;
 
-    //         this.contactsList = this.currentUser.contacts;
-
-    //         let searchArray = [this.currentUser, ...this.contactsList];
-    //         this.addFriendsSearchArray = searchArray;
-    //       }
-    //     });
-    // }
+          let searchArray = [this.currentUser, ...this.contactsList];
+          this.addFriendsSearchArray = searchArray;
+        }
+      });
   }
 
   public notifyPeople(contact: any) {
@@ -262,7 +261,4 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
       this.isBotModalOpen = false;
     }
   }
-
 }
-
-

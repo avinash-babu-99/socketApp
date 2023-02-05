@@ -3,26 +3,56 @@
   <p class="loading">Loading Awesomeness...</p>
 </ngx-spinner> -->
 <div>
-  <ngx-spinner type="ball-circus" size="medium" [fullScreen]="false"></ngx-spinner>
+  <ngx-spinner
+    type="ball-circus"
+    size="medium"
+    [fullScreen]="false"
+  ></ngx-spinner>
   <div class="inputs">
     <div class="page-header">
       <h2>SIGN IN</h2>
-      <h4 style="color: gray;">sign in to continue to our application</h4>
+      <h4 style="color: gray">sign in to continue to our application</h4>
     </div>
     <div class="login-input-container">
       <div class="input-focus-design">
-        <input class="login-input" type="text" [(ngModel)]="phone" placeholder="Enter your phone number" (keyup)="$event.keyCode === 13 && login()" autocomplete="off" />
+        <input
+          class="login-input"
+          type="text"
+          [(ngModel)]="phone"
+          placeholder="Enter your phone number"
+          (keyup)="$event.keyCode === 13 && login()"
+          autocomplete="off"
+        />
         <div class="upper-border"></div>
         <div class="bottom-border"></div>
       </div>
     </div>
     <div class="login-input-container">
       <div class="input-focus-design">
-        <div class="visibility-icon" (click)="isPasswordVisible = !isPasswordVisible">
-          <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="!isPasswordVisible">visibility_off</mat-icon>
-          <mat-icon aria-hidden="false" aria-label="Example home icon" *ngIf="isPasswordVisible">visibility</mat-icon>
+        <div
+          class="visibility-icon"
+          (click)="isPasswordVisible = !isPasswordVisible"
+        >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            *ngIf="!isPasswordVisible"
+            >visibility_off</mat-icon
+          >
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Example home icon"
+            *ngIf="isPasswordVisible"
+            >visibility</mat-icon
+          >
         </div>
-        <input class="login-input" [type]="isPasswordVisible ? 'text' : 'password'"  [(ngModel)]="password" placeholder="Enter your password" (keyup)="$event.keyCode === 13 && login()" />
+        <input
+          class="login-input"
+          [type]="isPasswordVisible ? 'text' : 'password'"
+          [(ngModel)]="password"
+          placeholder="Enter your password"
+          (keyup)="$event.keyCode === 13 && login()"
+        />
         <div class="upper-border"></div>
         <div class="bottom-border"></div>
       </div>
@@ -33,11 +63,15 @@
       Number or Password is invalid
     </div>
     <div class="flex-dir-r-al-c-jc-spb">
-      <mat-checkbox >Remember me</mat-checkbox>
+      <mat-checkbox [(ngModel)]="isRememberMeChecked">Remember me</mat-checkbox>
       <h4 class="forgot-password-text">Forgot Password ?</h4>
     </div>
   </div>
-  <button class="login-button" [disabled]="!phone.length || !password.length" (click)="login()">
+  <button
+    class="login-button"
+    [disabled]="!phone.length || !password.length"
+    (click)="login()"
+  >
     Login
   </button>
   <!-- <span style="color: grey"

@@ -10,6 +10,7 @@ export class ChatService {
   private socket: Socket;
   public boUrl = 'http://127.0.0.1:400';
   private url: any = 'http://localhost:3001';
+  private boLocalUrl = 'http://localhost:400'
   public isLoggedIn: boolean;
   public currentUser: any;
   public refreshContactSubject$: Subject<any>;
@@ -146,4 +147,11 @@ export class ChatService {
   public removeFriend(payload: any): Observable<any> {
     return this.http.patch(`${this.boUrl}/contacts/removeContact`, payload);
   }
+
+  public getContactDetails(id: String): Observable<any> {
+
+    return this.http.get(`${this.boLocalUrl}/contacts/${id}`);
+
+  }
 }
+
