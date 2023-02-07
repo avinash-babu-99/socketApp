@@ -600,7 +600,7 @@
 }
 
 .chat-screen {
-  transition: .25s;
+  transition: 0.25s;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -685,25 +685,27 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
+      gap: 70px;
       width: 100%;
       height: 100%;
-      padding: 90px 0px 160px 0px;
+      padding: 90px 0px 90px 0px;
 
       mat-icon {
         color: #6c757d;
         cursor: pointer;
-        transition: .2s;
+        font-size: 32p7;
+        transition: 0.2s;
       }
 
       mat-icon:hover {
-        font-size: 35px;
-        transition: .2s;
+        font-size: 37px;
+        transition: 0.2s;
       }
 
       .menu-active {
         font-size: 35px;
-        transition: .2s;
+        transition: 0.2s;
         color: #dee2e6;
       }
     }
@@ -712,82 +714,101 @@
 
 .chat-list-container {
   .chat-list-sidenav {
+    height: 100%;
+    background: #d4dadf;
+    transition: 0.25s;
+    width: 300px;
+    overflow-x: hidden;
+  }
 
-    background: #D4DADF;
+  .chats-list {
+    padding-top: 40px;
 
-    width: 250px;
+    .search-container {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+      position: relative;
 
-    .chats-list {
-        .search-container {
-          align-items: center;
-          display: flex;
-          justify-content: center;
-          padding: 10px;
-          position: relative;
+      .chat-search {
+        border: none;
+        outline: none;
+        height: 30px;
+        width: 200px;
+        border-radius: 2px;
+        padding: 10px 30px;
+        color: gray;
 
-          .chat-search {
-            border: none;
-            outline: none;
-            height: 30px;
-            width: 200px;
-            border-radius: 2px;
-            padding: 10px 30px;
-            color: gray;
-
-            &:focus ~ mat-icon{
-              left: 30px;
-              transition: .25s;
-            }
-            &:focus ~ .place-holder{
-              opacity: 0;
-              transition: .25s;
-            }
-
-          }
-
-          .input-filled{
-            left: 30px;
-          }
-
-          mat-icon {
-
-            position: absolute;
-            left: 0;
-            top: 15px;
-            font-size: 20px;
-            left: 85px;
-            pointer-events: none;
-            transition: .25s;
-
-          }
-
-          .place-holder {
-            position: absolute;
-            left: 105px;
-            pointer-events: none;
-            transition: .25s;
-          }
+        &:focus ~ mat-icon {
+          left: 30px;
+          transition: 0.25s;
+        }
+        &:focus ~ .place-holder {
+          opacity: 0;
+          transition: 0.25s;
+        }
       }
 
-      .content {
+      .input-filled {
+        left: 30px;
+      }
 
+      mat-icon {
+        position: absolute;
+        left: 0;
+        top: 15px;
+        font-size: 20px;
+        left: 85px;
+        pointer-events: none;
+        transition: 0.25s;
+      }
+
+      .place-holder {
+        position: absolute;
+        left: 105px;
+        pointer-events: none;
+        transition: 0.25s;
+      }
+    }
+
+    .content {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      gap: 15px;
+      width: auto;
+
+      .contact {
         display: flex;
         align-items: center;
-        justify-content: center;
         gap: 15px;
-        width: auto;
-
-        .contact {
+        width: 100%;
+        padding: 10px 10px;
+        cursor: pointer;
+        .contact-name {
+          font-weight: bold;
+          letter-spacing: 2px;
+        }
+        .contact-text {
           display: flex;
           align-items: center;
-          gap: 15px;
+          justify-content: space-between;
+          color: gray;
+          padding-top: 5px;
         }
-
+      }
+      .contact:hover {
+        background: #a9a9a92e;
+        border-radius: 3px;
       }
     }
   }
-}
 
-::ng-deep {
-  .mat-drawer-opened> {}
+  .chat-list-sidenav-hidden {
+    height: 100%;
+    width: 0;
+    overflow-y: hidden;
+    transition: 0.25s;
+  }
 }
