@@ -21,6 +21,8 @@ import { CookieService } from 'ngx-cookie-service';
 export class ChatMainComponent implements OnInit, AfterViewChecked {
   @ViewChild('messageBlock') public messageBlockEle: any;
   @ViewChild('robotModalTrigger') botModalEleRef: ElementRef = {} as ElementRef;
+  @ViewChild('chatListTrigger') chatListEleRef: ElementRef = {} as ElementRef;
+
 
   public isBotModalOpen: boolean;
   public chatBotMessage: string;
@@ -36,6 +38,8 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
   public addFriendsSearchArray: any[];
   public receivedFriendRequests: any[];
   public isChatContainerExpanded: boolean;
+  public chatDrawOpen: boolean
+  public chatSearchText: string
 
   constructor(
     private chatService: ChatService,
@@ -52,6 +56,8 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
     this.receivedFriendRequests = [];
     this.isFriendRequestsModalOpen = false;
     this.isChatContainerExpanded = false;
+    this.chatDrawOpen = false;
+    this.chatSearchText = ''
   }
 
   ngOnInit(): void {

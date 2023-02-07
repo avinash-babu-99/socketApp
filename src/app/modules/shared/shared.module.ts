@@ -9,6 +9,7 @@ import { OutsideClickListenerDirective } from 'src/app/directives/outside-click-
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 @NgModule({
@@ -21,8 +22,9 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatCheckboxModule,
     NgxSpinnerModule,
     MatIconModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatBadgeModule
   ],
-  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule, MatInputModule, MatCheckboxModule, NgxSpinnerModule, MatIconModule, MatSidenavModule]
+  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule, MatInputModule, MatCheckboxModule, NgxSpinnerModule, MatIconModule, MatSidenavModule, MatBadgeModule]
 })
 export class SharedModule { }
