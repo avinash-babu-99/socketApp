@@ -2,7 +2,34 @@
   <div class="main-container">
     <!-- Chat container -->
     <div class="chat-container">
-      <div
+      <mat-drawer-container class="nav-container" autosize>
+        <div class="content">
+          <div class="nav-header">
+            <img
+              src="../assets/images/waiter.png"
+              width="50"
+              height="50"
+              alt="user"
+            />
+          </div>
+          <div class="nav-menu-list">
+            <mat-icon> chat_bubble_outline</mat-icon>
+            <mat-icon> list_alt</mat-icon>
+            <mat-icon>dock</mat-icon>
+            <mat-icon>phone_iphone</mat-icon>
+            <mat-icon>smartphone</mat-icon>
+            <mat-icon>menu</mat-icon>
+            <mat-icon>refresh</mat-icon>
+            <mat-icon>group_add</mat-icon>
+            <mat-icon>group</mat-icon>
+            <mat-icon>person_add</mat-icon>
+            <mat-icon>people</mat-icon>
+            <mat-icon>person</mat-icon>
+          </div>
+          <div class="nav-footer">footer</div>
+        </div>
+      </mat-drawer-container>
+      <!-- <div
         appOutsideClickListener
         (clickedOutside)="isChatContainerExpanded = false"
         [ngClass]="
@@ -101,7 +128,7 @@
             <div class="logoutbut">Log Out</div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="chat-screen">
         <div class="chat-init-image" *ngIf="!selectedUser">
