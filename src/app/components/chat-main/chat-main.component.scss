@@ -686,7 +686,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      gap: 70px;
+      gap: 47px;
       width: 100%;
       height: 100%;
       padding: 90px 0px 90px 0px;
@@ -694,17 +694,17 @@
       mat-icon {
         color: #6c757d;
         cursor: pointer;
-        font-size: 32p7;
+        font-size: 30px;
         transition: 0.2s;
       }
 
       mat-icon:hover {
-        font-size: 37px;
+        font-size: 34px;
         transition: 0.2s;
       }
 
       .menu-active {
-        font-size: 35px;
+        font-size: 34px;
         transition: 0.2s;
         color: #dee2e6;
       }
@@ -713,6 +713,7 @@
 }
 
 .chat-list-container {
+  height: 100%;
   .chat-list-sidenav {
     height: 100%;
     background: #d4dadf;
@@ -737,11 +738,11 @@
         height: 30px;
         width: 200px;
         border-radius: 2px;
-        padding: 10px 30px;
+        padding: 10px 35px;
         color: gray;
 
         &:focus ~ mat-icon {
-          left: 30px;
+          left: 60px;
           transition: 0.25s;
         }
         &:focus ~ .place-holder {
@@ -751,7 +752,7 @@
       }
 
       .input-filled {
-        left: 30px;
+        left: 60px;
       }
 
       mat-icon {
@@ -759,22 +760,75 @@
         left: 0;
         top: 15px;
         font-size: 20px;
-        left: 85px;
+        left: 112px;
         pointer-events: none;
         transition: 0.25s;
       }
 
       .place-holder {
         position: absolute;
-        left: 105px;
+        left: 135px;
         pointer-events: none;
         transition: 0.25s;
       }
     }
 
+    .contact-search-container{
+
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+      position: relative;
+
+      .chat-search {
+        border: none;
+        outline: none;
+        height: 30px;
+        width: 200px;
+        border-radius: 2px;
+        padding: 10px 35px;
+        color: gray;
+
+        &:focus ~ mat-icon {
+          left: 20px;
+          top: 16px;
+          transition: 0.25s;
+        }
+        &:focus ~ .place-holder {
+          opacity: 0;
+          transition: 0.25s;
+        }
+      }
+
+      .input-filled {
+        left: 60px;
+      }
+
+      mat-icon {
+        position: absolute;
+        left: 0;
+        top: 16px;
+        font-size: 20px;
+        left: 71px;
+        pointer-events: none;
+        transition: 0.25s;
+      }
+
+      .place-holder {
+        position: absolute;
+        left: 96px;
+        top: 16px;
+        pointer-events: none;
+        transition: 0.25s;
+      }
+
+    }
+
     .content {
       display: flex;
       align-items: center;
+      flex-direction: column;
       padding: 20px;
       gap: 15px;
       width: auto;
@@ -799,6 +853,10 @@
         }
       }
       .contact:hover {
+        background: #a9a9a92e;
+        border-radius: 3px;
+      }
+      .contact-selected{
         background: #a9a9a92e;
         border-radius: 3px;
       }

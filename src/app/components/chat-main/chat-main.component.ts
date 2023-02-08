@@ -22,6 +22,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
   @ViewChild('messageBlock') public messageBlockEle: any;
   @ViewChild('robotModalTrigger') botModalEleRef: ElementRef = {} as ElementRef;
   @ViewChild('chatListTrigger') chatListEleRef: ElementRef = {} as ElementRef;
+  @ViewChild('contactListTrigger') contactListEleRef: ElementRef = {} as ElementRef;
 
 
   public isBotModalOpen: boolean;
@@ -39,6 +40,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
   public receivedFriendRequests: any[];
   public isChatContainerExpanded: boolean;
   public chatDrawOpen: boolean
+  public contactsDrawOpen: boolean
   public chatSearchText: string
 
   constructor(
@@ -57,6 +59,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
     this.isFriendRequestsModalOpen = false;
     this.isChatContainerExpanded = false;
     this.chatDrawOpen = false;
+    this.contactsDrawOpen = false;
     this.chatSearchText = ''
   }
 
@@ -79,8 +82,8 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
     });
 
     this.chatService.getContacts().subscribe(
-      (data) => {},
-      (err) => {}
+      (data) => { },
+      (err) => { }
     );
 
     console.log(this.chatService.currentUser, 'this.chatService.currentUser');
@@ -236,7 +239,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
   public refreshContacts(): void {
     this.chatService
       .getContactDetails(this.chatService.currentUser._id)
-      .pipe(catchError((): any => {}))
+      .pipe(catchError((): any => { }))
       .subscribe((data) => {
         console.log(data, 'data fro refresh contacts');
         if (data && data.response) {
@@ -267,4 +270,4 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
       this.isBotModalOpen = false;
     }
   }
-}
+ }

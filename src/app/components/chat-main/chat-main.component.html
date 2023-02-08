@@ -2,98 +2,109 @@
   <div class="main-container">
     <!-- Chat container -->
     <div class="chat-container">
-      <mat-drawer-container class="nav-container" autosize>
-        <div class="content">
-          <div class="nav-header">
-            <img
-              src="../assets/images/waiter.png"
-              width="40"
-              height="40"
-              alt="user"
-            />
-          </div>
-          <div class="nav-menu-list">
-            <mat-icon> list_alt</mat-icon>
-            <mat-icon
-              [ngClass]="{ 'menu-active': chatDrawOpen }"
-              (click)="chatDrawOpen = !chatDrawOpen"
-            >
-              <span #chatListTrigger> chat_bubble_outline </span>
-            </mat-icon>
-            <!-- <mat-icon>dock</mat-icon>
-            <mat-icon>phone_iphone</mat-icon>
-            <mat-icon>smartphone</mat-icon>
-            <mat-icon>menu</mat-icon>
-            <mat-icon>refresh</mat-icon> -->
-            <mat-icon>group</mat-icon>
-            <mat-icon
-              [ngClass]="{ 'menu-active': isFriendRequestsModalOpen }"
-              [matBadge]="receivedFriendRequests.length"
-              matBadgeColor="accent"
-              (click)="openFriendRequestsModal()"
-              >group_add</mat-icon
-            >
-            <!-- <mat-icon>person_add</mat-icon> -->
-            <!-- <mat-icon>people</mat-icon>
-            <mat-icon>person</mat-icon> -->
-            <mat-icon>settings</mat-icon>
-          </div>
-          <div class="nav-footer"><mat-icon>exit_to_app</mat-icon></div>
-        </div>
-      </mat-drawer-container>
 
-      <!-- Chat toggle tab -->
-      <div class="chat-list-container" autosize>
-        <div
-          appOutsideClickListener
-          [toggleTrigger]="chatListEleRef"
-          (clickedOutside)="chatDrawOpen = false"
-          #drawer
-          class="chat-list-sidenav"
-          [ngClass]="{ 'chat-list-sidenav-hidden': !chatDrawOpen }"
-        >
-          <div *ngIf="chatDrawOpen" class="chats-list">
-            <div class="search-container">
-              <input
-                [(ngModel)]="chatSearchText"
-                class="chat-search"
-                type="text"
-              />
-              <mat-icon [ngClass]="{ 'input-filled': chatSearchText.length }"
-                >search</mat-icon
-              >
-              <span *ngIf="!chatSearchText.length" class="place-holder"
-                >Search</span
-              >
+      <div class="flex-container">
+
+        <mat-drawer-container class="nav-container" autosize>
+          <div class="content">
+            <div class="nav-header">
+              <img src="../assets/images/waiter.png" width="40" height="40" alt="user" />
             </div>
-            <div class="content">
-              <div
-                (click)="selectedUserHandler(user)"
-                class="contact"
-                *ngFor="let user of contactsList"
-              >
-                <div>
-                  <img
-                    src="../assets/images/waiter.png"
-                    width="40"
-                    height="40"
-                    alt="user"
-                  />
+            <div class="nav-menu-list">
+              <mat-icon> list_alt</mat-icon>
+              <mat-icon [ngClass]="{ 'menu-active': chatDrawOpen }" (click)="chatDrawOpen = !chatDrawOpen">
+                <span #chatListTrigger> chat_bubble_outline </span>
+              </mat-icon>
+              <!-- <mat-icon>dock</mat-icon>
+              <mat-icon>phone_iphone</mat-icon>
+              <mat-icon>smartphone</mat-icon>
+              <mat-icon>menu</mat-icon>
+              <mat-icon>refresh</mat-icon> -->
+              <mat-icon [ngClass]="{ 'menu-active': contactsDrawOpen }" (click)="contactsDrawOpen = !contactsDrawOpen">
+                <span #contactListTrigger>
+                  group
+                </span>
+              </mat-icon>
+              <mat-icon [ngClass]="{ 'menu-active': isFriendRequestsModalOpen }" [matBadge]="receivedFriendRequests.length" matBadgeColor="accent" (click)="openFriendRequestsModal()">group_add</mat-icon>
+              <!-- <mat-icon>person_add</mat-icon> -->
+              <!-- <mat-icon>people</mat-icon>
+              <mat-icon>person</mat-icon> -->
+              <mat-icon>settings</mat-icon>
+            </div>
+            <div class="nav-footer"><mat-icon>exit_to_app</mat-icon></div>
+          </div>
+        </mat-drawer-container>
+
+
+        <!-- Drawers -->
+
+        <div class="flex-container" style="height: 100%;">
+          <!-- Chat toggle tab -->
+          <div class="chat-list-container">
+            <div appOutsideClickListener [toggleTrigger]="chatListEleRef" (clickedOutside)="chatDrawOpen = false" #drawer class="chat-list-sidenav" [ngClass]="{ 'chat-list-sidenav-hidden': !chatDrawOpen }">
+              <div *ngIf="chatDrawOpen" class="chats-list">
+                <div class="search-container">
+                  <input [(ngModel)]="chatSearchText" class="chat-search" type="text" />
+                  <mat-icon [ngClass]="{ 'input-filled': chatSearchText.length }">search</mat-icon>
+                  <span *ngIf="!chatSearchText.length" class="place-holder">Search</span>
                 </div>
-                <div style="width: 100%">
-                  <span class="contact-name">
-                    {{ user.name }}
-                  </span>
-                  <div class="contact-text">
-                    <span>latest message</span>
-                    <span>2 mins</span>
+                <div class="content">
+                  <div (click)="selectedUserHandler(user)" class="contact" *ngFor="let user of contactsList" [ngClass]="{ 'contact-selected': selectedUser?._id === user?._id }">
+                    <div>
+                      <img src="../assets/images/waiter.png" width="40" height="40" alt="user" />
+                    </div>
+                    <div style="width: 100%">
+                      <span class="contact-name">
+                        {{ user.name }}
+                      </span>
+                      <div class="contact-text">
+                        <span>latest message</span>
+                        <span>2 mins</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Contacts toggle tab -->
+          <div class="chat-list-container">
+            <div appOutsideClickListener [toggleTrigger]="contactListEleRef" (clickedOutside)="contactsDrawOpen = false" #drawer class="chat-list-sidenav" [ngClass]="{ 'chat-list-sidenav-hidden': !contactsDrawOpen }">
+              <div *ngIf="contactsDrawOpen" class="chats-list">
+                <div class="header flex-al-c-jc-center">
+                  <div class="contact-search-container">
+                    <input [(ngModel)]="chatSearchText" class="chat-search" type="text" />
+                    <mat-icon [ngClass]="{ 'input-filled': chatSearchText.length }">search</mat-icon>
+                    <span *ngIf="!chatSearchText.length" class="place-holder">Search</span>
+                  </div>
+                  <mat-icon  (click)="openAddFriendsModal()" style="cursor: pointer;">add</mat-icon>
+                </div>
+                <div class="content">
+                  <div class="contact contact-selected" *ngFor="let user of contactsList">
+                    <div>
+                      <img src="../assets/images/waiter.png" width="40" height="40" alt="user" />
+                    </div>
+                    <div style="width: 100%">
+                      <span class="contact-name">
+                        {{ user.name }}
+                      </span>
+                    </div>
+                    <div style="cursor: pointer;">
+                      <mat-icon >more_vert</mat-icon>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
       </div>
+
+
+
       <!-- <div
         appOutsideClickListener
         (clickedOutside)="isChatContainerExpanded = false"
@@ -200,56 +211,34 @@
           <span>Select a contact to chat</span>
         </div>
         <div class="chat-profile" *ngIf="selectedUser">
-          <img
-            src="../assets/images/waiter.png"
-            width="60"
-            height="60"
-            alt="user"
-          />
+          <img src="../assets/images/waiter.png" width="60" height="60" alt="user" />
           <div class="profilehd">
             {{ selectedUser.name }}
           </div>
         </div>
         <div #messageBlock class="message-block" *ngIf="selectedUser">
-          <div
-            [ngClass]="
+          <div [ngClass]="
               user.sender === currentUser.phone
                 ? 'sent-message-wrap'
                 : 'message-wrap'
-            "
-            *ngFor="let user of messageArray"
-          >
-            <div
-              class="message"
-              [ngClass]="
+            " *ngFor="let user of messageArray">
+            <div class="message" [ngClass]="
                 user.sender === currentUser.phone ? 'sent-message' : 'message'
-              "
-            >
+              ">
               {{ user.message }}
             </div>
           </div>
         </div>
         <!-- <div class="spacer"></div> -->
         <div class="chat-text-box-wrapper" *ngIf="selectedUser">
-          <input
-            class="chat-text-box"
-            type="text"
-            placeholder="type the text....."
-            [(ngModel)]="messageText"
-            (keyup)="$event.keyCode === 13 && sendMessage()"
-          />
+          <input class="chat-text-box" type="text" placeholder="type the text....." [(ngModel)]="messageText" (keyup)="$event.keyCode === 13 && sendMessage()" />
         </div>
       </div>
     </div>
   </div>
 
   <!-- Bot modal container -->
-  <div
-    appOutsideClickListener
-    [toggleTrigger]="botModalEleRef"
-    (clickedOutside)="toggleBot()"
-    class="chat-bot-modal"
-    [ngStyle]="
+  <div appOutsideClickListener [toggleTrigger]="botModalEleRef" (clickedOutside)="toggleBot()" class="chat-bot-modal" [ngStyle]="
       isBotModalOpen
         ? { opacity: '1' }
         : {
@@ -257,16 +246,10 @@
             'background-color': 'yellow',
             transform: 'translate(200%, -50%)'
           }
-    "
-  >
+    ">
     <div class="bot-modal-container">
       <div class="modal-header">
-        <img
-          class="modal-close-button"
-          src="../assets/images/close.png"
-          alt=""
-          (click)="isBotModalOpen = !isBotModalOpen"
-        />
+        <img class="modal-close-button" src="../assets/images/close.png" alt="" (click)="isBotModalOpen = !isBotModalOpen" />
       </div>
       <div class="modal-body">
         <div class="robot-chat-space">
@@ -276,13 +259,7 @@
             </div>
           </div>
           <div class="user-chat-space">
-            <input
-              placeholder="text here..."
-              [(ngModel)]="robotMessageModel"
-              class="user-chat-input"
-              type="text"
-              (keyup)="$event.keyCode === 13 && sendMessageToBot()"
-            />
+            <input placeholder="text here..." [(ngModel)]="robotMessageModel" class="user-chat-input" type="text" (keyup)="$event.keyCode === 13 && sendMessageToBot()" />
           </div>
         </div>
         <div class="robot-icon-space">
@@ -293,16 +270,8 @@
   </div>
 
   <!-- Add friends modal -->
-  <app-add-friends-modal
-    [isModalOpen]="isAddFriendsModalOpen"
-    [SearchArray]="addFriendsSearchArray"
-    (modalStatusEventEmitter)="changeAddFriendsModalState($event)"
-  ></app-add-friends-modal>
+  <app-add-friends-modal [isModalOpen]="isAddFriendsModalOpen" [SearchArray]="addFriendsSearchArray" (modalStatusEventEmitter)="changeAddFriendsModalState($event)"></app-add-friends-modal>
 
   <!-- Friend requests modal -->
-  <app-friend-requests-modal
-    [isModalOpen]="isFriendRequestsModalOpen"
-    [friendRequests]="receivedFriendRequests"
-    (modalStatusEventEmitter)="changeFriendRequestsModalState($event)"
-  ></app-friend-requests-modal>
+  <app-friend-requests-modal [isModalOpen]="isFriendRequestsModalOpen" [friendRequests]="receivedFriendRequests" (modalStatusEventEmitter)="changeFriendRequestsModalState($event)"></app-friend-requests-modal>
 </div>
