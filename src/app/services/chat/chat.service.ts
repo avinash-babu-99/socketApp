@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ChatService {
-  private socket: Socket;
+  private socket: Socket | undefined;
   public boUrl = 'http://127.0.0.1:400';
   private url: any = 'http://localhost:3001';
   private boLocalUrl = 'http://localhost:400'
@@ -26,14 +26,22 @@ export class ChatService {
     this.refreshContactSubject$ = new Subject();
   }
 
+  public connectToSocket(): void {
+    this.socket = io(this.url, {
+      transports: ['websocket', 'polling', 'flashsocket'],
+    });
+  }
+
   public getContacts(): Observable<any> {
+    console.log('dsadsadad 33333333333333333333333333');
+
     return this.http.get(this.contactUrl);
   }
 
   public joinRoom(data: any): void {
-    this.socket.emit('join', data);
+    this.socket?.emit('join', data);
 
-    this.socket.on('hello', (data) => {
+    this.socket?.on('hello', (data) => {
       console.log('hello event received');
     });
   }
@@ -42,7 +50,7 @@ export class ChatService {
     console.log('send message service');
     this.saveMessage(data).subscribe(
       () => {
-        this.socket.emit('message', data);
+        this.socket?.emit('message', data);
       },
       () => {
         console.error('error sending message');
@@ -59,15 +67,39 @@ export class ChatService {
   public getMessage(): Observable<any> {
     console.log('service get message');
     return new Observable<{ user: string; message: string }>((observer) => {
-      this.socket.on('new message', (data) => {
+      this.socket?.on('new message', (data) => {
         console.log('new message coming in');
         observer.next(data);
       });
 
       return () => {
-        this.socket.disconnect();
+        this.socket?.disconnect();
       };
     });
+  }
+
+  public listenToContactOnline(data: any): Observable<any>{
+    return new Observable<{ id: string }>((observer) => {
+      this.socket?.on('onlineStatus', (data) => {
+        console.log(` online`, data);
+        observer.next(data._id);
+      });
+
+      return () => {
+        this.socket?.disconnect();
+      };
+    });
+  }
+
+  public emitStatus(status: string): void{
+    console.log(this.currentUser, 'this.currentUser3333333333333333333333333333333333333333333333333333333333333333333')
+    this.socket?.emit('goOffline', this.currentUser)
+
+    if(status === 'online'){
+      this.socket?.emit('goOnline', this.currentUser)
+    } else if(status === 'offline'){
+      this.socket?.emit('goOffline', this.currentUser)
+    }
   }
 
   getStorage() {
@@ -104,7 +136,7 @@ export class ChatService {
 
   public sendMessageToBot(text: string): Observable<any> {
     return new Observable<any>((observer) => {
-      this.socket.emit('bot message', text, (response: any) => {
+      this.socket?.emit('bot message', text, (response: any) => {
         observer.next(response);
       });
     });
@@ -117,12 +149,12 @@ export class ChatService {
   }
 
   public notifyUser(data: any): void {
-    this.socket.emit('notify', { data });
+    this.socket?.emit('notify', { data });
   }
 
   public listenNotification(): Observable<any> {
     return new Observable<any>((observer) => {
-      this.socket.on('new notification', (data: any) => {
+      this.socket?.on('new notification', (data: any) => {
         console.log('new notification received in service');
         console.log(data, 'new notification data received in service');
         console.log(data?.data?.data?._id);

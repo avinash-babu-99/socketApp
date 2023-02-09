@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { AuthenticationServiceService } from 'src/app/services/chat/authentication-service.service';
 import { CookieService } from 'ngx-cookie-service';
+import { ChatService } from 'src/app/services/chat/chat.service';
 
 @Component({
   selector: 'app-signup',
@@ -17,7 +18,8 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder,
     private authenticationServiceService: AuthenticationServiceService,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private chatService: ChatService
   ) {
     this.signUpForm = this.fb.group({
       userName: ['', [Validators.required]],
@@ -30,6 +32,7 @@ export class SignupComponent implements OnInit {
 
    ngOnInit(): void {
     // this.cookieService.deleteAll()
+    // this.chatService.emitStatus("offline")
    }
 
   public get userNameValue() : any  {

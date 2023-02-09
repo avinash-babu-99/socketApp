@@ -5,6 +5,8 @@ import {
   AfterViewChecked,
   ViewChild,
   ElementRef,
+  OnDestroy,
+  HostListener
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
@@ -18,7 +20,7 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './chat-main.component.html',
   styleUrls: ['./chat-main.component.scss'],
 })
-export class ChatMainComponent implements OnInit, AfterViewChecked {
+export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild('messageBlock') public messageBlockEle: any;
   @ViewChild('robotModalTrigger') botModalEleRef: ElementRef = {} as ElementRef;
   @ViewChild('chatListTrigger') chatListEleRef: ElementRef = {} as ElementRef;
@@ -60,10 +62,17 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
     this.isChatContainerExpanded = false;
     this.chatDrawOpen = false;
     this.contactsDrawOpen = false;
-    this.chatSearchText = ''
+    this.chatSearchText = '';
   }
 
+
   ngOnInit(): void {
+    // window.addEventListener('beforeunload', (event) => {
+    //   console.log('Page is leaving');
+    //   this.chatService.emitStatus("offline")
+
+    //   // ... custom logic to be executed before the page unloads
+    // });
     this.isChatContainerExpanded = false;
     console.log(this.chatService.currentUser, 'currentUser');
 
@@ -104,6 +113,13 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
 
     this.scrollToBottom();
   }
+
+  ngOnDestroy(): void {
+    console.log('destroy ');
+
+    this.chatService.emitStatus("offline")
+  }
+
 
   ngAfterViewChecked(): void {
     this.scrollToBottom();
@@ -270,4 +286,4 @@ export class ChatMainComponent implements OnInit, AfterViewChecked {
       this.isBotModalOpen = false;
     }
   }
- }
+}

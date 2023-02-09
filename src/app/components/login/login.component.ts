@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.chatService.emitStatus("offline")
     this.componentStatus = 'loaded';
 
     if ((localStorage.getItem('rememberTalkrrCred') || '') === 'Y') {
@@ -105,6 +106,7 @@ export class LoginComponent implements OnInit {
               console.log(data.user, 'data.user');
 
               this.chatService.currentUser = data.user;
+              this.chatService.emitStatus('online')
               this.router.navigate(['/Chat/Message']);
             }
             this.componentStatus = 'loaded';
