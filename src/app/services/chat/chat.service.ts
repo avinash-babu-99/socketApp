@@ -18,9 +18,9 @@ export class ChatService {
   private contactUrl = 'http://127.0.0.1:400/contacts';
 
   constructor(private http: HttpClient) {
-    this.socket = io(this.url, {
-      transports: ['websocket', 'polling', 'flashsocket'],
-    });
+    // this.socket = io(this.url, {
+    //   transports: ['websocket', 'polling', 'flashsocket'],
+    // });
     this.isLoggedIn = false;
     this.currentUser = {};
     this.refreshContactSubject$ = new Subject();
@@ -32,8 +32,25 @@ export class ChatService {
     });
   }
 
+  public disconnectSocket(): void{
+    this.socket?.disconnect()
+  }
+
+  public saveUserDetailsInSocket(): void{
+    this.socket?.emit('loginDetails', this.currentUser)
+  }
+
+  public updateContact(id: any, status: string){
+    if ( this.currentUser && this.currentUser.contacts ) {
+      this.currentUser.contacts.map((data: any) =>{
+        if(data._id === id) {
+          data.status === status
+        }
+      })
+    }
+  }
+
   public getContacts(): Observable<any> {
-    console.log('dsadsadad 33333333333333333333333333');
 
     return this.http.get(this.contactUrl);
   }
@@ -78,6 +95,20 @@ export class ChatService {
     });
   }
 
+  public updateContactDetails(): Observable<any> {
+    console.log('service get message');
+    return new Observable<{ user: string; message: string }>((observer) => {
+      this.socket?.on('updateContactStatus', (data) => {
+        this.updateContact(data?._id, data?.status)
+        observer.next(data)
+      });
+
+      return () => {
+        this.socket?.disconnect();
+      };
+    });
+  }
+
   public listenToContactOnline(data: any): Observable<any>{
     return new Observable<{ id: string }>((observer) => {
       this.socket?.on('onlineStatus', (data) => {
@@ -92,7 +123,6 @@ export class ChatService {
   }
 
   public emitStatus(status: string): void{
-    console.log(this.currentUser, 'this.currentUser3333333333333333333333333333333333333333333333333333333333333333333')
     this.socket?.emit('goOffline', this.currentUser)
 
     if(status === 'online'){

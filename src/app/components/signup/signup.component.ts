@@ -33,6 +33,7 @@ export class SignupComponent implements OnInit {
    ngOnInit(): void {
     // this.cookieService.deleteAll()
     // this.chatService.emitStatus("offline")
+    this.chatService.disconnectSocket()
    }
 
   public get userNameValue() : any  {

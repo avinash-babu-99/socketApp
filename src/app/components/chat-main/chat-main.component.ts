@@ -67,12 +67,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
 
 
   ngOnInit(): void {
-    // window.addEventListener('beforeunload', (event) => {
-    //   console.log('Page is leaving');
-    //   this.chatService.emitStatus("offline")
 
-    //   // ... custom logic to be executed before the page unloads
-    // });
     this.isChatContainerExpanded = false;
     console.log(this.chatService.currentUser, 'currentUser');
 
@@ -279,6 +274,16 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
   public notifyPeople(contact: any) {
     let data = {};
     this.chatService.notifyUser(contact);
+  }
+
+  public updateContactInChat(id: any, status: string){
+    if ( this.currentUser && this.currentUser.contacts ) {
+      this.currentUser.contacts.map((data: any) =>{
+        if(data._id === id) {
+          data.status === status
+        }
+      })
+    }
   }
 
   public toggleBot(): void {

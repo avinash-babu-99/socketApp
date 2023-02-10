@@ -37,6 +37,8 @@ export class LoginComponent implements OnInit {
     // this.chatService.emitStatus("offline")
     this.componentStatus = 'loaded';
 
+    this.chatService.disconnectSocket()
+
     if ((localStorage.getItem('rememberTalkrrCred') || '') === 'Y') {
       this.isRememberMeChecked = true;
       const encryptredPassword: any =
@@ -56,18 +58,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  test(): void {
-    this.http.get('http://14.97.127.234:3000/houses/list').subscribe((data) => {
-      console.log(data, 'data');
-    });
-  }
-
   public login() {
-    console.log('coming in login');
-
     this.spinner.show();
-
-    console.log(this.isRememberMeChecked, 'is checked');
 
     if (this.isRememberMeChecked) {
       localStorage.setItem('talkrrUserName', this.phone);
@@ -94,20 +86,20 @@ export class LoginComponent implements OnInit {
             this.spinner.hide();
             if (data && data.user) {
               if (data && data.token) {
+                this.chatService.currentUser = data.user;
+                this.chatService.emitStatus('online')
+                this.chatService.connectToSocket()
+                this.chatService.saveUserDetailsInSocket()
                 this.cookieService.delete(`Auth-token-${data.user.phone}`);
 
                 this.cookieService.set(
                   `Auth-token-${data.user.phone}`,
                   data.token,
                   2
-                );
+                  );
+                  this.router.navigate(['/Chat/Message']);
               }
 
-              console.log(data.user, 'data.user');
-
-              this.chatService.currentUser = data.user;
-              this.chatService.emitStatus('online')
-              this.router.navigate(['/Chat/Message']);
             }
             this.componentStatus = 'loaded';
           },
