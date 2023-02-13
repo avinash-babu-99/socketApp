@@ -31,7 +31,6 @@ export class FriendRequestsModalComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.friendRequests);
   }
 
   public notifyPeople(contact: any) {
@@ -64,7 +63,6 @@ export class FriendRequestsModalComponent implements OnInit, OnChanges {
         })
       )
       .subscribe(() => {
-        console.log('request updated');
         this.notifyPeople(contact);
         this.chatService.refreshContactSubject$.next(true);
       });

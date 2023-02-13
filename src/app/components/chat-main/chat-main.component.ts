@@ -69,7 +69,6 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
   ngOnInit(): void {
 
     this.isChatContainerExpanded = false;
-    console.log(this.chatService.currentUser, 'currentUser');
 
     if (this.chatService?.currentUser?.receivedFriendRequests) {
       this.receivedFriendRequests =
@@ -82,24 +81,41 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.chatService.listenNotification().subscribe((data) => {
       this.refreshContacts();
-      console.log('you are notified');
     });
+
+    this.chatService.updateContactDetails().subscribe(data => {
+      console.log(data, 'updateContactDetails');
+
+      if(this.selectedUser?.contact?._id === data?._id){
+        console.log('comming in');
+
+        this.selectedUser.status = data.status
+      }
+
+      this.contactsList.map((contact: any, i: any) => {
+        if (data._id === contact?.contact?._id) {
+          console.log('comming in');
+          this.contactsList[i].contact.status = data.status
+        }
+      })
+
+      console.log(this.selectedUser, 'this.selectedUser');
+      console.log(this.contactsList, 'this.contactsList');
+
+
+
+    })
 
     this.chatService.getContacts().subscribe(
       (data) => { },
       (err) => { }
     );
 
-    console.log(this.chatService.currentUser, 'this.chatService.currentUser');
-
     this.currentUser = this.chatService.currentUser;
 
     this.contactsList = this.currentUser.contacts;
 
-    console.log(this.contactsList, 'this.contactsList');
-
     this.chatService.refreshContactSubject$.subscribe((data: boolean) => {
-      console.log(data, 'subject from service');
 
       if (data) {
         this.refreshContacts();
@@ -110,8 +126,6 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('destroy ');
-
     this.chatService.emitStatus("offline")
   }
 
@@ -123,14 +137,11 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
   public selectedUserHandler(selectedUser: any) {
     this.messageArray = [];
     this.selectedUser = selectedUser;
-    console.log(selectedUser);
 
     const ids = [selectedUser?.contact._id, this.currentUser._id];
     this.chatService.getRoom(ids).subscribe((data) => {
       if (data.data && !data.data.length) {
-        console.log('room id not available');
         this.chatService.newRoom(ids).subscribe((response) => {
-          console.log('new room created', response);
           this.roomId = response.data._id;
           this.chatService
             .getChatMessages(this.roomId)
@@ -140,7 +151,6 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
                   ...this.messageArray,
                   ...response.messages,
                 ];
-                console.log(this.messageArray);
                 this.scrollToBottom();
                 this.join(this.currentUser, this.roomId);
               }
@@ -151,7 +161,6 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.chatService.getChatMessages(this.roomId).subscribe((response) => {
           if (response && response.messages) {
             this.messageArray = [...this.messageArray, ...response.messages];
-            console.log(this.messageArray);
             this.scrollToBottom();
             this.join(this.currentUser, this.roomId);
           }
@@ -180,7 +189,6 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   public sendMessage() {
-    console.log('send message', this.currentUser);
     this.chatService.sendMessage({
       sendUser: this.currentUser.phone,
       room: this.roomId,
@@ -196,8 +204,6 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.chatService
       .sendMessageToBot(this.robotMessageModel)
       .subscribe((response) => {
-        console.log(response, 'response');
-
         this.chatBotMessage = response;
         this.robotMessageModel = '';
       });
@@ -217,7 +223,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   public openAddFriendsModal(): void {
-    let contactList = this.contactsList.map(data =>  data.contact
+    let contactList = this.contactsList.map(data => data.contact
     )
     let searchArray = [this.currentUser, ...contactList];
     this.addFriendsSearchArray = searchArray;
@@ -254,7 +260,6 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
       .getContactDetails(this.chatService.currentUser._id)
       .pipe(catchError((): any => { }))
       .subscribe((data) => {
-        console.log(data, 'data fro refresh contacts');
         if (data && data.response) {
           this.chatService.currentUser = data.response;
 

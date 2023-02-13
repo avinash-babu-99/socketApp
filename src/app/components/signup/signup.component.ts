@@ -55,8 +55,6 @@ export class SignupComponent implements OnInit {
 
 
   public signUp(){
-    console.log(this.signUpForm.getRawValue(), 'sign up form');
-    console.log(this.signUpForm, 'sign up form');
 
     const payload = {
       name: this.userNameValue.value,

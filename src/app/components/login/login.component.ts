@@ -107,7 +107,6 @@ export class LoginComponent implements OnInit {
             this.isPhoneNumberWrong = true;
             this.spinner.hide();
             setTimeout(() => {
-              console.log(1);
               this.isPhoneNumberWrong = false;
             }, 5000);
           }

@@ -215,6 +215,9 @@
           <div class="profilehd">
             {{ selectedUser?.contact?.name }}
           </div>
+          <div>
+            <span>{{selectedUser?.contact?.status}}</span>
+          </div>
         </div>
         <div #messageBlock class="message-block" *ngIf="selectedUser">
           <div [ngClass]="

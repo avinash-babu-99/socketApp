@@ -21,11 +21,6 @@ export class OutsideClickListenerDirective {
       !this.elementRef?.nativeElement?.contains(event) &&
       !this.toggleTrigger?.nativeElement?.contains(event)
     ) {
-      console.log(
-        'coming in if',
-        this.toggleTrigger?.nativeElement?.contains(event),
-        this.elementRef?.nativeElement?.contains(event)
-      );
 
       this.clickedOutside.emit(true);
     }

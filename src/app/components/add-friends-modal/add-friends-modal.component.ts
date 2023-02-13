@@ -35,13 +35,11 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes, 'changes');
     this.getAddFriendsList();
   }
 
   public getAddFriendsList(): void {
     this.chatService.getAddNewFriendsList(this.SearchArray).subscribe((res) => {
-      console.log(this.chatService.currentUser, ' current user');
       if (res?.users) {
         this.addFriendsList = res.users;
 
@@ -107,8 +105,6 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
     finalObject.from = fromObject;
     finalObject.to = toObject;
 
-    console.log('final object', finalObject);
-
     this.chatService
       .addFriend(finalObject)
       .pipe(
@@ -117,7 +113,6 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
         })
       )
       .subscribe(() => {
-        console.log('friend request added');
         this.getAddFriendsList();
         this.notifyPeople(contact);
       });
@@ -146,7 +141,6 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
         })
       )
       .subscribe(() => {
-        console.log('request updated');
         this.notifyPeople(contact);
         this.chatService.refreshContactSubject$.next(true);
       });

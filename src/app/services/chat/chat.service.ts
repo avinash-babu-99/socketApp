@@ -59,12 +59,10 @@ export class ChatService {
     this.socket?.emit('join', data);
 
     this.socket?.on('hello', (data) => {
-      console.log('hello event received');
     });
   }
 
   public sendMessage(data: any): any {
-    console.log('send message service');
     this.saveMessage(data).subscribe(
       () => {
         this.socket?.emit('message', data);
@@ -82,10 +80,8 @@ export class ChatService {
   }
 
   public getMessage(): Observable<any> {
-    console.log('service get message');
     return new Observable<{ user: string; message: string }>((observer) => {
       this.socket?.on('new message', (data) => {
-        console.log('new message coming in');
         observer.next(data);
       });
 
@@ -96,9 +92,10 @@ export class ChatService {
   }
 
   public updateContactDetails(): Observable<any> {
-    console.log('service get message');
     return new Observable<{ user: string; message: string }>((observer) => {
+
       this.socket?.on('updateContactStatus', (data) => {
+        console.log(data, 'from observer');
         this.updateContact(data?._id, data?.status)
         observer.next(data)
       });
@@ -112,7 +109,6 @@ export class ChatService {
   public listenToContactOnline(data: any): Observable<any>{
     return new Observable<{ id: string }>((observer) => {
       this.socket?.on('onlineStatus', (data) => {
-        console.log(` online`, data);
         observer.next(data._id);
       });
 
@@ -152,7 +148,6 @@ export class ChatService {
   }
 
   public getRoom(ids: any[]): Observable<any> {
-    console.log(ids, 'ids');
     return this.http.get(`${this.boUrl}/rooms/getRoom`, {
       params: {
         ids: [...ids],
@@ -185,15 +180,13 @@ export class ChatService {
   public listenNotification(): Observable<any> {
     return new Observable<any>((observer) => {
       this.socket?.on('new notification', (data: any) => {
-        console.log('new notification received in service');
-        console.log(data, 'new notification data received in service');
-        console.log(data?.data?.data?._id);
-        console.log(this.currentUser._id);
 
         if (data?.data?.data?._id === this.currentUser._id) observer.next(data);
       });
     });
   }
+
+
 
   public addFriend(payload: any): Observable<any> {
     return this.http.patch(`${this.boUrl}/contacts/addFriendRequest/`, payload);
