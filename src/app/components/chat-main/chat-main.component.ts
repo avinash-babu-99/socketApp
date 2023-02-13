@@ -125,7 +125,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.selectedUser = selectedUser;
     console.log(selectedUser);
 
-    const ids = [selectedUser._id, this.currentUser._id];
+    const ids = [selectedUser?.contact._id, this.currentUser._id];
     this.chatService.getRoom(ids).subscribe((data) => {
       if (data.data && !data.data.length) {
         console.log('room id not available');
@@ -217,7 +217,9 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   public openAddFriendsModal(): void {
-    let searchArray = [this.currentUser, ...this.contactsList];
+    let contactList = this.contactsList.map(data =>  data.contact
+    )
+    let searchArray = [this.currentUser, ...contactList];
     this.addFriendsSearchArray = searchArray;
     this.isAddFriendsModalOpen = !this.isAddFriendsModalOpen;
   }
@@ -276,10 +278,10 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.chatService.notifyUser(contact);
   }
 
-  public updateContactInChat(id: any, status: string){
-    if ( this.currentUser && this.currentUser.contacts ) {
-      this.currentUser.contacts.map((data: any) =>{
-        if(data._id === id) {
+  public updateContactInChat(id: any, status: string) {
+    if (this.currentUser && this.currentUser.contacts) {
+      this.currentUser.contacts.map((data: any) => {
+        if (data._id === id) {
           data.status === status
         }
       })

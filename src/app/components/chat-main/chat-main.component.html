@@ -49,13 +49,13 @@
                   <span *ngIf="!chatSearchText.length" class="place-holder">Search</span>
                 </div>
                 <div class="content">
-                  <div (click)="selectedUserHandler(user)" class="contact" *ngFor="let user of contactsList" [ngClass]="{ 'contact-selected': selectedUser?._id === user?._id }">
+                  <div (click)="selectedUserHandler(user)" class="contact" *ngFor="let user of contactsList" [ngClass]="{ 'contact-selected': selectedUser?.contact?._id === user?.contact?._id }">
                     <div>
                       <img src="../assets/images/waiter.png" width="40" height="40" alt="user" />
                     </div>
                     <div style="width: 100%">
                       <span class="contact-name">
-                        {{ user.name }}
+                        {{ user?.contact?.name }}
                       </span>
                       <div class="contact-text">
                         <span>latest message</span>
@@ -88,7 +88,7 @@
                     </div>
                     <div style="width: 100%">
                       <span class="contact-name">
-                        {{ user.name }}
+                        {{ user?.contact?.name }}
                       </span>
                     </div>
                     <div style="cursor: pointer;">
@@ -213,7 +213,7 @@
         <div class="chat-profile" *ngIf="selectedUser">
           <img src="../assets/images/waiter.png" width="60" height="60" alt="user" />
           <div class="profilehd">
-            {{ selectedUser.name }}
+            {{ selectedUser?.contact?.name }}
           </div>
         </div>
         <div #messageBlock class="message-block" *ngIf="selectedUser">
