@@ -48,6 +48,19 @@ body{
   justify-content: space-between
 }
 
+.flex-start-container{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.vertical-flex-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 
 .p-1{
   padding: 1rem;

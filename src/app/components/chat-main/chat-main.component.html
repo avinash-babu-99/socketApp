@@ -79,7 +79,7 @@
                     <mat-icon [ngClass]="{ 'input-filled': chatSearchText.length }">search</mat-icon>
                     <span *ngIf="!chatSearchText.length" class="place-holder">Search</span>
                   </div>
-                  <mat-icon  (click)="openAddFriendsModal()" style="cursor: pointer;">add</mat-icon>
+                  <mat-icon (click)="openAddFriendsModal()" style="cursor: pointer;">add</mat-icon>
                 </div>
                 <div class="content">
                   <div class="contact contact-selected" *ngFor="let user of contactsList">
@@ -92,7 +92,7 @@
                       </span>
                     </div>
                     <div style="cursor: pointer;">
-                      <mat-icon >more_vert</mat-icon>
+                      <mat-icon>more_vert</mat-icon>
                     </div>
                   </div>
                 </div>
@@ -214,9 +214,10 @@
           <img src="../assets/images/waiter.png" width="60" height="60" alt="user" />
           <div class="profilehd">
             {{ selectedUser?.contact?.name }}
-          </div>
-          <div>
-            <span>{{selectedUser?.contact?.status}}</span>
+            <div style="gap: 4px;" class="flex-al-c-jc-center">
+              <span>{{selectedUser?.contact?.status}}</span>
+              <mat-icon [ngStyle]="{'color': (selectedUser?.contact?.status === 'online') ? 'green' : 'red' }">fiber_manual_record</mat-icon>
+            </div>
           </div>
         </div>
         <div #messageBlock class="message-block" *ngIf="selectedUser">

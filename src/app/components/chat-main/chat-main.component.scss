@@ -870,3 +870,10 @@
     transition: 0.25s;
   }
 }
+
+.status-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: medium;
+}
