@@ -1,0 +1,60 @@
+<div class="chat-list-container">
+  <div class="chat-list-sidenav">
+    <div class="chats-list">
+      <div class="search-container">
+        <input [(ngModel)]="chatSearchText" class="chat-search" type="text" />
+        <mat-icon [ngClass]="{ 'input-filled': chatSearchText.length }">search</mat-icon>
+        <span *ngIf="!chatSearchText.length" class="place-holder">Search</span>
+      </div>
+      <div class="content">
+        <div (click)="selectedUserHandler(user)" class="contact" *ngFor="let user of contactsList" [ngClass]="{ 'contact-selected': selectedUser?.contact?._id === user?.contact?._id }">
+          <div>
+            <img src="../assets/images/waiter.png" width="40" height="40" alt="user" />
+          </div>
+          <div style="width: 100%">
+            <span class="contact-name">
+              {{ user?.contact?.name }}
+            </span>
+            <div class="contact-text">
+              <span>latest message</span>
+              <span>2 mins</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="chat-screen">
+  <div class="chat-init-image" *ngIf="!selectedUser">
+    <span>Select a contact to chat</span>
+  </div>
+  <div class="chat-profile" *ngIf="selectedUser">
+    <img src="../assets/images/waiter.png" width="60" height="60" alt="user" />
+    <div class="profilehd">
+      {{ selectedUser?.contact?.name }}
+      <div class="flex-al-c-jc-center online-status">
+        <span>{{selectedUser?.contact?.status}}</span>
+        <mat-icon [ngStyle]="{'color': (selectedUser?.contact?.status === 'online') ? 'green' : 'red' }">fiber_manual_record</mat-icon>
+      </div>
+    </div>
+  </div>
+  <div #messageBlock class="message-block" *ngIf="selectedUser">
+    <div [ngClass]="
+        user.sender === currentUser.phone
+          ? 'sent-message-wrap'
+          : 'message-wrap'
+      " *ngFor="let user of messageArray">
+      <div class="message" [ngClass]="
+          user.sender === currentUser.phone ? 'sent-message' : 'message'
+        ">
+        {{ user.message }}
+      </div>
+    </div>
+  </div>
+  <!-- <div class="spacer"></div> -->
+  <div class="chat-text-box-wrapper" *ngIf="selectedUser">
+    <input class="chat-text-box" type="text" placeholder="type the text....." [(ngModel)]="messageText" (keyup)="$event.keyCode === 13 && sendMessage()" />
+  </div>
+</div>

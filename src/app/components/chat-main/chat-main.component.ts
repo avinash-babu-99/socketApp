@@ -84,25 +84,17 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
     });
 
     this.chatService.updateContactDetails().subscribe(data => {
-      console.log(data, 'updateContactDetails');
 
       if(this.selectedUser?.contact?._id === data?._id){
-        console.log('comming in');
 
         this.selectedUser.status = data.status
       }
 
       this.contactsList.map((contact: any, i: any) => {
         if (data._id === contact?.contact?._id) {
-          console.log('comming in');
           this.contactsList[i].contact.status = data.status
         }
       })
-
-      console.log(this.selectedUser, 'this.selectedUser');
-      console.log(this.contactsList, 'this.contactsList');
-
-
 
     })
 
@@ -223,9 +215,14 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   public openAddFriendsModal(): void {
-    let contactList = this.contactsList.map(data => data.contact
-    )
+    let contactList = []
+    if( this.contactsList ) {
+
+      contactList = this.contactsList.map(data => data.contact
+        )
+    }
     let searchArray = [this.currentUser, ...contactList];
+
     this.addFriendsSearchArray = searchArray;
     this.isAddFriendsModalOpen = !this.isAddFriendsModalOpen;
   }
@@ -239,7 +236,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     if (contact._id && this.chatService.currentUser._id) {
       finalObject._id = this.chatService.currentUser._id;
-      finalObject.contactId = contact._id;
+      finalObject.contactId = contact.contact._id;
 
       this.chatService
         .removeFriend(finalObject)
@@ -250,7 +247,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
         )
         .subscribe((response: any) => {
           this.refreshContacts();
-          this.notifyPeople(contact);
+          this.notifyPeople(contact.contact);
         });
     }
   }
@@ -272,7 +269,14 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
 
           this.contactsList = this.currentUser.contacts;
 
-          let searchArray = [this.currentUser, ...this.contactsList];
+          let contactList = []
+          if( this.contactsList ) {
+
+            contactList = this.contactsList.map(data => data.contact
+              )
+          }
+
+          let searchArray = [this.currentUser, ...contactList];
           this.addFriendsSearchArray = searchArray;
         }
       });

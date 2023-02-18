@@ -11,7 +11,6 @@
   overflow: auto;
   height: 100%;
   width: 100%;
-  padding: 10px 10px 10px 10px;
 }
 
 .contacts-container {
@@ -691,6 +690,28 @@
       height: 100%;
       padding: 90px 0px 90px 0px;
 
+      .nav-icon {
+        cursor: pointer;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        border-radius: 4px;
+        transition: .25s;
+
+        img {
+          height: 30px;
+          width: 30px;
+          pointer-events: none;
+        }
+      }
+
+      .nav-icon:hover{
+        background: rgb(169 169 169 / 39%);
+        transition: .25s;
+      }
+
       mat-icon {
         color: #6c757d;
         cursor: pointer;
@@ -699,12 +720,13 @@
       }
 
       mat-icon:hover {
-        font-size: 34px;
+        font-size: 31px;
+        color: #dee2e6;
         transition: 0.2s;
       }
 
       .menu-active {
-        font-size: 34px;
+        font-size: 31px;
         transition: 0.2s;
         color: #dee2e6;
       }
@@ -714,6 +736,7 @@
 
 .chat-list-container {
   height: 100%;
+
   .chat-list-sidenav {
     height: 100%;
     background: #d4dadf;
@@ -741,11 +764,12 @@
         padding: 10px 35px;
         color: gray;
 
-        &:focus ~ mat-icon {
+        &:focus~mat-icon {
           left: 60px;
           transition: 0.25s;
         }
-        &:focus ~ .place-holder {
+
+        &:focus~.place-holder {
           opacity: 0;
           transition: 0.25s;
         }
@@ -773,7 +797,7 @@
       }
     }
 
-    .contact-search-container{
+    .contact-search-container {
 
       align-items: center;
       display: flex;
@@ -790,12 +814,13 @@
         padding: 10px 35px;
         color: gray;
 
-        &:focus ~ mat-icon {
+        &:focus~mat-icon {
           left: 20px;
           top: 16px;
           transition: 0.25s;
         }
-        &:focus ~ .place-holder {
+
+        &:focus~.place-holder {
           opacity: 0;
           transition: 0.25s;
         }
@@ -840,10 +865,12 @@
         width: 100%;
         padding: 10px 10px;
         cursor: pointer;
+
         .contact-name {
           font-weight: bold;
           letter-spacing: 2px;
         }
+
         .contact-text {
           display: flex;
           align-items: center;
@@ -852,11 +879,13 @@
           padding-top: 5px;
         }
       }
+
       .contact:hover {
         background: #a9a9a92e;
         border-radius: 3px;
       }
-      .contact-selected{
+
+      .contact-selected {
         background: #a9a9a92e;
         border-radius: 3px;
       }
@@ -871,7 +900,33 @@
   }
 }
 
-.status-icon{
+.nav-footer {
+  mat-icon {
+    color: #6c757d;
+  }
+
+  mat-icon:hover {
+    color: #dee2e6;
+    cursor: pointer;
+  }
+
+}
+
+.online-status {
+  gap: 4px;
+
+  span {
+    font-size: 12px;
+  }
+
+  mat-icon {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.status-icon {
   display: flex;
   align-items: center;
   justify-content: center;

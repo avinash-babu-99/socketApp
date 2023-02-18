@@ -95,7 +95,6 @@ export class ChatService {
     return new Observable<{ user: string; message: string }>((observer) => {
 
       this.socket?.on('updateContactStatus', (data) => {
-        console.log(data, 'from observer');
         this.updateContact(data?._id, data?.status)
         observer.next(data)
       });

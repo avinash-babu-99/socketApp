@@ -6,11 +6,11 @@ import { ChatMainComponent } from 'src/app/components/chat-main/chat-main.compon
 
 const routes: Routes = [
   {
-    path: 'Message',
+    path: '',
     component: ChatMainComponent
   },
-  { path: '', redirectTo: 'message', pathMatch: 'full' },
-  { path: '**', redirectTo: 'message', pathMatch: 'full' },
+  { path: '', redirectTo: '', pathMatch: 'full' },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({
