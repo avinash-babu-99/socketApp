@@ -7,14 +7,20 @@
   <div class="body">
 
     <div class="grid">
-      <div class="grid-item">
+      <div *ngFor="let contact of contactsList" class="grid-item">
         <div class="custom-card">
           <div class="custom-card-header">
             <div class="header-name">
               Contact Name
+              <div class="sub-header">
+                +91 9171129056
+              </div>
             </div>
           </div>
-          <div class="custom-card-content">Content</div>
+          <div class="custom-card-content">
+            <img class="profile-pic" src="../../../assets/images/profile_pic.jpg" alt="">
+          </div>
+          <div class="actions"><button class="action-button">Remove contact</button></div>
           <div class="custom-card-footer"></div>
         </div>
       </div>

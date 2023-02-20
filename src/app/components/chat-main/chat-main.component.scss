@@ -704,10 +704,16 @@
           height: 30px;
           width: 30px;
           pointer-events: none;
+          -webkit-user-select: none;
+          /* Safari */
+          -ms-user-select: none;
+          /* IE 10 and IE 11 */
+          user-select: none;
+          /* Standard syntax */
         }
       }
 
-      .nav-icon:hover{
+      .nav-icon:hover {
         background: rgb(169 169 169 / 39%);
         transition: .25s;
       }

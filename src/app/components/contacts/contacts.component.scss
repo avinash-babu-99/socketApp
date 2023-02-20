@@ -1,33 +1,117 @@
-.main-container{
+.main-container {
   height: 100%;
   width: 100%;
   background: #e6e7ea;
   padding: 3%;
+  overflow-y: auto;
 
-  .body{
-    .grid{
+  .body {
+    .grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       padding: 10px;
       gap: 5px;
-      .grid-item{
-        .custom-card{
+
+      .grid-item {
+        .custom-card {
           background-color: #ffffff;
           border-radius: 8px;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
           position: relative;
           overflow: hidden;
-          cursor: pointer;
           transition: transform 0.25s;
-          min-height: 200px;
-          height: 100%;
+          height: 300px;
+          width: 300px;
+          // height: 100%;
 
-          .custom-card-header{
+          .custom-card-header {
+            // transform: translateY(-50px);
+            transition: transform 0.5s ease;
+
             height: 20%;
+
+            .header-name {
+              padding: 10px 15px;
+              font-size: large;
+              font-weight: 500;
+
+              .sub-header {
+                font-size: 10px;
+                color: gray;
+              }
+            }
+          }
+
+          .custom-card-content {
+            height: 80%;
+            width: 100%;
+          }
+
+          .actions {
+            width: 100%;
+            height: 100%;
+            border: 1px solid;
+            position: absolute;
+            top: 80%;
+            display: flex;
+            justify-content: flex-end;
+            background: #00000091;
+            padding: 10px;
+
+            .action-button {
+              cursor: pointer;
+
+              width: 50%;
+              height: 40px;
+              color: #fff;
+              background-color: #db2020;
+              border-radius: 4px;
+              text-decoration: none;
+              transition: opacity 0.2s ease-in-out;
+              position: relative;
+              border: none;
+            }
+
+            .action-button:before,
+            .action-button:after {
+              content: '';
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              width: 0%;
+              background: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.5));
+              transition: width 0.3s ease-in-out;
+            }
+
+            .action-button:before {
+              left: 0;
+            }
+
+            .action-button:after {
+              right: 0;
+            }
+
+            .action-button:hover:before,
+            .action-button:hover:after {
+              width: 50%;
+            }
+
+            .action-button:hover {
+              color: #db2020;
+              background-color: #fff;
+              transition: all 0.3s ease-in-out;
+            }
           }
         }
+
         .custom-card:hover {
-          transform: perspective(1000px) rotateY(-10deg);
+          transform: perspective(1000px) rotateY(10deg);
+
+          .custom-card-header {
+            // transform: translateY(0);
+            transition: transform 0.5s ease;
+          }
+
         }
 
         .custom-card:before {
@@ -43,7 +127,7 @@
           transition: opacity 0.25s;
         }
 
-        .custom-card:hover:before{
+        .custom-card:hover:before {
           opacity: 0;
         }
       }
@@ -51,8 +135,19 @@
   }
 }
 
+@keyframes card {
+  from {
+    transform: perspective(400px) rotateY(0);
+  }
 
-.profile-pic{
-  background-image: url('../../../assets/images/profile_pic.jpg');
-  background-size: cover;
+  to {
+    transform: perspective(400px) rotateY(180deg);
+  }
+}
+
+
+.profile-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
