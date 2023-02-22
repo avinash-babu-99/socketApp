@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { catchError } from 'rxjs';
 
 
 // service imports
@@ -21,6 +22,8 @@ export class ChatAreaComponent implements OnInit {
   public chatSearchText: string;
   public messageText: string;
   public roomId: string
+  public receivedFriendRequests: any[]
+  public addFriendsSearchArray: any[]
 
   constructor( private chatService: ChatService) {
 
@@ -31,10 +34,58 @@ export class ChatAreaComponent implements OnInit {
     this.messageArray = []
     this.messageText = '';
     this.roomId = ''
+    this.receivedFriendRequests = []
+    this.addFriendsSearchArray = []
 
    }
 
   ngOnInit(): void {
+
+    if (this.chatService?.currentUser?.receivedFriendRequests) {
+      this.receivedFriendRequests =
+        this.chatService.currentUser.receivedFriendRequests;
+    }
+
+    this.chatService.getMessage().subscribe((data) => {
+      this.messageArray.push(data);
+    });
+
+    this.chatService.listenNotification().subscribe((data) => {
+      this.refreshContacts();
+    });
+
+    this.chatService.updateContactDetails().subscribe(data => {
+
+      if(this.selectedUser?.contact?._id === data?._id){
+
+        this.selectedUser.status = data.status
+      }
+
+      this.contactsList.map((contact: any, i: any) => {
+        if (data._id === contact?.contact?._id) {
+          this.contactsList[i].contact.status = data.status
+        }
+      })
+
+    })
+
+    this.chatService.getContacts().subscribe(
+      (data) => { },
+      (err) => { }
+    );
+
+    this.currentUser = this.chatService.currentUser;
+
+    this.contactsList = this.currentUser.contacts;
+
+    this.chatService.refreshContactSubject$.subscribe((data: boolean) => {
+
+      if (data) {
+        this.refreshContacts();
+      }
+    });
+
+    this.scrollToBottom();
   }
 
   public selectedUserHandler(selectedUser: any) {
@@ -100,6 +151,36 @@ export class ChatAreaComponent implements OnInit {
     this.scrollToBottom();
 
     this.messageText = '';
+  }
+
+  public refreshContacts(): void {
+    this.chatService
+      .getContactDetails(this.chatService.currentUser._id)
+      .pipe(catchError((): any => { }))
+      .subscribe((data) => {
+        if (data && data.response) {
+          this.chatService.currentUser = data.response;
+
+          if (this.chatService?.currentUser?.receivedFriendRequests) {
+            this.receivedFriendRequests =
+              this.chatService.currentUser.receivedFriendRequests;
+          }
+
+          this.currentUser = this.chatService.currentUser;
+
+          this.contactsList = this.currentUser.contacts;
+
+          let contactList = []
+          if( this.contactsList ) {
+
+            contactList = this.contactsList.map(data => data.contact
+              )
+          }
+
+          let searchArray = [this.currentUser, ...contactList];
+          this.addFriendsSearchArray = searchArray;
+        }
+      });
   }
 
 

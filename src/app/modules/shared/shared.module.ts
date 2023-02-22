@@ -11,11 +11,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatMenuModule} from '@angular/material/menu';
+import { ModalDialogModule } from 'ngx-modal-dialog';
 import {MatCardModule} from '@angular/material/card';
-
+import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
-  declarations: [OutsideClickListenerDirective],
+  declarations: [OutsideClickListenerDirective, ConfirmationDialogComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -27,8 +29,10 @@ import {MatCardModule} from '@angular/material/card';
     MatSidenavModule,
     MatBadgeModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
+    ModalDialogModule.forRoot(),
+    MatButtonModule
   ],
-  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule, MatInputModule, MatCheckboxModule, NgxSpinnerModule, MatIconModule, MatSidenavModule, MatBadgeModule, MatMenuModule, MatCardModule]
+  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule, MatInputModule, MatCheckboxModule, NgxSpinnerModule, MatIconModule, MatSidenavModule, MatBadgeModule, MatMenuModule, MatCardModule, ModalDialogModule, ConfirmationDialogComponent, MatButtonModule]
 })
 export class SharedModule { }

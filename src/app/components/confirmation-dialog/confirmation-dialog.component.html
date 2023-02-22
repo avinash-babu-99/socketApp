@@ -1,0 +1,26 @@
+<div #modalContainer class="my-modal">
+  <div class="icon-container">
+    <img class="icon" src="../../../assets/images/modal-warning.png" alt="">
+    <img (click)="emitAction('cancel')" class="close-icon" src="../../../assets/images/close.png" alt="">
+  </div>
+  <div class="header">
+    <ng-content select="[header]"></ng-content>
+  </div>
+  <div class="content">
+    <ng-content select="[content]"></ng-content>
+  </div>
+  <div class="actions">
+    <div class="action" *ngFor="let action of actions">
+      <div [ngSwitch]="action.action">
+        <ng-container *ngSwitchCase="'cancel'">
+          <button (click)="emitAction('cancel')" class="cancel"> Cancel </button>
+        </ng-container>
+        <ng-container *ngSwitchCase="'remove'">
+          <button class="remove"> Remove </button>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

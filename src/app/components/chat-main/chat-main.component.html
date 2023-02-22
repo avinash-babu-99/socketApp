@@ -12,7 +12,7 @@
             </div>
             <div class="nav-menu-list">
               <!-- <mat-icon> list_alt</mat-icon> -->
-              <span class="nav-icon" (click)="chatDrawOpen = !chatDrawOpen">
+              <span class="nav-icon" routerLink="/Chat/message">
                 <img src="../../../assets/images/Vector.svg"  alt="">
               </span>
               <!-- <mat-icon>dock</mat-icon>
@@ -20,7 +20,7 @@
               <mat-icon>smartphone</mat-icon>
               <mat-icon>menu</mat-icon>
               <mat-icon>refresh</mat-icon> -->
-              <span class="nav-icon" (click)="contactsDrawOpen = !contactsDrawOpen">
+              <span class="nav-icon" routerLink="/Chat/contacts">
                 <img src="../../../assets/images/contacts_icon.svg"  alt="">
               </span>
               <!-- <mat-icon [ngClass]="{ 'menu-active': contactsDrawOpen }" (click)="contactsDrawOpen = !contactsDrawOpen">
@@ -28,7 +28,7 @@
                   group
                 </span>
               </mat-icon> -->
-              <span class="nav-icon" (click)="openFriendRequestsModal()">
+              <span class="nav-icon" routerLink="/Chat/friend-requests">
                 <img src="../../../assets/images/friend-request 1.svg"  alt="">
               </span>
               <!-- <mat-icon [ngClass]="{ 'menu-active': isFriendRequestsModalOpen }" [matBadge]="receivedFriendRequests.length" matBadgeColor="accent" (click)="openFriendRequestsModal()">group_add</mat-icon> -->
@@ -46,7 +46,7 @@
 
         <div class="flex-container" style="height: 100%;">
           <!-- Chat toggle tab -->
-          <div class="chat-list-container">
+          <!-- <div class="chat-list-container">
             <div #drawer class="chat-list-sidenav" [ngClass]="{ 'chat-list-sidenav-hidden': !chatDrawOpen }">
               <div *ngIf="chatDrawOpen" class="chats-list">
                 <div class="search-container">
@@ -72,11 +72,11 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
 
           <!-- Contacts toggle tab -->
-          <div class="chat-list-container">
+          <!-- <div class="chat-list-container">
             <div #drawer class="chat-list-sidenav" [ngClass]="{ 'chat-list-sidenav-hidden': !contactsDrawOpen }">
               <div *ngIf="contactsDrawOpen" class="chats-list">
                 <div class="header flex-al-c-jc-center">
@@ -118,13 +118,14 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
       </div>
 
       <div style="width: 100%;">
-        <app-contacts></app-contacts>
+        <!-- <app-contacts></app-contacts> -->
+        <router-outlet></router-outlet>
       </div>
 
 

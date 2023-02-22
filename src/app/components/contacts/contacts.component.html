@@ -1,11 +1,27 @@
+<app-confirmation-dialog [isModalopen]="isRemoveContactDialogueOpen" [actions]="removeContactActions" (actionEmitter)="handleModalActions($event)">
+  <div header>
+    <span>Are you sure?</span>
+  </div>
+  <div content>
+    <span>Do you really want to remove this person from your contact?</span>
+  </div>
+</app-confirmation-dialog>
 <div class="main-container">
   <div class="header">
-
     <h2>Contacts</h2>
     <h4 style="color: gray;">Lets have a look at your friends</h4>
   </div>
   <div class="body">
+    <div class="filters-container">
+      <button mat-flat-button>
+        <mat-icon> filter_list </mat-icon>
+        <span>Filters</span>
+      </button>
+      <button mat-mini-fab color="primary">
+        <mat-icon>add</mat-icon>
+      </button>
 
+    </div>
     <div class="grid">
       <div *ngFor="let contact of contactsList" class="grid-item">
         <div class="custom-card">
@@ -20,7 +36,7 @@
           <div class="custom-card-content">
             <img class="profile-pic" src="../../../assets/images/profile_pic.jpg" alt="">
           </div>
-          <div class="actions"><button class="action-button">Remove contact</button></div>
+          <div class="actions"><button class="action-button" (click)="openDeleteConfirmationdialogue()">Remove contact</button></div>
           <div class="custom-card-footer"></div>
         </div>
       </div>

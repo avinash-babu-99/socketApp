@@ -9,10 +9,11 @@ import { AddFriendsModalComponent } from 'src/app/components/add-friends-modal/a
 import { FriendRequestsModalComponent } from 'src/app/components/friend-requests-modal/friend-requests-modal.component';
 import { ChatAreaComponent } from 'src/app/components/chat-area/chat-area.component';
 import { ContactsComponent } from 'src/app/components/contacts/contacts.component';
+import { FrientRequestsComponent } from 'src/app/components/frient-requests/frient-requests.component';
 
 
 @NgModule({
-  declarations: [ChatMainComponent, AddFriendsModalComponent, FriendRequestsModalComponent, ChatAreaComponent, ContactsComponent],
+  declarations: [ChatMainComponent, AddFriendsModalComponent, FriendRequestsModalComponent, ChatAreaComponent, ContactsComponent, FrientRequestsComponent],
   imports: [
     CommonModule,
     ChatRoutingModule,

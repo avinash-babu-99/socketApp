@@ -1,0 +1,123 @@
+.my-modal {
+  width: 400px;
+  height: 400px;
+  padding: 40px;
+  position: fixed;
+  transition: 0.2s;
+  left: 50%;
+  top: 50%;
+  z-index: 9999;
+  border-radius: 1rem;
+  transform: scale(0) translate(-50%, -50%);
+
+  &::after {
+    width: 100%;
+    height: 100%;
+    background-color: #f8f9fad6;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -4;
+    border-radius: 1rem;
+  }
+
+  &::before {
+    width: 100vw;
+    height: 100vh;
+    background: #00000050;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -5;
+
+  }
+
+
+  .icon-container {
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .icon {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .close-icon {
+      position: absolute;
+      height: 35px;
+      width: 35px;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+    }
+  }
+
+
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    font-size: x-large;
+  }
+
+  .content {
+    padding: 15px;
+  }
+
+  .actions {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    .action {
+      button {
+        width: 135px;
+        height: 35px;
+      }
+
+      .cancel {
+        display: inline-block;
+        font-weight: 400;
+        color: #fff;
+        background-color: #808080;
+        border: 1px solid #808080;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .cancel:hover {
+        color: #fff;
+        background-color: #A9A9A9;
+        border-color: #808080;
+      }
+
+      .remove {
+        display: inline-block;
+        font-weight: 400;
+        color: #fff;
+        background-color: #ff2a5c;
+        border: 1px solid #ff2a5c;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .remove:hover {
+        color: #fff;
+        background-color: #ff2a5ca3;
+        border-color: #ff2a5c;
+      }
+    }
+  }
+}
