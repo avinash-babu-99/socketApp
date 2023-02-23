@@ -16,7 +16,7 @@
           <button (click)="emitAction('cancel')" class="cancel"> Cancel </button>
         </ng-container>
         <ng-container *ngSwitchCase="'remove'">
-          <button class="remove"> Remove </button>
+          <button class="remove" (click)="emitAction('remove')"> Remove </button>
         </ng-container>
         <ng-container *ngSwitchDefault>
         </ng-container>

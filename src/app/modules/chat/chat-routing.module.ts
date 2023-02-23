@@ -6,11 +6,13 @@ import { ChatMainComponent } from 'src/app/components/chat-main/chat-main.compon
 import { ChatAreaComponent } from 'src/app/components/chat-area/chat-area.component';
 import { ContactsComponent } from 'src/app/components/contacts/contacts.component';
 import { FrientRequestsComponent } from 'src/app/components/frient-requests/frient-requests.component';
+import { AuthGaurdGuard } from 'src/app/gaurds/auth-gaurd.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: ChatMainComponent,
+    canActivateChild: [AuthGaurdGuard],
     children: [
       {
         path: 'message',

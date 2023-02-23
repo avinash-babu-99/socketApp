@@ -170,15 +170,6 @@ export class ChatAreaComponent implements OnInit {
 
           this.contactsList = this.currentUser.contacts;
 
-          let contactList = []
-          if( this.contactsList ) {
-
-            contactList = this.contactsList.map(data => data.contact
-              )
-          }
-
-          let searchArray = [this.currentUser, ...contactList];
-          this.addFriendsSearchArray = searchArray;
         }
       });
   }

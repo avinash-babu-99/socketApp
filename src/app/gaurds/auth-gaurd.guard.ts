@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, Route, Router, UrlSegment } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateChild, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment } from '@angular/router';
 import { CanActivate, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { AuthenticationServiceService } from '../services/chat/authentication-se
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGaurdGuard implements CanActivate, CanLoad {
+export class AuthGaurdGuard implements CanActivate, CanLoad, CanActivateChild {
 
   constructor(
     private chatService: ChatService,
@@ -55,5 +55,21 @@ export class AuthGaurdGuard implements CanActivate, CanLoad {
 
     return false
   }
+
+  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    let token
+
+    token = this.authenticationServiceService.isLoggedIn()
+
+
+    if (token) {
+
+      return true
+
+    }
+
+    this.router.navigate(['authenticate/login'])
+
+    return false  }
 
 }

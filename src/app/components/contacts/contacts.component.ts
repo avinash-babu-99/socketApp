@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ModalDialogService } from 'ngx-modal-dialog';
+import { catchError } from 'rxjs';
 import { ChatService } from 'src/app/services/chat/chat.service';
 
 @Component({
@@ -8,9 +9,15 @@ import { ChatService } from 'src/app/services/chat/chat.service';
   styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent implements OnInit {
-  @Input() contactsList: any[] = []
+  
+  get contactsList() {
+    return this.chatService.currentUser.contacts;
+  }
 
   public removeContactActions: any[]
+  public isAddFriendsModalOpen: boolean;
+  public addFriendsSearchArray: any[]
+  public selectedContactToRemove: any
 
   public isRemoveContactDialogueOpen: boolean
 
@@ -25,10 +32,12 @@ export class ContactsComponent implements OnInit {
       action: 'remove'
     }
     ]
+    this.isAddFriendsModalOpen = false
+    this.addFriendsSearchArray = []
   }
 
   ngOnInit(): void {
-    this.contactsList = this.chatService.currentUser.contacts;
+    // this.contactsList = this.chatService.currentUser.contacts;
   }
 
   public openDeleteConfirmationdialogue(): void {
@@ -41,12 +50,50 @@ export class ContactsComponent implements OnInit {
 
     if (action === 'remove') {
 
+      this.removeContact(this.selectedContactToRemove)
+
     } else if (action === 'cancel') {
 
       this.isRemoveContactDialogueOpen = false
 
     }
 
+  }
+
+
+  public changeAddFriendsModalState(state: boolean): void {
+    this.isAddFriendsModalOpen = state;
+  }
+
+  public openAddFriendsModal(): void {
+    this.isAddFriendsModalOpen = !this.isAddFriendsModalOpen;
+  }
+
+  public removeContact(contact: any): void {
+    let finalObject: any = {};
+
+    if (contact._id && this.chatService.currentUser._id) {
+      finalObject._id = this.chatService.currentUser._id;
+      finalObject.contactId = contact.contact._id;
+
+      this.chatService
+        .removeFriend(finalObject)
+        .pipe(
+          catchError((): any => {
+            console.log('error removing contact');
+          })
+        )
+        .subscribe((response: any) => {
+          this.isRemoveContactDialogueOpen = false
+          this.notifyPeople(contact.contact);
+          this.chatService.refreshUser()
+        });
+    }
+  }
+
+  public notifyPeople(contact: any) {
+    let data = {};
+    this.chatService.notifyUser(contact);
   }
 
 }

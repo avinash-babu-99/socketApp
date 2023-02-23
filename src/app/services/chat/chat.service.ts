@@ -166,9 +166,9 @@ export class ChatService {
     });
   }
 
-  public getAddNewFriendsList(searchArray: string[]): Observable<any> {
+  public getAddNewFriendsList(): Observable<any> {
     return this.http.post(`${this.boUrl}/contacts/addFriendsList/`, {
-      searchArray,
+      currentUser: this.currentUser,
     });
   }
 
@@ -206,6 +206,14 @@ export class ChatService {
 
     return this.http.get(`${this.boLocalUrl}/contacts/${id}`);
 
+  }
+
+  public refreshUser(): void {
+    if (this.currentUser?._id) {
+      this.getContactDetails(this.currentUser._id).subscribe(res =>{
+        this.currentUser = res.response
+      })
+    }
   }
 }
 

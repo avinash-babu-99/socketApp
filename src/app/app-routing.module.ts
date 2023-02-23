@@ -7,14 +7,15 @@ const routes: Routes = [
     path: 'Authenticate',
     loadChildren: () => import('./modules/authentication/authentication.module').then((m) => {
       return m.AuthenticationModule
-    })
+    }),
   },
   {
     path: 'Chat',
     loadChildren: () => import('./modules/chat/chat.module').then((m) => {
       return m.ChatModule
     }),
-    canActivate : [AuthGaurdGuard]
+    canActivate : [AuthGaurdGuard],
+    canActivateChild: [AuthGaurdGuard]
   },
   { path: '', redirectTo: 'Authenticate', pathMatch: 'full' },
   { path: '**', redirectTo: 'Authenticate', pathMatch: 'full' },

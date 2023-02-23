@@ -20,6 +20,8 @@ import { ChatService } from 'src/app/services/chat/chat.service';
 export class AddFriendsModalComponent implements OnInit, OnChanges {
   @Input() isModalOpen: boolean;
   @Input() SearchArray: any[];
+  @Input() contactsList: any[]
+  @Input() currentUser: any
 
   @Output() modalStatusEventEmitter: EventEmitter<boolean> = new EventEmitter();
 
@@ -29,17 +31,22 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
     this.isModalOpen = false;
     this.SearchArray = [];
     this.addFriendsList = [];
+    this.contactsList = [];
     this.modalStatusEventEmitter.emit(false);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.chatService.listenNotification().subscribe((data) => {
+      this.getAddFriendsList();
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.getAddFriendsList();
   }
 
   public getAddFriendsList(): void {
-    this.chatService.getAddNewFriendsList(this.SearchArray).subscribe((res) => {
+    this.chatService.getAddNewFriendsList().subscribe((res) => {
       if (res?.users) {
         this.addFriendsList = res.users;
 
@@ -142,6 +149,7 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
       )
       .subscribe(() => {
         this.notifyPeople(contact);
+        this.chatService.refreshUser()
         this.chatService.refreshContactSubject$.next(true);
       });
   }

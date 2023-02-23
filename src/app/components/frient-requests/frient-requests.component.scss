@@ -59,6 +59,7 @@
             background: #00000091;
             padding: 10px;
             transition: .25s;
+            gap: 4px;
 
             .action-button {
               cursor: pointer;
@@ -102,6 +103,17 @@
               color: #db2020;
               background-color: #fff;
               transition: all 0.3s ease-in-out;
+            }
+
+            .accept:hover{
+              color: #00a599;
+              background-color: #fff;
+              transition: all 0.3s ease-in-out;
+            }
+
+            .accept{
+              color: #fff;
+              background-color: #00a599;
             }
           }
         }
