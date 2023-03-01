@@ -8,7 +8,13 @@
         <mat-drawer-container class="nav-container" autosize>
           <div class="content">
             <div class="nav-header">
-              <img src="../../../assets/images/waiter.png" width="40" height="40" alt="user" />
+              <!-- <img src="../../../assets/images/waiter.png" width="40" height="40" alt="user" /> -->
+              <div class="profile-pic">
+                <div class="profile-icon" [ngClass]="{ 'online': true }"></div>
+                <div class="auto-profile">
+                  {{(currentUser?.name[0] + currentUser?.name[1]) | uppercase}}
+                </div>
+              </div>
             </div>
             <div class="nav-menu-list">
               <!-- <mat-icon> list_alt</mat-icon> -->
