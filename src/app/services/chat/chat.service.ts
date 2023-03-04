@@ -14,6 +14,7 @@ export class ChatService {
   public isLoggedIn: boolean;
   public currentUser: any;
   public refreshContactSubject$: Subject<any>;
+  public profileUrl: string = ''
 
   private contactUrl = 'http://127.0.0.1:400/contacts';
 
@@ -214,6 +215,14 @@ export class ChatService {
         this.currentUser = res.response
       })
     }
+  }
+
+  public uploadFile (fileFormData: FormData) {
+   return this.http.post(`${this.boLocalUrl}/contacts/uploadProfile`, fileFormData)
+  }
+
+  public getProfilePhoto () {
+   return this.http.get(`${this.boLocalUrl}/contacts/getProfilePhoto/user-${this.currentUser._id}`, { responseType: 'arraybuffer' })
   }
 }
 

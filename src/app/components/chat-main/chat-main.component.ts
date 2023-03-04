@@ -20,7 +20,7 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './chat-main.component.html',
   styleUrls: ['./chat-main.component.scss'],
 })
-export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class ChatMainComponent implements OnInit, OnDestroy {
   @ViewChild('messageBlock') public messageBlockEle: any;
   @ViewChild('robotModalTrigger') botModalEleRef: ElementRef = {} as ElementRef;
   @ViewChild('chatListTrigger') chatListEleRef: ElementRef = {} as ElementRef;
@@ -44,9 +44,10 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
   public chatDrawOpen: boolean
   public contactsDrawOpen: boolean
   public chatSearchText: string
+  public profileUrl: string = ''
 
   constructor(
-    private chatService: ChatService,
+    public chatService: ChatService,
     private router: Router,
     private cookieService: CookieService
   ) {
@@ -68,6 +69,27 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   ngOnInit(): void {
 
+    this.chatService.getProfilePhoto().subscribe((blob: any) => {
+      console.log('profile blob', blob );
+      // const url = URL.createObjectURL(blob);
+      // this.chatService.profileUrl = url;
+
+      // console.log(url, 'blob converted');
+
+
+      // this.profileUrl = url
+
+      const finalBlob = new Blob([blob], { type: 'image/jpeg' });
+
+      const url = URL.createObjectURL(finalBlob);
+
+      this.profileUrl = url
+
+      console.log(this.profileUrl, 'profileUrl');
+
+
+    })
+
     this.isChatContainerExpanded = false;
 
     if (this.chatService?.currentUser?.receivedFriendRequests) {
@@ -85,7 +107,7 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     this.chatService.updateContactDetails().subscribe(data => {
 
-      if(this.selectedUser?.contact?._id === data?._id){
+      if (this.selectedUser?.contact?._id === data?._id) {
 
         this.selectedUser.status = data.status
       }
@@ -113,84 +135,12 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.refreshContacts();
       }
     });
-
-    this.scrollToBottom();
   }
 
   ngOnDestroy(): void {
     this.chatService.emitStatus("offline")
   }
 
-
-  ngAfterViewChecked(): void {
-    this.scrollToBottom();
-  }
-
-  public selectedUserHandler(selectedUser: any) {
-    this.messageArray = [];
-    this.selectedUser = selectedUser;
-
-    const ids = [selectedUser?.contact._id, this.currentUser._id];
-    this.chatService.getRoom(ids).subscribe((data) => {
-      if (data.data && !data.data.length) {
-        this.chatService.newRoom(ids).subscribe((response) => {
-          this.roomId = response.data._id;
-          this.chatService
-            .getChatMessages(this.roomId)
-            .subscribe((response) => {
-              if (response && response.messages) {
-                this.messageArray = [
-                  ...this.messageArray,
-                  ...response.messages,
-                ];
-                this.scrollToBottom();
-                this.join(this.currentUser, this.roomId);
-              }
-            });
-        });
-      } else {
-        this.roomId = data.data[0]._id;
-        this.chatService.getChatMessages(this.roomId).subscribe((response) => {
-          if (response && response.messages) {
-            this.messageArray = [...this.messageArray, ...response.messages];
-            this.scrollToBottom();
-            this.join(this.currentUser, this.roomId);
-          }
-        });
-      }
-    });
-  }
-
-  public scrollToBottom(): void {
-    if (this.messageBlockEle) {
-      try {
-        this.messageBlockEle.nativeElement.scrollTop =
-          this.messageBlockEle.nativeElement.scrollHeight;
-        // this.isViewCheckCall = false;
-      } catch {
-        console.log('template error');
-      }
-    }
-  }
-
-  public join(userName: any, roomId: any): void {
-    this.chatService.joinRoom({
-      user: userName,
-      room: roomId,
-    });
-  }
-
-  public sendMessage() {
-    this.chatService.sendMessage({
-      sendUser: this.currentUser.phone,
-      room: this.roomId,
-      message: this.messageText,
-    });
-
-    this.scrollToBottom();
-
-    this.messageText = '';
-  }
 
   public sendMessageToBot(): void {
     this.chatService
@@ -214,44 +164,6 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.isFriendRequestsModalOpen = state;
   }
 
-  public openAddFriendsModal(): void {
-    let contactList = []
-    if( this.contactsList ) {
-
-      contactList = this.contactsList.map(data => data.contact
-        )
-    }
-    let searchArray = [this.currentUser, ...contactList];
-
-    this.addFriendsSearchArray = searchArray;
-    this.isAddFriendsModalOpen = !this.isAddFriendsModalOpen;
-  }
-
-  public openFriendRequestsModal(): void {
-    this.isFriendRequestsModalOpen = !this.isFriendRequestsModalOpen;
-  }
-
-  public removeContact(contact: any): void {
-    let finalObject: any = {};
-
-    if (contact._id && this.chatService.currentUser._id) {
-      finalObject._id = this.chatService.currentUser._id;
-      finalObject.contactId = contact.contact._id;
-
-      this.chatService
-        .removeFriend(finalObject)
-        .pipe(
-          catchError((): any => {
-            console.log('error removing contact');
-          })
-        )
-        .subscribe((response: any) => {
-          this.refreshContacts();
-          this.notifyPeople(contact.contact);
-        });
-    }
-  }
-
   public refreshContacts(): void {
     this.chatService
       .getContactDetails(this.chatService.currentUser._id)
@@ -270,10 +182,10 @@ export class ChatMainComponent implements OnInit, AfterViewChecked, OnDestroy {
           this.contactsList = this.currentUser.contacts;
 
           let contactList = []
-          if( this.contactsList ) {
+          if (this.contactsList) {
 
             contactList = this.contactsList.map(data => data.contact
-              )
+            )
           }
 
           let searchArray = [this.currentUser, ...contactList];

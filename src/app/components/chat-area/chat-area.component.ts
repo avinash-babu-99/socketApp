@@ -24,8 +24,9 @@ export class ChatAreaComponent implements OnInit {
   public roomId: string
   public receivedFriendRequests: any[]
   public addFriendsSearchArray: any[]
+  public ProfileToUpload: File = new File([], '');
 
-  constructor( private chatService: ChatService) {
+  constructor(private chatService: ChatService) {
 
     this.chatSearchText = '';
     this.contactsList = [];
@@ -37,7 +38,7 @@ export class ChatAreaComponent implements OnInit {
     this.receivedFriendRequests = []
     this.addFriendsSearchArray = []
 
-   }
+  }
 
   ngOnInit(): void {
 
@@ -56,7 +57,7 @@ export class ChatAreaComponent implements OnInit {
 
     this.chatService.updateContactDetails().subscribe(data => {
 
-      if(this.selectedUser?.contact?._id === data?._id){
+      if (this.selectedUser?.contact?._id === data?._id) {
 
         this.selectedUser.status = data.status
       }
@@ -174,5 +175,24 @@ export class ChatAreaComponent implements OnInit {
       });
   }
 
+
+  public handleFileInput(event: any): void {
+    const target = event as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+      const file: File = (target.files as FileList)[0];
+      this.ProfileToUpload = file;
+    }
+    console.log(this.ProfileToUpload, 'this.ProfileToUpload');
+
+  }
+
+  public uploadFile() {
+    const formData: FormData = new FormData();
+    formData.append('photo', this.ProfileToUpload, this.ProfileToUpload.name);
+    this.chatService.uploadFile(formData).subscribe(()=>{
+      console.log('profile updated successfully');
+
+    })
+  }
 
 }
