@@ -222,7 +222,7 @@ export class ChatService {
   }
 
   public getProfilePhoto () {
-   return this.http.get(`${this.boLocalUrl}/contacts/getProfilePhoto/user-${this.currentUser._id}`, { responseType: 'arraybuffer' })
+   return this.http.get(`${this.boLocalUrl}/contacts/getProfilePhoto/user-${this.currentUser._id}`)
   }
 }
 

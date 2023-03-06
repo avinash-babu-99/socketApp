@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { ModalDialogService } from 'ngx-modal-dialog';
 import { catchError } from 'rxjs';
 import { ChatService } from 'src/app/services/chat/chat.service';
 
@@ -14,7 +13,7 @@ export class FrientRequestsComponent implements OnInit {
     return this.chatService.currentUser.receivedFriendRequests;;
   }
 
-  constructor(public modalService: ModalDialogService, public modalRef: ViewContainerRef, private chatService: ChatService) {
+  constructor(public modalRef: ViewContainerRef, private chatService: ChatService) {
   }
 
   ngOnInit(): void {

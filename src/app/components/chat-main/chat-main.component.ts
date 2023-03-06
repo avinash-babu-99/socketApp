@@ -14,6 +14,7 @@ import { catchError } from 'rxjs';
 // Services imports
 import { ChatService } from '../../services/chat/chat.service';
 import { CookieService } from 'ngx-cookie-service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-chat-main',
@@ -44,12 +45,13 @@ export class ChatMainComponent implements OnInit, OnDestroy {
   public chatDrawOpen: boolean
   public contactsDrawOpen: boolean
   public chatSearchText: string
-  public profileUrl: string = ''
+  public profileUrl: SafeUrl = ''
 
   constructor(
     public chatService: ChatService,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private sanitizer: DomSanitizer
   ) {
     this.isBotModalOpen = false;
     this.chatBotMessage = '';
@@ -70,21 +72,12 @@ export class ChatMainComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this.chatService.getProfilePhoto().subscribe((blob: any) => {
-      console.log('profile blob', blob );
-      // const url = URL.createObjectURL(blob);
-      // this.chatService.profileUrl = url;
-
-      // console.log(url, 'blob converted');
+      console.log('profile blob', blob.blob );
 
 
-      // this.profileUrl = url
+      const finalBlob = new Blob([blob.blob], { type: 'image/jpeg' });
 
-      const finalBlob = new Blob([blob], { type: 'image/jpeg' });
-
-      const url = URL.createObjectURL(finalBlob);
-
-      this.profileUrl = url
-
+      this.profileUrl = 'data:image/jpeg;base64,' + blob.blob
       console.log(this.profileUrl, 'profileUrl');
 
 

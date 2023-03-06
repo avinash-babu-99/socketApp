@@ -1,5 +1,4 @@
 import { Component, ElementRef, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ModalDialogService } from 'ngx-modal-dialog';
 import { catchError } from 'rxjs';
 import { ChatService } from 'src/app/services/chat/chat.service';
 
@@ -21,7 +20,7 @@ export class ContactsComponent implements OnInit {
 
   public isRemoveContactDialogueOpen: boolean
 
-  constructor(public modalService: ModalDialogService, public modalRef: ViewContainerRef, public chatService: ChatService) {
+  constructor( public modalRef: ViewContainerRef, public chatService: ChatService) {
     this.isRemoveContactDialogueOpen = false
     this.removeContactActions = [{
       locale: 'Cancel',
