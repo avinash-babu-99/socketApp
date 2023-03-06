@@ -8,7 +8,7 @@
         <mat-drawer-container class="nav-container" autosize>
           <div class="content">
             <div class="nav-header">
-              <div class="profile-pic">
+              <div [matMenuTriggerFor]="menu" class="profile-pic">
                 <div *ngIf="chatService.currentUser.profilePicture?.isProfileUploaded" class="profile-picture-wrap">
                   <img [src]="profileUrl">
                 </div>
@@ -17,6 +17,17 @@
                 </div>
                 <div class="profile-icon" [ngClass]="{ 'online': true }"></div>
               </div>
+              <mat-menu #menu="matMenu" xPosition="after">
+                <button (click)="toggleProfilePictureModal(true)" mat-menu-item >
+                  <mat-icon>file_upload</mat-icon>
+                  <span>Upload profile</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>logout</mat-icon>
+                  <span>Logout</span>
+                </button>
+              </mat-menu>
+              
             </div>
             <div class="nav-menu-list">
               <!-- <mat-icon> list_alt</mat-icon> -->
@@ -95,4 +106,6 @@
 
   <!-- Friend requests modal -->
   <app-friend-requests-modal [isModalOpen]="isFriendRequestsModalOpen" [friendRequests]="receivedFriendRequests" (modalStatusEventEmitter)="changeFriendRequestsModalState($event)"></app-friend-requests-modal>
+  <app-profile-upload [modalOpenStatus]="profilePictureModalOpen" (actionEmitter)="toggleProfilePictureModal($event)"></app-profile-upload>
 </div>
+

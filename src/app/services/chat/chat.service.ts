@@ -213,6 +213,12 @@ export class ChatService {
     if (this.currentUser?._id) {
       this.getContactDetails(this.currentUser._id).subscribe(res =>{
         this.currentUser = res.response
+
+        if (res && res.files && res.files.profile) {
+
+          this.setProfilePicture(res.files.profile)
+
+        }
       })
     }
   }
@@ -230,6 +236,9 @@ export class ChatService {
     if (base64.length && this.currentUser?.profilePicture?.isProfileUploaded) {
 
       this.profileUrl = `data:${this.currentUser.profilePicture.mimetype};base64,` + base64
+      
+
+      this.refreshContactSubject$.next(true)
 
     }
   }

@@ -14,7 +14,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpInterceptorInterceptor } from './interceptors/http-interceptor.interceptor';
 
-
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, SharedModule, BrowserAnimationsModule],

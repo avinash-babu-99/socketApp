@@ -1,0 +1,30 @@
+<div #modalContainer class="my-modal">
+  <div class="icon-container">
+    <img
+      (click)="toggleModal(false)"
+      class="close-icon"
+      src="../../../assets/images/close.png"
+      alt=""
+    />
+    <div class="header">
+        Upload your profile
+    </div>
+  </div>
+  <div class="file-container">
+    <ng-container *ngIf="!ProfileToUpload?.name" >
+            <input type="file" #fileInput id="fileInput" [(ngModel)]="ProfileToUpload" (change)="handleFileInput($event.target)" />
+            <div class="upload-icon-container">
+                <img class="upload-icon" src="../../../assets/images/upload.png" alt="">
+            </div>
+    </ng-container>
+    <div *ngIf="ProfileToUpload?.name" class="review-container">
+        <div class="preview">
+            <img [src]="imageUrl" >
+        </div>
+        <div class="actions">
+            <button class="cancel" (click)="clearFile()">Cancel</button>
+            <button class="upload" (click)="uploadFile()">Upload</button>
+        </div>
+    </div>
+  </div>
+</div>

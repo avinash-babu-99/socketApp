@@ -14,9 +14,10 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatCardModule} from '@angular/material/card';
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
 import {MatButtonModule} from '@angular/material/button';
+import { ProfileUploadComponent } from 'src/app/components/profile-upload/profile-upload.component';
 
 @NgModule({
-  declarations: [OutsideClickListenerDirective, ConfirmationDialogComponent],
+  declarations: [OutsideClickListenerDirective, ConfirmationDialogComponent, ProfileUploadComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -31,6 +32,6 @@ import {MatButtonModule} from '@angular/material/button';
     MatCardModule,
     MatButtonModule
   ],
-  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule, MatInputModule, MatCheckboxModule, NgxSpinnerModule, MatIconModule, MatSidenavModule, MatBadgeModule, MatMenuModule, MatCardModule, ConfirmationDialogComponent, MatButtonModule]
+  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule, MatInputModule, MatCheckboxModule, NgxSpinnerModule, MatIconModule, MatSidenavModule, MatBadgeModule, MatMenuModule, MatCardModule, ConfirmationDialogComponent, MatButtonModule, ProfileUploadComponent]
 })
 export class SharedModule { }
