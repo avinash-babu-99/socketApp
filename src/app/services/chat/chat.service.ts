@@ -224,5 +224,14 @@ export class ChatService {
   public getProfilePhoto () {
    return this.http.get(`${this.boLocalUrl}/contacts/getProfilePhoto/user-${this.currentUser._id}`)
   }
+
+  public setProfilePicture(base64: string) {
+
+    if (base64.length && this.currentUser?.profilePicture?.isProfileUploaded) {
+
+      this.profileUrl = `data:${this.currentUser.profilePicture.mimetype};base64,` + base64
+
+    }
+  }
 }
 

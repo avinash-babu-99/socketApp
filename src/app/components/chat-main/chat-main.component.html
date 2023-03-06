@@ -6,21 +6,22 @@
       <div class="flex-container">
 
         <mat-drawer-container class="nav-container" autosize>
-          <img [src]="profileUrl" alt="">
           <div class="content">
             <div class="nav-header">
-              <img [src]="profileUrl" alt="testttt">
-              <!-- <div class="profile-pic">
-                <div class="profile-icon" [ngClass]="{ 'online': true }"></div>
-                <div class="auto-profile">
+              <div class="profile-pic">
+                <div *ngIf="chatService.currentUser.profilePicture?.isProfileUploaded" class="profile-picture-wrap">
+                  <img [src]="profileUrl">
+                </div>
+                <div *ngIf="!(chatService.currentUser.profilePicture?.isProfileUploaded)" class="auto-profile">
                   {{(currentUser?.name[0] + currentUser?.name[1]) | uppercase}}
                 </div>
-              </div> -->
+                <div class="profile-icon" [ngClass]="{ 'online': true }"></div>
+              </div>
             </div>
             <div class="nav-menu-list">
               <!-- <mat-icon> list_alt</mat-icon> -->
               <span class="nav-icon" routerLink="/Chat/message" routerLinkActive="nav-icon-active">
-                <img src="../../../assets/images/Vector.svg"  alt="">
+                <img src="../../../assets/images/Vector.svg" alt="">
               </span>
               <!-- <mat-icon>dock</mat-icon>
               <mat-icon>phone_iphone</mat-icon>
@@ -28,7 +29,7 @@
               <mat-icon>menu</mat-icon>
               <mat-icon>refresh</mat-icon> -->
               <span class="nav-icon" routerLink="/Chat/contacts" routerLinkActive="nav-icon-active">
-                <img src="../../../assets/images/contacts_icon.svg"  alt="">
+                <img src="../../../assets/images/contacts_icon.svg" alt="">
               </span>
               <!-- <mat-icon [ngClass]="{ 'menu-active': contactsDrawOpen }" (click)="contactsDrawOpen = !contactsDrawOpen">
                 <span #contactListTrigger>
@@ -36,7 +37,7 @@
                 </span>
               </mat-icon> -->
               <span class="nav-icon" routerLink="/Chat/friend-requests" routerLinkActive="nav-icon-active">
-                <img src="../../../assets/images/friend-request 1.svg"  alt="">
+                <img src="../../../assets/images/friend-request 1.svg" alt="">
               </span>
               <!-- <mat-icon [ngClass]="{ 'menu-active': isFriendRequestsModalOpen }" [matBadge]="receivedFriendRequests.length" matBadgeColor="accent" (click)="openFriendRequestsModal()">group_add</mat-icon> -->
               <!-- <mat-icon>person_add</mat-icon> -->
@@ -44,7 +45,7 @@
               <mat-icon>person</mat-icon> -->
               <!-- <mat-icon>settings</mat-icon> -->
             </div>
-            <div class="nav-footer"><mat-icon (click)="logout()" >exit_to_app</mat-icon></div>
+            <div class="nav-footer"><mat-icon (click)="logout()">exit_to_app</mat-icon></div>
           </div>
         </mat-drawer-container>
 

@@ -98,8 +98,12 @@ export class LoginComponent implements OnInit {
                   2
                   );
                   this.router.navigate(['/Chat/Message']);
-              }
+                }
+                if (data && data.files && data.files.profile) {
 
+                  this.chatService.setProfilePicture(data.files.profile)
+
+                }
             }
             this.componentStatus = 'loaded';
           },

@@ -71,17 +71,7 @@ export class ChatMainComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.chatService.getProfilePhoto().subscribe((blob: any) => {
-      console.log('profile blob', blob.blob );
-
-
-      const finalBlob = new Blob([blob.blob], { type: 'image/jpeg' });
-
-      this.profileUrl = 'data:image/jpeg;base64,' + blob.blob
-      console.log(this.profileUrl, 'profileUrl');
-
-
-    })
+    this.profileUrl = this.chatService.profileUrl
 
     this.isChatContainerExpanded = false;
 
