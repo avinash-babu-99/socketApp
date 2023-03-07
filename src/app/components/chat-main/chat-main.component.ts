@@ -46,6 +46,7 @@ export class ChatMainComponent implements OnInit, OnDestroy {
   public chatSearchText: string;
   public profileUrl: string = '';
   public profilePictureModalOpen: boolean = false;
+  public navBarOpen: boolean = false
 
   constructor(
     public chatService: ChatService,

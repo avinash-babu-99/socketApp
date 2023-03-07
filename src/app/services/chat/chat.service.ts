@@ -236,7 +236,6 @@ export class ChatService {
     if (base64.length && this.currentUser?.profilePicture?.isProfileUploaded) {
 
       this.profileUrl = `data:${this.currentUser.profilePicture.mimetype};base64,` + base64
-      
 
       this.refreshContactSubject$.next(true)
 

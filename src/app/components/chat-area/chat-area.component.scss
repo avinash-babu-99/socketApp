@@ -740,7 +740,6 @@
 .nav-container {
   width: 100px;
   height: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.5);
   background: #263238e3;
 
   .content {
@@ -821,7 +820,7 @@
 
   .chat-list-sidenav {
     height: 100%;
-    background: #d4dadf;
+    background: #454e52;
     transition: 0.25s;
     width: 300px;
     overflow-x: hidden;
@@ -951,13 +950,14 @@
         .contact-name {
           font-weight: bold;
           letter-spacing: 2px;
+          color: #f8f9fa;
         }
 
         .contact-text {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          color: gray;
+          color: #9b9999;
           padding-top: 5px;
         }
       }

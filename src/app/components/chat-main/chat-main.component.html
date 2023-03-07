@@ -5,8 +5,15 @@
 
       <div class="flex-container">
 
-        <mat-drawer-container class="nav-container" autosize>
+        <mat-drawer-container class="nav-container" [ngClass]="{ 'nav-container-open': navBarOpen }" autosize>
           <div class="content">
+            <div class="hamburger">
+              <div class="dots-container" (click)="navBarOpen=!navBarOpen">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
             <div class="nav-header">
               <div [matMenuTriggerFor]="menu" class="profile-pic">
                 <div *ngIf="chatService.currentUser.profilePicture?.isProfileUploaded" class="profile-picture-wrap">
@@ -18,7 +25,7 @@
                 <div class="profile-icon" [ngClass]="{ 'online': true }"></div>
               </div>
               <mat-menu #menu="matMenu" xPosition="after">
-                <button (click)="toggleProfilePictureModal(true)" mat-menu-item >
+                <button (click)="toggleProfilePictureModal(true)" mat-menu-item>
                   <mat-icon>file_upload</mat-icon>
                   <span>Upload profile</span>
                 </button>
@@ -27,34 +34,29 @@
                   <span>Logout</span>
                 </button>
               </mat-menu>
-              
+              <div class="user-info">
+                <span class="user-name">{{chatService.currentUser?.name}}</span>
+                <span class="user-phone">{{chatService.currentUser?.phone}}</span>
+              </div>
             </div>
             <div class="nav-menu-list">
-              <!-- <mat-icon> list_alt</mat-icon> -->
-              <span class="nav-icon" routerLink="/Chat/message" routerLinkActive="nav-icon-active">
+              <div class="nav-icon" routerLink="/Chat/message" routerLinkActive="nav-icon-active">
                 <img src="../../../assets/images/Vector.svg" alt="">
-              </span>
-              <!-- <mat-icon>dock</mat-icon>
-              <mat-icon>phone_iphone</mat-icon>
-              <mat-icon>smartphone</mat-icon>
-              <mat-icon>menu</mat-icon>
-              <mat-icon>refresh</mat-icon> -->
-              <span class="nav-icon" routerLink="/Chat/contacts" routerLinkActive="nav-icon-active">
+                <div class="text">Friend Requests</div>
+              </div>
+              <div class="nav-icon" routerLink="/Chat/contacts" routerLinkActive="nav-icon-active">
                 <img src="../../../assets/images/contacts_icon.svg" alt="">
-              </span>
-              <!-- <mat-icon [ngClass]="{ 'menu-active': contactsDrawOpen }" (click)="contactsDrawOpen = !contactsDrawOpen">
-                <span #contactListTrigger>
-                  group
-                </span>
-              </mat-icon> -->
-              <span class="nav-icon" routerLink="/Chat/friend-requests" routerLinkActive="nav-icon-active">
-                <img src="../../../assets/images/friend-request 1.svg" alt="">
-              </span>
-              <!-- <mat-icon [ngClass]="{ 'menu-active': isFriendRequestsModalOpen }" [matBadge]="receivedFriendRequests.length" matBadgeColor="accent" (click)="openFriendRequestsModal()">group_add</mat-icon> -->
-              <!-- <mat-icon>person_add</mat-icon> -->
-              <!-- <mat-icon>people</mat-icon>
-              <mat-icon>person</mat-icon> -->
-              <!-- <mat-icon>settings</mat-icon> -->
+                <div class="text">Friend Requests</div>
+              </div>
+              <div class="nav-icon" routerLink="/Chat/friend-requests" routerLinkActive="nav-icon-active">
+                <!-- <img src="../../../assets/images/friend-request 1.svg" alt=""> -->
+                <mat-icon style="color: #f8f9fa;" [matBadge]="receivedFriendRequests.length" matBadgeColor="accent">group_add</mat-icon>
+                <div class="text">Friend Requests</div>
+              </div>
+              <div class="nav-icon">
+                <img src="../../../assets/images/setting (1).png" alt="">
+                <div class="text">Friend Requests</div>
+              </div>
             </div>
             <div class="nav-footer"><mat-icon (click)="logout()">exit_to_app</mat-icon></div>
           </div>
@@ -108,4 +110,3 @@
   <app-friend-requests-modal [isModalOpen]="isFriendRequestsModalOpen" [friendRequests]="receivedFriendRequests" (modalStatusEventEmitter)="changeFriendRequestsModalState($event)"></app-friend-requests-modal>
   <app-profile-upload [modalOpenStatus]="profilePictureModalOpen" (actionEmitter)="toggleProfilePictureModal($event)"></app-profile-upload>
 </div>
-

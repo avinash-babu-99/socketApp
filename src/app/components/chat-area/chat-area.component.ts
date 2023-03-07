@@ -175,24 +175,4 @@ export class ChatAreaComponent implements OnInit {
       });
   }
 
-
-  public handleFileInput(event: any): void {
-    const target = event as HTMLInputElement;
-    if (target.files && target.files.length > 0) {
-      const file: File = (target.files as FileList)[0];
-      this.ProfileToUpload = file;
-    }
-    console.log(this.ProfileToUpload, 'this.ProfileToUpload');
-
-  }
-
-  public uploadFile() {
-    const formData: FormData = new FormData();
-    formData.append('photo', this.ProfileToUpload, this.ProfileToUpload.name);
-    this.chatService.uploadFile(formData).subscribe(()=>{
-      console.log('profile updated successfully');
-
-    })
-  }
-
 }
