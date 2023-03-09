@@ -9,10 +9,11 @@
         </div>
         <div class="content">
           <div (click)="selectedUserHandler(user)" class="contact" *ngFor="let user of contactsList" [ngClass]="{ 'contact-selected': selectedUser?.contact?._id === user?.contact?._id }">
-            <div>
-              <img src="../assets/images/waiter.png" width="40" height="40" alt="user" />
+            <div class="profile-pic-container">
+              <img *ngIf="(imageUrls[user?.contact?._id]?.length)" [src]="imageUrls[user?.contact?._id]" class="profile-pic" alt="user" />
+              <img *ngIf="!(imageUrls[user?.contact?._id]?.length)" class="profile-pic" src="../../../assets/images/blank-profile-picture-973460_1280-300x300.jpg" alt="">
             </div>
-            <div style="width: 100%">
+            <div class="contact-details">
               <span class="contact-name">
                 {{ user?.contact?.name }}
               </span>
@@ -62,7 +63,10 @@
       </div>
     </div>
     <div class="chat-profile" *ngIf="selectedUser?.contact?.name">
-      <img src="../assets/images/waiter.png" width="60" height="60" alt="user" />
+      <div class="profile-pic-container">
+        <img *ngIf="(imageUrls[selectedUser?.contact?._id]?.length)"  class="profile-pic" [src]="imageUrls[selectedUser?.contact?._id]" width="60" height="60" alt="user" />
+        <img *ngIf="!(imageUrls[selectedUser?.contact?._id]?.length)" class="profile-pic" src="../../../assets/images/blank-profile-picture-973460_1280-300x300.jpg" alt="">
+      </div>
       <div class="profilehd">
         {{ selectedUser?.contact?.name }}
         <div class="flex-al-c-jc-center online-status">
@@ -84,9 +88,14 @@
         </div>
       </div>
     </div>
-    <!-- <div class="spacer"></div> -->
     <div class="chat-text-box-wrapper" *ngIf="selectedUser?.contact?.name">
+      <emoji-mart *ngIf="isEmojiOpen" [showPreview]="false" class="emoji-mart" title="Pick your emoji…" emoji="point_up" (emojiClick)="handleSelection($event)"></emoji-mart>
+
+      <mat-icon class="emoji-insert" matBadgeColor="accent" (click)="isEmojiOpen = !isEmojiOpen">insert_emoticon</mat-icon>
+
       <input class="chat-text-box" type="text" placeholder="type the text....." [(ngModel)]="messageText" (keyup)="$event.keyCode === 13 && sendMessage()" />
+      <mat-icon class="emoji-insert" matBadgeColor="accent">attach_file</mat-icon>
+      <mat-icon class="emoji-insert" matBadgeColor="accent" (click)="sendMessage()">send</mat-icon>
     </div>
   </div>
 </div>

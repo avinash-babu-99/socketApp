@@ -8,9 +8,13 @@ import { ChatService } from 'src/app/services/chat/chat.service';
   styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent implements OnInit {
-  
+
   get contactsList() {
     return this.chatService.currentUser.contacts;
+  }
+
+  get imageUrls(): any[] {
+    return this.chatService.imageUrls;;
   }
 
   public removeContactActions: any[]
@@ -93,6 +97,15 @@ export class ContactsComponent implements OnInit {
   public notifyPeople(contact: any) {
     let data = {};
     this.chatService.notifyUser(contact);
+  }
+
+  public validateImage(imageUrl: string): any{
+    let string = `${imageUrl}`
+    if(string.length){
+      return true
+    } else {
+      return false
+    }
   }
 
 }

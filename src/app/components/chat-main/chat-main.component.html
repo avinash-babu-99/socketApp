@@ -3,8 +3,11 @@
     <!-- Chat container -->
     <div class="chat-container">
 
-      <div class="flex-container">
+      <div class="flex-container" style="transition: 0.25s ease-in-out; position: relative;" [ngStyle]="navBarOpen ? {width: '250px'} : {width: '100px'}">
 
+        <div *ngIf="navBarOpen" (click)="navBarOpen=false" class="close-wrapper">
+          <mat-icon style="color: #f8f9fa;" matBadgeColor="accent">keyboard_arrow_left</mat-icon>
+        </div>
         <mat-drawer-container class="nav-container" [ngClass]="{ 'nav-container-open': navBarOpen }" autosize>
           <div class="content">
             <div class="hamburger">
@@ -40,22 +43,26 @@
               </div>
             </div>
             <div class="nav-menu-list">
+              <div class="nav-icon" routerLink="/Chat/Social-feed" routerLinkActive="nav-icon-active">
+                <mat-icon style="color: #f8f9fa;" matBadgeColor="accent">add_to_photos</mat-icon>
+                <div class="text">Feed</div>
+              </div>
               <div class="nav-icon" routerLink="/Chat/message" routerLinkActive="nav-icon-active">
-                <img src="../../../assets/images/Vector.svg" alt="">
-                <div class="text">Friend Requests</div>
+                <mat-icon style="color: #f8f9fa;" matBadgeColor="accent">chat</mat-icon>
+                <div class="text">Chats</div>
               </div>
               <div class="nav-icon" routerLink="/Chat/contacts" routerLinkActive="nav-icon-active">
-                <img src="../../../assets/images/contacts_icon.svg" alt="">
-                <div class="text">Friend Requests</div>
+                <mat-icon style="color: #f8f9fa;" matBadgeColor="accent">contacts</mat-icon>
+                <div class="text">Contacts</div>
               </div>
               <div class="nav-icon" routerLink="/Chat/friend-requests" routerLinkActive="nav-icon-active">
-                <!-- <img src="../../../assets/images/friend-request 1.svg" alt=""> -->
                 <mat-icon style="color: #f8f9fa;" [matBadge]="receivedFriendRequests.length" matBadgeColor="accent">group_add</mat-icon>
                 <div class="text">Friend Requests</div>
               </div>
-              <div class="nav-icon">
-                <img src="../../../assets/images/setting (1).png" alt="">
-                <div class="text">Friend Requests</div>
+              <div class="nav-icon" routerLink="/Chat/Settings" routerLinkActive="nav-icon-active">
+                <mat-icon style="color: #f8f9fa;" matBadgeColor="accent"> <mat-icon style="color: #f8f9fa;" matBadgeColor="accent">settings</mat-icon>
+                </mat-icon>
+                <div class="text">Settings</div>
               </div>
             </div>
             <div class="nav-footer"><mat-icon (click)="logout()">exit_to_app</mat-icon></div>
@@ -64,7 +71,7 @@
 
       </div>
 
-      <div style="width: 100%;">
+      <div style="transition: 0.25s ease-in-out;" [ngStyle]="navBarOpen ? {width: 'calc(100% - 250px)'} : {width: 'calc(100% - 100px)'}">
         <router-outlet></router-outlet>
       </div>
 

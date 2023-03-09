@@ -13,6 +13,10 @@ export class FrientRequestsComponent implements OnInit {
     return this.chatService.currentUser.receivedFriendRequests;;
   }
 
+  get imageUrls(): any[] {
+    return this.chatService.imageUrls;;
+  }
+
   constructor(public modalRef: ViewContainerRef, private chatService: ChatService) {
   }
 
@@ -46,6 +50,21 @@ export class FrientRequestsComponent implements OnInit {
         this.chatService.refreshUser()
         this.chatService.refreshContactSubject$.next(true);
       });
+  }
+
+  public setContactsProfiles(): void {
+
+    let modifiedContacts = []
+
+    modifiedContacts = this.friendRequests.map((contact: any)=>{
+      return {
+        _id: contact._id,
+        profilePicture: contact.profilePicture
+      }
+    })
+
+    this.chatService.generateContactsImageUrls(modifiedContacts)
+
   }
 
 }

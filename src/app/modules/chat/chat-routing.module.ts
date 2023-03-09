@@ -6,7 +6,9 @@ import { ChatMainComponent } from 'src/app/components/chat-main/chat-main.compon
 import { ChatAreaComponent } from 'src/app/components/chat-area/chat-area.component';
 import { ContactsComponent } from 'src/app/components/contacts/contacts.component';
 import { FrientRequestsComponent } from 'src/app/components/frient-requests/frient-requests.component';
+import { SettingsComponent } from 'src/app/components/settings/settings.component';
 import { AuthGaurdGuard } from 'src/app/gaurds/auth-gaurd.guard';
+import { FeedComponent } from 'src/app/components/feed/feed.component';
 
 const routes: Routes = [
   {
@@ -25,6 +27,14 @@ const routes: Routes = [
       {
         path: 'friend-requests',
         component: FrientRequestsComponent
+      },
+      {
+        path: 'Settings',
+        component: SettingsComponent
+      },
+      {
+        path: 'Social-feed',
+        component: FeedComponent
       },
       { path: '', redirectTo: 'message', pathMatch: 'full' },
       { path: '**', redirectTo: 'message', pathMatch: 'full' },

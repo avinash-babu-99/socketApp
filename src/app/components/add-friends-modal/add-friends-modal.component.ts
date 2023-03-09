@@ -18,6 +18,10 @@ import { ChatService } from 'src/app/services/chat/chat.service';
   styleUrls: ['./add-friends-modal.component.scss'],
 })
 export class AddFriendsModalComponent implements OnInit, OnChanges {
+  get imageUrls(): any[] {
+    return this.chatService.imageUrls;;
+  }
+
   @Input() isModalOpen: boolean;
   @Input() SearchArray: any[];
   @Input() contactsList: any[]
@@ -39,6 +43,8 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
     this.chatService.listenNotification().subscribe((data) => {
       this.getAddFriendsList();
     });
+
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -79,6 +85,8 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
 
         this.addFriendsList = finalList;
       }
+
+      this.setContactsProfiles()
     });
   }
 
@@ -152,5 +160,20 @@ export class AddFriendsModalComponent implements OnInit, OnChanges {
         this.chatService.refreshUser()
         this.chatService.refreshContactSubject$.next(true);
       });
+  }
+
+  public setContactsProfiles(): void {
+
+    let modifiedContacts = []
+
+    modifiedContacts = this.addFriendsList.map((contact: any)=>{
+      return {
+        _id: contact._id,
+        profilePicture: contact.profilePicture
+      }
+    })
+
+    this.chatService.generateContactsImageUrls(modifiedContacts)
+
   }
 }

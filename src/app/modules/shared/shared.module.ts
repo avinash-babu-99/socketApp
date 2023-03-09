@@ -15,6 +15,7 @@ import {MatCardModule} from '@angular/material/card';
 import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dialog/confirmation-dialog.component';
 import {MatButtonModule} from '@angular/material/button';
 import { ProfileUploadComponent } from 'src/app/components/profile-upload/profile-upload.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   declarations: [OutsideClickListenerDirective, ConfirmationDialogComponent, ProfileUploadComponent],
@@ -30,8 +31,9 @@ import { ProfileUploadComponent } from 'src/app/components/profile-upload/profil
     MatBadgeModule,
     MatMenuModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    PickerModule
   ],
-  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule, MatInputModule, MatCheckboxModule, NgxSpinnerModule, MatIconModule, MatSidenavModule, MatBadgeModule, MatMenuModule, MatCardModule, ConfirmationDialogComponent, MatButtonModule, ProfileUploadComponent]
+  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule, MatInputModule, MatCheckboxModule, NgxSpinnerModule, MatIconModule, MatSidenavModule, MatBadgeModule, MatMenuModule, MatCardModule, ConfirmationDialogComponent, MatButtonModule, ProfileUploadComponent, PickerModule]
 })
 export class SharedModule { }

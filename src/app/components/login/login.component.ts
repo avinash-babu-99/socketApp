@@ -83,6 +83,9 @@ export class LoginComponent implements OnInit {
         })
         .subscribe(
           (data) => {
+
+            console.log(data, 'login response');
+
             this.spinner.hide();
             if (data && data.user) {
               if (data && data.token) {

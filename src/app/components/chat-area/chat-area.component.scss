@@ -620,10 +620,19 @@
   color: #fff;
   font-size: 16px;
 
-  img {
-    width: 50px;
+  .profile-pic-container {
     height: 50px;
+    width: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+
+    .profile-pic {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
   }
+
 }
 
 .chat-text-box {
@@ -633,14 +642,32 @@
   background: #eee;
   outline: none;
   font-size: 16px;
-  margin: auto;
-  width: 1069px;
+  width: 100%;
   display: block;
   border-radius: 70px;
 }
 
+::ng-deep .emoji-mart {
+  width: 100% !important;
+}
+
 .chat-text-box-wrapper {
   padding: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  .emoji-mart {
+    width: 100% !important;
+    position: absolute;
+    bottom: 100%;
+  }
+
+  .emoji-insert {
+    color: #090b0c;
+    cursor: pointer;
+  }
 }
 
 .spacer {
@@ -947,19 +974,40 @@
         padding: 10px 10px;
         cursor: pointer;
 
-        .contact-name {
-          font-weight: bold;
-          letter-spacing: 2px;
-          color: #f8f9fa;
+        .profile-pic-container {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          overflow: hidden;
+
+          .profile-pic {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+
+          }
         }
 
-        .contact-text {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          color: #9b9999;
-          padding-top: 5px;
+        .contact-details {
+
+          width: calc(100% - 65px);
+
+          .contact-name {
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #f8f9fa;
+          }
+
+          .contact-text {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #9b9999;
+            padding-top: 5px;
+          }
+
         }
+
       }
 
       .contact:hover {

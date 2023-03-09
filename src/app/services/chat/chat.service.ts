@@ -15,6 +15,7 @@ export class ChatService {
   public currentUser: any;
   public refreshContactSubject$: Subject<any>;
   public profileUrl: string = ''
+  public imageUrls: any = {}
 
   private contactUrl = 'http://127.0.0.1:400/contacts';
 
@@ -33,18 +34,18 @@ export class ChatService {
     });
   }
 
-  public disconnectSocket(): void{
+  public disconnectSocket(): void {
     this.socket?.disconnect()
   }
 
-  public saveUserDetailsInSocket(): void{
+  public saveUserDetailsInSocket(): void {
     this.socket?.emit('loginDetails', this.currentUser)
   }
 
-  public updateContact(id: any, status: string){
-    if ( this.currentUser && this.currentUser.contacts ) {
-      this.currentUser.contacts.map((data: any) =>{
-        if(data._id === id) {
+  public updateContact(id: any, status: string) {
+    if (this.currentUser && this.currentUser.contacts) {
+      this.currentUser.contacts.map((data: any) => {
+        if (data._id === id) {
           data.status === status
         }
       })
@@ -106,7 +107,7 @@ export class ChatService {
     });
   }
 
-  public listenToContactOnline(data: any): Observable<any>{
+  public listenToContactOnline(data: any): Observable<any> {
     return new Observable<{ id: string }>((observer) => {
       this.socket?.on('onlineStatus', (data) => {
         observer.next(data._id);
@@ -118,12 +119,12 @@ export class ChatService {
     });
   }
 
-  public emitStatus(status: string): void{
+  public emitStatus(status: string): void {
     this.socket?.emit('goOffline', this.currentUser)
 
-    if(status === 'online'){
+    if (status === 'online') {
       this.socket?.emit('goOnline', this.currentUser)
-    } else if(status === 'offline'){
+    } else if (status === 'offline') {
       this.socket?.emit('goOffline', this.currentUser)
     }
   }
@@ -168,8 +169,22 @@ export class ChatService {
   }
 
   public getAddNewFriendsList(): Observable<any> {
+    let modifiedUser: any = {
+      _id: this.currentUser._id
+    }
+
+    let contactsPayload = this.currentUser.contacts.map((contact: any) => {
+      return {
+        contact: {
+          _id: contact.contact._id
+        }
+      }
+    })
+
+    modifiedUser.contacts = contactsPayload
+
     return this.http.post(`${this.boUrl}/contacts/addFriendsList/`, {
-      currentUser: this.currentUser,
+      currentUser: modifiedUser,
     });
   }
 
@@ -211,7 +226,7 @@ export class ChatService {
 
   public refreshUser(): void {
     if (this.currentUser?._id) {
-      this.getContactDetails(this.currentUser._id).subscribe(res =>{
+      this.getContactDetails(this.currentUser._id).subscribe(res => {
         this.currentUser = res.response
 
         if (res && res.files && res.files.profile) {
@@ -223,12 +238,12 @@ export class ChatService {
     }
   }
 
-  public uploadFile (fileFormData: FormData) {
-   return this.http.post(`${this.boLocalUrl}/contacts/uploadProfile`, fileFormData)
+  public uploadFile(fileFormData: FormData) {
+    return this.http.post(`${this.boLocalUrl}/contacts/uploadProfile`, fileFormData)
   }
 
-  public getProfilePhoto () {
-   return this.http.get(`${this.boLocalUrl}/contacts/getProfilePhoto/user-${this.currentUser._id}`)
+  public getProfilePhoto() {
+    return this.http.get(`${this.boLocalUrl}/contacts/getProfilePhoto/user-${this.currentUser._id}`)
   }
 
   public setProfilePicture(base64: string) {
@@ -240,6 +255,62 @@ export class ChatService {
       this.refreshContactSubject$.next(true)
 
     }
+  }
+
+  public returnImageUrl(base64: string, fileDetails: any): any {
+
+    if (base64.length && fileDetails?.isProfileUploaded) {
+
+      let imageUrl = `data:${fileDetails.mimetype};base64,` + base64
+
+      return imageUrl
+
+    }
+  }
+
+  public generateContactsImageUrls(contacts: any): any {
+
+    let contactsPayload: any = []
+    contactsPayload = contacts.map((contact: any) => {
+
+      if (contact && contact.profilePicture && contact.profilePicture.isProfileUploaded) {
+        return {
+          _id: contact._id,
+          profilePicture: contact.profilePicture
+        }
+      }
+
+      return
+
+    })
+
+    this.http.post(`${this.boLocalUrl}/contacts/generateProfilesBase64`, contactsPayload).subscribe((data: any)=>{
+
+      let finalUrls: any = {}
+
+      data.res.forEach((contact: any)=>{
+        if (contact.contact && contact.contact.profilePicture && contact.contact.profilePicture.isProfileUploaded) {
+
+          let imageUrl = this.returnImageUrl(contact.base64, contact.contact.profilePicture)
+
+          finalUrls[contact.contact._id] = imageUrl
+
+        }
+      })
+
+      this.imageUrls = {...this.imageUrls, ...finalUrls}
+      console.log(this.imageUrls, 'this.imageUrls');
+
+    })
+
+    if (contacts.length) {
+      contacts.forEach((contact: any) => {
+        if (contact.profilePicture?.isProfileUploaded) {
+
+        }
+      })
+    }
+
   }
 }
 

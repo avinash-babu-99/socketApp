@@ -12,6 +12,15 @@ import { ChatService } from 'src/app/services/chat/chat.service';
 })
 export class ChatAreaComponent implements OnInit {
 
+  get contacts(): any[] {
+    return this.chatService.currentUser.contacts;;
+  }
+
+  get imageUrls(): any[] {
+    return this.chatService.imageUrls;;
+  }
+
+
   @ViewChild('messageBlock') public messageBlockEle: any;
 
   @Input() contactsList: any[]
@@ -25,6 +34,8 @@ export class ChatAreaComponent implements OnInit {
   public receivedFriendRequests: any[]
   public addFriendsSearchArray: any[]
   public ProfileToUpload: File = new File([], '');
+  public toggled: boolean = false
+  public isEmojiOpen: boolean = false
 
   constructor(private chatService: ChatService) {
 
@@ -44,10 +55,12 @@ export class ChatAreaComponent implements OnInit {
 
     if (this.chatService?.currentUser?.receivedFriendRequests) {
       this.receivedFriendRequests =
-        this.chatService.currentUser.receivedFriendRequests;
+      this.chatService.currentUser.receivedFriendRequests;
     }
 
     this.chatService.getMessage().subscribe((data) => {
+      console.log(data, 'message');
+
       this.messageArray.push(data);
     });
 
@@ -73,11 +86,11 @@ export class ChatAreaComponent implements OnInit {
     this.chatService.getContacts().subscribe(
       (data) => { },
       (err) => { }
-    );
+      );
 
-    this.currentUser = this.chatService.currentUser;
+      this.currentUser = this.chatService.currentUser;
 
-    this.contactsList = this.currentUser.contacts;
+      this.contactsList = this.currentUser.contacts;
 
     this.chatService.refreshContactSubject$.subscribe((data: boolean) => {
 
@@ -85,6 +98,8 @@ export class ChatAreaComponent implements OnInit {
         this.refreshContacts();
       }
     });
+
+    this.setContactsProfiles()
 
     this.scrollToBottom();
   }
@@ -125,14 +140,16 @@ export class ChatAreaComponent implements OnInit {
   }
 
   public scrollToBottom(): void {
-    if (this.messageBlockEle) {
-      try {
-        this.messageBlockEle.nativeElement.scrollTop =
-          this.messageBlockEle.nativeElement.scrollHeight;
-      } catch {
-        console.log('template error');
+    setTimeout(() => {
+      if (this.messageBlockEle) {
+        try {
+          this.messageBlockEle.nativeElement.scrollTop =
+            this.messageBlockEle.nativeElement.scrollHeight;
+        } catch {
+          console.log('template error');
+        }
       }
-    }
+    }, 100)
   }
 
   public join(userName: any, roomId: any): void {
@@ -143,13 +160,14 @@ export class ChatAreaComponent implements OnInit {
   }
 
   public sendMessage() {
+    this.isEmojiOpen = false
     this.chatService.sendMessage({
       sendUser: this.currentUser.phone,
       room: this.roomId,
       message: this.messageText,
     });
 
-    this.scrollToBottom();
+    this.scrollToBottom()
 
     this.messageText = '';
   }
@@ -173,6 +191,24 @@ export class ChatAreaComponent implements OnInit {
 
         }
       });
+  }
+
+  public handleSelection(event: any) {
+    this.messageText = this.messageText + event.emoji.native
+
+  }
+
+  public setContactsProfiles(): void {
+
+    let modifiedContacts = []
+
+    modifiedContacts = this.contacts.map((contact: any)=>{
+      return contact.contact
+    })
+
+    this.chatService.generateContactsImageUrls(modifiedContacts)
+
+
   }
 
 }

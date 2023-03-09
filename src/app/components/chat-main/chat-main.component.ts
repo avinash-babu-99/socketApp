@@ -99,8 +99,8 @@ export class ChatMainComponent implements OnInit, OnDestroy {
     });
 
     this.chatService.getContacts().subscribe(
-      (data) => {},
-      (err) => {}
+      (data) => { },
+      (err) => { }
     );
 
     this.currentUser = this.chatService.currentUser;
@@ -109,11 +109,11 @@ export class ChatMainComponent implements OnInit, OnDestroy {
 
     this.chatService.refreshContactSubject$.subscribe((data: boolean) => {
       if (data) {
-        // this.refreshContacts();
         this.currentUser = this.chatService.currentUser;
         this.contactsList = this.currentUser.contacts;
         this.profileUrl = this.chatService.profileUrl;
-
+        this.receivedFriendRequests =
+          this.chatService.currentUser.receivedFriendRequests;
       }
     });
   }
@@ -147,7 +147,7 @@ export class ChatMainComponent implements OnInit, OnDestroy {
   public refreshContacts(): void {
     this.chatService
       .getContactDetails(this.chatService.currentUser._id)
-      .pipe(catchError((): any => {}))
+      .pipe(catchError((): any => { }))
       .subscribe((data) => {
         if (data && data.response) {
           this.chatService.currentUser = data.response;

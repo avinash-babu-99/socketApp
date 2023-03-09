@@ -28,7 +28,8 @@
         <div *ngFor="let contact of addFriendsList" class="contact">
 
           <div>
-            <img src="../../../assets/images/waiter.png" alt="" />
+            <img *ngIf="imageUrls[contact?._id]?.length" class="profile-pic" [src]="imageUrls[contact?._id]" alt="">
+            <img *ngIf="!(imageUrls[contact?._id]?.length)" class="profile-pic" src="../../../assets/images/blank-profile-picture-973460_1280-300x300.jpg" alt="">
             <span>&nbsp;</span>
             {{ contact.name }}
           </div>

@@ -660,6 +660,18 @@
   color: #263238;
 }
 
+.close-wrapper {
+  position: absolute;
+  left: 90%;
+  top: 12px;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+  cursor: pointer;
+  border-radius: 4px 0px 0px 4px;
+  background: #454e52;
+}
+
 .nav-container {
   width: 100px;
   height: 100%;
@@ -675,19 +687,22 @@
     .hamburger {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      padding-left: 30px;
       width: 100%;
-      height: 10%;
+      height: 5%;
       background-color: transparent;
       border: none;
       cursor: pointer;
       position: relative;
-      // padding-left: 30px;
+      transition: 1s;
 
       .dots-container {
         position: relative;
         width: 40px;
         height: 20px;
+        transition: 1s;
+
       }
 
       .dot {
@@ -731,7 +746,7 @@
     }
 
     .nav-header {
-      height: 10%;
+      height: 15%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -817,8 +832,7 @@
       overflow: auto;
       width: 100%;
       height: 70%;
-
-
+      overflow-x: hidden;
 
       .nav-icon {
         cursor: pointer;
@@ -834,9 +848,10 @@
         width: 100%;
 
         .text {
-          display: none;
+          width: 0%;
+          overflow: hidden;
           transition: .25s;
-          transition-delay: .25s;
+          opacity: 0;
         }
 
         img {
@@ -882,7 +897,11 @@
 
   .content {
 
-
+    .hamburger {
+      justify-content: space-between;
+      padding-left: 30px;
+      transition: 1s;
+    }
 
     .nav-header {
 
@@ -899,10 +918,19 @@
 
     .nav-menu-list {
       .nav-icon {
-        .text {
-          display: block;
-        }
+        padding-left: 20px;
 
+        .text {
+          width: 100%;
+          opacity: 1;
+          font-size: 15px;
+          font-weight: 500;
+          color: #f8f9fa
+        }
+      }
+
+      .nav-icon-active {
+        padding-left: 20px;
       }
     }
   }
