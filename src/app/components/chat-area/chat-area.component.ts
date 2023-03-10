@@ -86,11 +86,11 @@ export class ChatAreaComponent implements OnInit {
     this.chatService.getContacts().subscribe(
       (data) => { },
       (err) => { }
-      );
+    );
 
-      this.currentUser = this.chatService.currentUser;
+    this.currentUser = this.chatService.currentUser;
 
-      this.contactsList = this.currentUser.contacts;
+    this.contactsList = this.currentUser.contacts;
 
     this.chatService.refreshContactSubject$.subscribe((data: boolean) => {
 
@@ -108,35 +108,18 @@ export class ChatAreaComponent implements OnInit {
     this.messageArray = [];
     this.selectedUser = selectedUser;
 
-    const ids = [selectedUser?.contact._id, this.currentUser._id];
-    this.chatService.getRoom(ids).subscribe((data) => {
-      if (data.data && !data.data.length) {
-        this.chatService.newRoom(ids).subscribe((response) => {
-          this.roomId = response.data._id;
-          this.chatService
-            .getChatMessages(this.roomId)
-            .subscribe((response) => {
-              if (response && response.messages) {
-                this.messageArray = [
-                  ...this.messageArray,
-                  ...response.messages,
-                ];
-                this.scrollToBottom();
-                this.join(this.currentUser, this.roomId);
-              }
-            });
-        });
-      } else {
-        this.roomId = data.data[0]._id;
-        this.chatService.getChatMessages(this.roomId).subscribe((response) => {
-          if (response && response.messages) {
-            this.messageArray = [...this.messageArray, ...response.messages];
-            this.scrollToBottom();
-            this.join(this.currentUser, this.roomId);
-          }
-        });
-      }
-    });
+    if (selectedUser.roomId) {
+
+      this.roomId = selectedUser.roomId;
+      this.chatService.getChatMessages(this.roomId).subscribe((response) => {
+        if (response && response.messages) {
+          this.messageArray = [...this.messageArray, ...response.messages];
+          this.scrollToBottom();
+          this.join(this.currentUser, this.roomId);
+        }
+      });
+
+    }
   }
 
   public scrollToBottom(): void {
@@ -202,7 +185,7 @@ export class ChatAreaComponent implements OnInit {
 
     let modifiedContacts = []
 
-    modifiedContacts = this.contacts.map((contact: any)=>{
+    modifiedContacts = this.contacts.map((contact: any) => {
       return contact.contact
     })
 

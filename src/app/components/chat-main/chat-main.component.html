@@ -56,7 +56,7 @@
                 <div class="text">Contacts</div>
               </div>
               <div class="nav-icon" routerLink="/Chat/friend-requests" routerLinkActive="nav-icon-active">
-                <mat-icon style="color: #f8f9fa;" [matBadge]="receivedFriendRequests.length" matBadgeColor="accent">group_add</mat-icon>
+                <mat-icon style="color: #f8f9fa;" [matBadge]="friendRequestsCount" matBadgeColor="accent">group_add</mat-icon>
                 <div class="text">Friend Requests</div>
               </div>
               <div class="nav-icon" routerLink="/Chat/Settings" routerLinkActive="nav-icon-active">
@@ -112,8 +112,5 @@
 
   <!-- Add friends modal -->
   <app-add-friends-modal [isModalOpen]="isAddFriendsModalOpen" [SearchArray]="addFriendsSearchArray" (modalStatusEventEmitter)="changeAddFriendsModalState($event)"></app-add-friends-modal>
-
-  <!-- Friend requests modal -->
-  <app-friend-requests-modal [isModalOpen]="isFriendRequestsModalOpen" [friendRequests]="receivedFriendRequests" (modalStatusEventEmitter)="changeFriendRequestsModalState($event)"></app-friend-requests-modal>
   <app-profile-upload [modalOpenStatus]="profilePictureModalOpen" (actionEmitter)="toggleProfilePictureModal($event)"></app-profile-upload>
 </div>

@@ -34,9 +34,9 @@ export class AuthenticationServiceService {
 
   public isLoggedIn(): Boolean{
 
-    const token = this.cookieService.get(`Auth-token-${this.chatService.currentUser.phone}`)    
+    const token = this.cookieService.get(`Auth-token-${this.chatService.currentUser.phone}`)
 
-    if( token ) return true
+    if( token && this.chatService.currentUser.phone ) return true
 
     return false
 

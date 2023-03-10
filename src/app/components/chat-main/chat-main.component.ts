@@ -21,6 +21,11 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./chat-main.component.scss'],
 })
 export class ChatMainComponent implements OnInit, OnDestroy {
+
+  get friendRequestsCount(): number {
+    return this.chatService.currentUser?.receivedFriendRequests?.length;
+  }
+
   @ViewChild('messageBlock') public messageBlockEle: any;
   @ViewChild('robotModalTrigger') botModalEleRef: ElementRef = {} as ElementRef;
   @ViewChild('chatListTrigger') chatListEleRef: ElementRef = {} as ElementRef;
@@ -37,9 +42,7 @@ export class ChatMainComponent implements OnInit, OnDestroy {
   public messageText: string = '';
   public robotMessageModel: string;
   public isAddFriendsModalOpen: boolean;
-  public isFriendRequestsModalOpen: boolean;
   public addFriendsSearchArray: any[];
-  public receivedFriendRequests: any[];
   public isChatContainerExpanded: boolean;
   public chatDrawOpen: boolean;
   public contactsDrawOpen: boolean;
@@ -60,8 +63,6 @@ export class ChatMainComponent implements OnInit, OnDestroy {
     this.robotMessageModel = '';
     this.isAddFriendsModalOpen = false;
     this.addFriendsSearchArray = [];
-    this.receivedFriendRequests = [];
-    this.isFriendRequestsModalOpen = false;
     this.isChatContainerExpanded = false;
     this.chatDrawOpen = false;
     this.contactsDrawOpen = false;
@@ -72,11 +73,6 @@ export class ChatMainComponent implements OnInit, OnDestroy {
     this.profileUrl = this.chatService.profileUrl;
 
     this.isChatContainerExpanded = false;
-
-    if (this.chatService?.currentUser?.receivedFriendRequests) {
-      this.receivedFriendRequests =
-        this.chatService.currentUser.receivedFriendRequests;
-    }
 
     this.chatService.getMessage().subscribe((data) => {
       this.messageArray.push(data);
@@ -112,8 +108,6 @@ export class ChatMainComponent implements OnInit, OnDestroy {
         this.currentUser = this.chatService.currentUser;
         this.contactsList = this.currentUser.contacts;
         this.profileUrl = this.chatService.profileUrl;
-        this.receivedFriendRequests =
-          this.chatService.currentUser.receivedFriendRequests;
       }
     });
   }
@@ -140,10 +134,6 @@ export class ChatMainComponent implements OnInit, OnDestroy {
     this.isAddFriendsModalOpen = state;
   }
 
-  public changeFriendRequestsModalState(state: boolean): void {
-    this.isFriendRequestsModalOpen = state;
-  }
-
   public refreshContacts(): void {
     this.chatService
       .getContactDetails(this.chatService.currentUser._id)
@@ -151,12 +141,6 @@ export class ChatMainComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         if (data && data.response) {
           this.chatService.currentUser = data.response;
-
-          if (this.chatService?.currentUser?.receivedFriendRequests) {
-            this.receivedFriendRequests =
-              this.chatService.currentUser.receivedFriendRequests;
-          }
-
           this.currentUser = this.chatService.currentUser;
 
           this.contactsList = this.currentUser.contacts;
