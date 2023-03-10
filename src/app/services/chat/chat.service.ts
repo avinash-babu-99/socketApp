@@ -66,8 +66,8 @@ export class ChatService {
 
   public sendMessage(data: any): any {
     this.saveMessage(data).subscribe(
-      () => {
-        this.socket?.emit('message', data);
+      (res: any) => {
+        this.socket?.emit('message', {...data, roomData: res.roomData});
       },
       () => {
         console.error('error sending message');
@@ -82,7 +82,7 @@ export class ChatService {
   }
 
   public getMessage(): Observable<any> {
-    return new Observable<{ user: string; message: string }>((observer) => {
+    return new Observable<{ user: string; message: string, roomData: any }>((observer) => {
       this.socket?.on('new message', (data) => {
         observer.next(data);
       });
@@ -91,6 +91,27 @@ export class ChatService {
         this.socket?.disconnect();
       };
     });
+  }
+
+  public updateContactRoomData(roomData: any): void{
+    this.currentUser.contacts = this.currentUser.contacts.map((contact: any)=>{
+      if ( contact && contact.roomId && contact.roomId._id ) {
+
+        if ( (contact.roomId._id === roomData.roomId) && contact.roomId.lastMessage && contact.roomId.lastChatted ) {
+
+          contact.roomId.lastMessage.message = roomData.message
+
+          contact.roomId.lastChatted = roomData.date
+
+        }
+      }
+
+      return contact
+    })
+
+    console.log(this.currentUser.contacts, 'this.currentUser.contacts');
+
+
   }
 
   public updateContactDetails(): Observable<any> {

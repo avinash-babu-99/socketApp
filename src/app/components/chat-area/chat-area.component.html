@@ -8,7 +8,7 @@
           <span *ngIf="!chatSearchText.length" class="place-holder">Search</span>
         </div>
         <div class="content">
-          <div (click)="selectedUserHandler(user)" class="contact" *ngFor="let user of contactsList" [ngClass]="{ 'contact-selected': selectedUser?.contact?._id === user?.contact?._id }">
+          <div (click)="selectedUserHandler(user)" class="contact" *ngFor="let user of contacts" [ngClass]="{ 'contact-selected': selectedUser?.contact?._id === user?.contact?._id }">
             <div class="profile-pic-container">
               <img *ngIf="(imageUrls[user?.contact?._id]?.length)" [src]="imageUrls[user?.contact?._id]" class="profile-pic" alt="user" />
               <img *ngIf="!(imageUrls[user?.contact?._id]?.length)" class="profile-pic" src="../../../assets/images/blank-profile-picture-973460_1280-300x300.jpg" alt="">
@@ -18,8 +18,8 @@
                 {{ user?.contact?.name }}
               </span>
               <div class="contact-text">
-                <span>latest message</span>
-                <span>2 mins</span>
+                <span class="text">{{user?.roomId?.lastMessage?.message}}</span>
+                <span class="time-stamp">{{user?.roomId?.lastChatted | timeStampFormatter}}</span>
               </div>
             </div>
           </div>
@@ -77,12 +77,12 @@
     </div>
     <div #messageBlock class="message-block" *ngIf="selectedUser?.contact?.name">
       <div [ngClass]="
-          user.sender === currentUser.phone
+          user.sender === currentUser._id
             ? 'sent-message-wrap'
             : 'message-wrap'
         " *ngFor="let user of messageArray">
         <div class="message" [ngClass]="
-            user.sender === currentUser.phone ? 'sent-message' : 'message'
+            user.sender === currentUser._id ? 'sent-message' : 'message'
           ">
           {{ user.message }}
         </div>

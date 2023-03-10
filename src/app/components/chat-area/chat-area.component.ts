@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { catchError } from 'rxjs';
 
-
 // service imports
 import { ChatService } from 'src/app/services/chat/chat.service';
 
@@ -13,13 +12,12 @@ import { ChatService } from 'src/app/services/chat/chat.service';
 export class ChatAreaComponent implements OnInit {
 
   get contacts(): any[] {
-    return this.chatService.currentUser.contacts;;
+    return this.chatService.currentUser.contacts;
   }
 
   get imageUrls(): any[] {
     return this.chatService.imageUrls;;
   }
-
 
   @ViewChild('messageBlock') public messageBlockEle: any;
 
@@ -37,7 +35,8 @@ export class ChatAreaComponent implements OnInit {
   public toggled: boolean = false
   public isEmojiOpen: boolean = false
 
-  constructor(private chatService: ChatService) {
+  constructor(private chatService: ChatService
+  ) {
 
     this.chatSearchText = '';
     this.contactsList = [];
@@ -55,11 +54,16 @@ export class ChatAreaComponent implements OnInit {
 
     if (this.chatService?.currentUser?.receivedFriendRequests) {
       this.receivedFriendRequests =
-      this.chatService.currentUser.receivedFriendRequests;
+        this.chatService.currentUser.receivedFriendRequests;
     }
 
     this.chatService.getMessage().subscribe((data) => {
-      console.log(data, 'message');
+
+      if (data.roomData) {
+
+        this.chatService.updateContactRoomData(data.roomData)
+
+      }
 
       this.messageArray.push(data);
     });
@@ -108,9 +112,9 @@ export class ChatAreaComponent implements OnInit {
     this.messageArray = [];
     this.selectedUser = selectedUser;
 
-    if (selectedUser.roomId) {
+    if (selectedUser.roomId._id) {
 
-      this.roomId = selectedUser.roomId;
+      this.roomId = selectedUser.roomId._id;
       this.chatService.getChatMessages(this.roomId).subscribe((response) => {
         if (response && response.messages) {
           this.messageArray = [...this.messageArray, ...response.messages];
@@ -145,7 +149,7 @@ export class ChatAreaComponent implements OnInit {
   public sendMessage() {
     this.isEmojiOpen = false
     this.chatService.sendMessage({
-      sendUser: this.currentUser.phone,
+      sendUser: this.currentUser._id,
       room: this.roomId,
       message: this.messageText,
     });
@@ -190,7 +194,6 @@ export class ChatAreaComponent implements OnInit {
     })
 
     this.chatService.generateContactsImageUrls(modifiedContacts)
-
 
   }
 

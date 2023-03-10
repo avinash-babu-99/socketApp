@@ -16,9 +16,11 @@ import { ConfirmationDialogComponent } from 'src/app/components/confirmation-dia
 import {MatButtonModule} from '@angular/material/button';
 import { ProfileUploadComponent } from 'src/app/components/profile-upload/profile-upload.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { TimeStampFormatterPipe } from '../../pipes/time-stamp-formatter.pipe';
+
 
 @NgModule({
-  declarations: [OutsideClickListenerDirective, ConfirmationDialogComponent, ProfileUploadComponent],
+  declarations: [OutsideClickListenerDirective, ConfirmationDialogComponent, ProfileUploadComponent, TimeStampFormatterPipe],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -34,6 +36,6 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     MatButtonModule,
     PickerModule
   ],
-  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule, MatInputModule, MatCheckboxModule, NgxSpinnerModule, MatIconModule, MatSidenavModule, MatBadgeModule, MatMenuModule, MatCardModule, ConfirmationDialogComponent, MatButtonModule, ProfileUploadComponent, PickerModule]
+  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule, MatInputModule, MatCheckboxModule, NgxSpinnerModule, MatIconModule, MatSidenavModule, MatBadgeModule, MatMenuModule, MatCardModule, ConfirmationDialogComponent, MatButtonModule, ProfileUploadComponent, PickerModule, TimeStampFormatterPipe]
 })
 export class SharedModule { }

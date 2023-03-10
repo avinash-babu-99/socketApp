@@ -11,6 +11,7 @@ import { ContactsComponent } from 'src/app/components/contacts/contacts.componen
 import { FrientRequestsComponent } from 'src/app/components/frient-requests/frient-requests.component';
 import { SettingsComponent } from 'src/app/components/settings/settings.component';
 import { FeedComponent } from 'src/app/components/feed/feed.component';
+import { TimeStampFormatterPipe } from 'src/app/pipes/time-stamp-formatter.pipe';
 
 @NgModule({
   declarations: [ChatMainComponent, AddFriendsModalComponent, ChatAreaComponent, ContactsComponent, FrientRequestsComponent, SettingsComponent, FeedComponent],
@@ -18,6 +19,7 @@ import { FeedComponent } from 'src/app/components/feed/feed.component';
     CommonModule,
     ChatRoutingModule,
     SharedModule
-  ]
+  ],
+  providers: [TimeStampFormatterPipe]
 })
 export class ChatModule { }
