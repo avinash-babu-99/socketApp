@@ -14,6 +14,8 @@ export class TimeStampFormatterPipe implements PipeTransform {
     const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
 
+    const daysAgo = Math.round((today.getTime() - inputTimestamp) / (1000 * 60 * 60 * 24));
+
     if (inputTimestamp >= startOfToday.getTime() && inputTimestamp < endOfToday.getTime()) {
 
       const formattedTime = inputDate.toLocaleString('en-IN', {
@@ -25,9 +27,18 @@ export class TimeStampFormatterPipe implements PipeTransform {
 
       return formattedTime
 
-    } else {
+    } 
+    else if(daysAgo >= 1 && daysAgo <= 7){
 
-      console.log("The timestamp is not within today's date range.");
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const dayOfWeek = new Date(inputTimestamp).getDay();
+      return days[dayOfWeek];
+
+    }
+    else {
+
+      const formattedDate = `${inputDate.getDate()}/${inputDate.getMonth() + 1}/${inputDate.getFullYear()}`;
+      return formattedDate;
 
     }
 
