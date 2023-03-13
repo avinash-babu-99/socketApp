@@ -197,4 +197,8 @@ export class ChatAreaComponent implements OnInit {
 
   }
 
+  public getUnreadMessagesCount(id: any): any {
+    return this.chatService.unReadMessagesCountMapping[id]
+  }
+
 }

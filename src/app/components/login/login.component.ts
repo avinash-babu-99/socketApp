@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.chatService.emitStatus("offline")
     this.componentStatus = 'loaded';
 
     this.chatService.disconnectSocket()
@@ -94,6 +93,27 @@ export class LoginComponent implements OnInit {
                 this.chatService.connectToSocket()
                 this.chatService.saveUserDetailsInSocket()
                 this.chatService.sortChats()
+
+                let roomIds: any[] = []
+
+                if ( this.chatService.currentUser &&  this.chatService.currentUser.contacts && this.chatService.currentUser.contacts.length ) {
+
+                  roomIds = this.chatService.currentUser.contacts.map((contact: any)=>{
+                    return contact.roomId._id
+                  })
+
+                }
+
+                this.chatService.getUnreadMessages(roomIds).subscribe((response: any)=>{
+                  if ( response.response && response.response.length ) {
+
+                    response.response.forEach((data: any)=>{
+                      this.chatService.unReadMessagesCountMapping[data._id] = data.count
+                    })
+
+                  }
+
+                })
 
                 this.cookieService.delete(`Auth-token-${data.user.phone}`);
 

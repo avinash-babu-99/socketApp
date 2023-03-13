@@ -16,6 +16,7 @@ export class ChatService {
   public refreshContactSubject$: Subject<any>;
   public profileUrl: string = ''
   public imageUrls: any = {}
+  public unReadMessagesCountMapping: any = {}
 
   private contactUrl = 'http://127.0.0.1:400/contacts';
 
@@ -261,6 +262,10 @@ export class ChatService {
         }
       });
     });
+  }
+
+  public getUnreadMessages(roomIds: any[]): Observable<any> {
+    return this.http.post(`${this.boLocalUrl}/messages/getUnreadMessages`, {roomIds})
   }
 
 

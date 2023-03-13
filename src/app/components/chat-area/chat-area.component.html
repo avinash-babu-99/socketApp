@@ -16,6 +16,7 @@
             <div class="contact-details">
               <span class="contact-name">
                 {{ user?.contact?.name }}
+                <span>{{getUnreadMessagesCount(user?.roomId?._id)}}</span>
               </span>
               <div class="contact-text">
                 <span class="text">{{user?.roomId?.lastMessage?.message}}</span>
@@ -75,7 +76,7 @@
         </div>
       </div>
     </div>
-    <div #messageBlock class="message-block" *ngIf="selectedUser?.contact?.name">
+    <div #messageBlock appMessageRead [selectedChat]="selectedUser?.contact" class="message-block" *ngIf="selectedUser?.contact?.name">
       <div [ngClass]="
           user.sender === currentUser._id
             ? 'sent-message-wrap'
@@ -88,7 +89,7 @@
         </div>
       </div>
     </div>
-    <div class="chat-text-box-wrapper" *ngIf="selectedUser?.contact?.name">
+    <div class="chat-text-box-wrapper" appMessageRead *ngIf="selectedUser?.contact?.name">
       <emoji-mart *ngIf="isEmojiOpen" [showPreview]="false" class="emoji-mart" title="Pick your emoji…" emoji="point_up" (emojiClick)="handleSelection($event)"></emoji-mart>
 
       <mat-icon class="emoji-insert" matBadgeColor="accent" (click)="isEmojiOpen = !isEmojiOpen">insert_emoticon</mat-icon>

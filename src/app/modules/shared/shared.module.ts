@@ -17,10 +17,11 @@ import {MatButtonModule} from '@angular/material/button';
 import { ProfileUploadComponent } from 'src/app/components/profile-upload/profile-upload.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { TimeStampFormatterPipe } from '../../pipes/time-stamp-formatter.pipe';
+import { MessageReadDirective } from 'src/app/directives/message-read.directive';
 
 
 @NgModule({
-  declarations: [OutsideClickListenerDirective, ConfirmationDialogComponent, ProfileUploadComponent, TimeStampFormatterPipe],
+  declarations: [OutsideClickListenerDirective, ConfirmationDialogComponent, ProfileUploadComponent, TimeStampFormatterPipe, MessageReadDirective],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -36,6 +37,6 @@ import { TimeStampFormatterPipe } from '../../pipes/time-stamp-formatter.pipe';
     MatButtonModule,
     PickerModule
   ],
-  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule, MatInputModule, MatCheckboxModule, NgxSpinnerModule, MatIconModule, MatSidenavModule, MatBadgeModule, MatMenuModule, MatCardModule, ConfirmationDialogComponent, MatButtonModule, ProfileUploadComponent, PickerModule, TimeStampFormatterPipe]
+  exports: [OutsideClickListenerDirective, ReactiveFormsModule, FormsModule, MatInputModule, MatCheckboxModule, NgxSpinnerModule, MatIconModule, MatSidenavModule, MatBadgeModule, MatMenuModule, MatCardModule, ConfirmationDialogComponent, MatButtonModule, ProfileUploadComponent, PickerModule, TimeStampFormatterPipe, MessageReadDirective]
 })
 export class SharedModule { }
