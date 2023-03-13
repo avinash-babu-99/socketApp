@@ -19,7 +19,7 @@
               </span>
               <div class="contact-text">
                 <span class="text">{{user?.roomId?.lastMessage?.message}}</span>
-                <span class="time-stamp">{{user?.roomId?.lastChatted | timeStampFormatter}}</span>
+                <span *ngIf="user?.roomId?.lastChatted" class="time-stamp">{{user?.roomId?.lastChatted | timeStampFormatter}}</span>
               </div>
             </div>
           </div>

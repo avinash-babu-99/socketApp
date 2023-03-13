@@ -93,20 +93,22 @@ export class LoginComponent implements OnInit {
                 this.chatService.emitStatus('online')
                 this.chatService.connectToSocket()
                 this.chatService.saveUserDetailsInSocket()
+                this.chatService.sortChats()
+
                 this.cookieService.delete(`Auth-token-${data.user.phone}`);
 
                 this.cookieService.set(
                   `Auth-token-${data.user.phone}`,
                   data.token,
                   2
-                  );
-                  this.router.navigate(['/Chat/Message']);
-                }
-                if (data && data.files && data.files.profile) {
+                );
+                this.router.navigate(['/Chat/Message']);
+              }
+              if (data && data.files && data.files.profile) {
 
-                  this.chatService.setProfilePicture(data.files.profile)
+                this.chatService.setProfilePicture(data.files.profile)
 
-                }
+              }
             }
             this.componentStatus = 'loaded';
           },

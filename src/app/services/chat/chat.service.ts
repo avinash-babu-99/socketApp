@@ -20,9 +20,6 @@ export class ChatService {
   private contactUrl = 'http://127.0.0.1:400/contacts';
 
   constructor(private http: HttpClient) {
-    // this.socket = io(this.url, {
-    //   transports: ['websocket', 'polling', 'flashsocket'],
-    // });
     this.isLoggedIn = false;
     this.currentUser = {};
     this.refreshContactSubject$ = new Subject();
@@ -64,10 +61,46 @@ export class ChatService {
     });
   }
 
-  public sendMessage(data: any): any {
+  public listenToMyNotification(): Observable<any> {
+
+    return new Observable<any>((observer) => {
+      this.socket?.on('myNotification', (data) => {
+
+        observer.next(data);
+      });
+
+      return () => {
+        this.socket?.disconnect();
+      };
+    });
+
+  }
+
+  public sortChats(): void {
+    this.currentUser.contacts.sort((a: any, b: any) => {
+      const dateA: any = new Date(a.roomId.lastChatted);
+      const dateB: any = new Date(b.roomId.lastChatted);
+      return dateB.getTime() - dateA.getTime();
+    });
+  }
+
+  public sendMessage(data: any, selectedContact?: any): any {
+
     this.saveMessage(data).subscribe(
       (res: any) => {
-        this.socket?.emit('message', {...data, roomData: res.roomData});
+
+        this.socket?.emit('message', { ...data, roomData: res.roomData });
+        if (selectedContact) {
+          this.socket?.emit('notifyContact', {
+            type: 'new-message',
+            contact: {
+              _id: selectedContact.contact._id,
+              roomData: res.roomData,
+              data
+            },
+
+          })
+        }
       },
       () => {
         console.error('error sending message');
@@ -93,11 +126,13 @@ export class ChatService {
     });
   }
 
-  public updateContactRoomData(roomData: any): void{
-    this.currentUser.contacts = this.currentUser.contacts.map((contact: any)=>{
-      if ( contact && contact.roomId && contact.roomId._id ) {
+  public updateContactRoomData(roomData: any): void {
+    this.currentUser.contacts = this.currentUser.contacts.map((contact: any) => {
+      if (contact && contact.roomId && contact.roomId._id) {
 
-        if ( (contact.roomId._id === roomData.roomId) && contact.roomId.lastMessage && contact.roomId.lastChatted ) {
+        if ((contact.roomId._id === roomData.roomId)) {
+
+          contact.roomId.lastMessage = {}
 
           contact.roomId.lastMessage.message = roomData.message
 
@@ -109,7 +144,7 @@ export class ChatService {
       return contact
     })
 
-    console.log(this.currentUser.contacts, 'this.currentUser.contacts');
+    this.sortChats()
 
 
   }
@@ -209,15 +244,21 @@ export class ChatService {
     });
   }
 
-  public notifyUser(data: any): void {
-    this.socket?.emit('notify', { data });
+  public notifyUser(data: any, type?: any): void {
+    let finalObject = {
+      data,
+      type: type && type
+    }
+    this.socket?.emit('notify', { ...finalObject });
   }
 
   public listenNotification(): Observable<any> {
     return new Observable<any>((observer) => {
       this.socket?.on('new notification', (data: any) => {
 
-        if (data?.data?.data?._id === this.currentUser._id) observer.next(data);
+        if (data?.data?.data?._id === this.currentUser._id) {
+          observer.next(data);
+        }
       });
     });
   }
@@ -263,13 +304,9 @@ export class ChatService {
     return this.http.post(`${this.boLocalUrl}/contacts/uploadProfile`, fileFormData)
   }
 
-  public getProfilePhoto() {
-    return this.http.get(`${this.boLocalUrl}/contacts/getProfilePhoto/user-${this.currentUser._id}`)
-  }
-
   public setProfilePicture(base64: string) {
 
-    if (base64.length && this.currentUser?.profilePicture?.isProfileUploaded) {
+    if (base64 && base64.length && this.currentUser?.profilePicture?.isProfileUploaded) {
 
       this.profileUrl = `data:${this.currentUser.profilePicture.mimetype};base64,` + base64
 
@@ -280,13 +317,15 @@ export class ChatService {
 
   public returnImageUrl(base64: string, fileDetails: any): any {
 
-    if (base64.length && fileDetails?.isProfileUploaded) {
+    if (base64 && base64.length && fileDetails?.isProfileUploaded) {
 
       let imageUrl = `data:${fileDetails.mimetype};base64,` + base64
 
       return imageUrl
 
     }
+
+    return null
   }
 
   public generateContactsImageUrls(contacts: any): any {
@@ -305,11 +344,11 @@ export class ChatService {
 
     })
 
-    this.http.post(`${this.boLocalUrl}/contacts/generateProfilesBase64`, contactsPayload).subscribe((data: any)=>{
+    this.http.post(`${this.boLocalUrl}/contacts/generateProfilesBase64`, contactsPayload).subscribe((data: any) => {
 
       let finalUrls: any = {}
 
-      data.res.forEach((contact: any)=>{
+      data.res.forEach((contact: any) => {
         if (contact.contact && contact.contact.profilePicture && contact.contact.profilePicture.isProfileUploaded) {
 
           let imageUrl = this.returnImageUrl(contact.base64, contact.contact.profilePicture)
@@ -319,8 +358,7 @@ export class ChatService {
         }
       })
 
-      this.imageUrls = {...this.imageUrls, ...finalUrls}
-      console.log(this.imageUrls, 'this.imageUrls');
+      this.imageUrls = { ...this.imageUrls, ...finalUrls }
 
     })
 

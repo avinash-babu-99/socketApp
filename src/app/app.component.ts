@@ -17,16 +17,15 @@ import { Socket, io } from 'socket.io-client';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit,OnDestroy {
-  
+export class AppComponent implements OnInit, OnDestroy {
+
   constructor(private router: Router, private route: ActivatedRoute, private cookieService: CookieService, private chatService: ChatService) {
 
   }
 
 
   public ngOnInit(): void {
-
-};
+  };
 
 
   ngOnDestroy(): void {

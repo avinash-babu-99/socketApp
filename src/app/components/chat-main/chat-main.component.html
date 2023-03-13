@@ -19,10 +19,10 @@
             </div>
             <div class="nav-header">
               <div [matMenuTriggerFor]="menu" class="profile-pic">
-                <div *ngIf="chatService.currentUser.profilePicture?.isProfileUploaded" class="profile-picture-wrap">
+                <div *ngIf="chatService.currentUser.profilePicture?.isProfileUploaded && profileUrl" class="profile-picture-wrap">
                   <img [src]="profileUrl">
                 </div>
-                <div *ngIf="!(chatService.currentUser.profilePicture?.isProfileUploaded)" class="auto-profile">
+                <div *ngIf="!(chatService.currentUser.profilePicture?.isProfileUploaded && profileUrl)" class="auto-profile">
                   {{(currentUser?.name[0] + currentUser?.name[1]) | uppercase}}
                 </div>
                 <div class="profile-icon" [ngClass]="{ 'online': true }"></div>

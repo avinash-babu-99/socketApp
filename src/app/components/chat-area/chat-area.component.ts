@@ -152,7 +152,7 @@ export class ChatAreaComponent implements OnInit {
       sendUser: this.currentUser._id,
       room: this.roomId,
       message: this.messageText,
-    });
+    }, this.selectedUser);
 
     this.scrollToBottom()
 

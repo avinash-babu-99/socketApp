@@ -72,6 +72,16 @@ export class ChatMainComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.profileUrl = this.chatService.profileUrl;
 
+    this.chatService.listenToMyNotification().subscribe((data: any) => {
+
+      if (data.type === 'new-message' && data.contact.roomData ) {
+
+        this.chatService.updateContactRoomData(data.contact.roomData)
+
+      }
+
+    })
+
     this.isChatContainerExpanded = false;
 
     this.chatService.getMessage().subscribe((data) => {
