@@ -78,9 +78,6 @@ export class ChatMainComponent implements OnInit, OnDestroy {
 
         this.chatService.updateContactRoomData(data.contact.roomData)
 
-        console.log(data.contact.roomData.roomId, 'data.contact.roomData.roomId 81');
-
-
         if( data.contact.roomData.roomId ) {
 
           this.chatService.unReadMessagesCountMapping[data.contact.roomData.roomId] ++

@@ -45,7 +45,8 @@ export class FrientRequestsComponent implements OnInit {
           console.log('error updating request');
         })
       )
-      .subscribe(() => {
+      .subscribe(( res: any ) => {
+        this.chatService.unReadMessagesCountMapping[res.roomId] = 0
         this.chatService.notifyUser(contact)
         this.chatService.refreshUser()
         this.chatService.refreshContactSubject$.next(true);

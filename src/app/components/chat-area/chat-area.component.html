@@ -14,10 +14,14 @@
               <img *ngIf="!(imageUrls[user?.contact?._id]?.length)" class="profile-pic" src="../../../assets/images/blank-profile-picture-973460_1280-300x300.jpg" alt="">
             </div>
             <div class="contact-details">
-              <span class="contact-name">
-                {{ user?.contact?.name }}
-                <span  *ngIf="getUnreadMessagesCount(user?.roomId?._id)" class="unread-count">{{getUnreadMessagesCount(user?.roomId?._id)}}</span>
-              </span>
+              <div class="contact-name">
+                <span class="name">
+                  {{ user?.contact?.name }}
+                </span>
+                <div class="unread-count" *ngIf="getUnreadMessagesCount(user?.roomId?._id)" >
+                  <span>{{getUnreadMessagesCount(user?.roomId?._id)}}</span>
+                </div>
+              </div>
               <div class="contact-text">
                 <span class="text">{{user?.roomId?.lastMessage?.message}}</span>
                 <span *ngIf="user?.roomId?.lastChatted" class="time-stamp">{{user?.roomId?.lastChatted | timeStampFormatter}}</span>
