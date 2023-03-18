@@ -83,8 +83,6 @@ export class LoginComponent implements OnInit {
         .subscribe(
           (data) => {
 
-            console.log(data, 'login response');
-
             this.spinner.hide();
             if (data && data.user) {
               if (data && data.token) {
@@ -92,13 +90,13 @@ export class LoginComponent implements OnInit {
                 this.chatService.emitStatus('online')
                 this.chatService.connectToSocket()
                 this.chatService.saveUserDetailsInSocket()
-                this.chatService.sortChats()
 
                 let roomIds: any[] = []
 
                 if ( this.chatService.currentUser &&  this.chatService.currentUser.contacts && this.chatService.currentUser.contacts.length ) {
 
                   roomIds = this.chatService.currentUser.contacts.map((contact: any)=>{
+                    this.chatService.unReadMessagesCountMapping[contact.roomId._id] = 0
                     return contact.roomId._id
                   })
 

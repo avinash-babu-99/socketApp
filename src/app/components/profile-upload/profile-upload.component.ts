@@ -53,7 +53,6 @@ export class ProfileUploadComponent implements OnInit {
       const file: File = (target.files as FileList)[0];
       this.ProfileToUpload = file;
     }
-    console.log(this.ProfileToUpload, 'this.ProfileToUpload');
     this.getPreviewUrl();
   }
 
@@ -64,8 +63,6 @@ export class ProfileUploadComponent implements OnInit {
       this.chatService.refreshUser();
       this.ProfileToUpload = new File([], '');
       this.toggleModal(false);
-
-      console.log('profile updated successfully');
     });
   }
 

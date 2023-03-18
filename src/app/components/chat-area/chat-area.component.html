@@ -8,7 +8,7 @@
           <span *ngIf="!chatSearchText.length" class="place-holder">Search</span>
         </div>
         <div class="content">
-          <div (click)="selectedUserHandler(user)" class="contact" *ngFor="let user of contacts" [ngClass]="{ 'contact-selected': selectedUser?.contact?._id === user?.contact?._id }">
+          <div (click)="selectedUserHandler(user)" class="contact" *ngFor="let user of contacts | sortContacts" [ngClass]="{ 'contact-selected': selectedUser?.contact?._id === user?.contact?._id }">
             <div class="profile-pic-container">
               <img *ngIf="(imageUrls[user?.contact?._id]?.length)" [src]="imageUrls[user?.contact?._id]" class="profile-pic" alt="user" />
               <img *ngIf="!(imageUrls[user?.contact?._id]?.length)" class="profile-pic" src="../../../assets/images/blank-profile-picture-973460_1280-300x300.jpg" alt="">
@@ -16,7 +16,7 @@
             <div class="contact-details">
               <span class="contact-name">
                 {{ user?.contact?.name }}
-                <span>{{getUnreadMessagesCount(user?.roomId?._id)}}</span>
+                <span  *ngIf="getUnreadMessagesCount(user?.roomId?._id)" class="unread-count">{{getUnreadMessagesCount(user?.roomId?._id)}}</span>
               </span>
               <div class="contact-text">
                 <span class="text">{{user?.roomId?.lastMessage?.message}}</span>
@@ -76,7 +76,7 @@
         </div>
       </div>
     </div>
-    <div #messageBlock appMessageRead [selectedChat]="selectedUser?.contact" class="message-block" *ngIf="selectedUser?.contact?.name">
+    <div #messageBlock appMessageRead [selectedChat]="selectedUser" class="message-block" *ngIf="selectedUser?.contact?.name">
       <div [ngClass]="
           user.sender === currentUser._id
             ? 'sent-message-wrap'

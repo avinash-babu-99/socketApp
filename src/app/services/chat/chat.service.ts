@@ -127,6 +127,12 @@ export class ChatService {
     });
   }
 
+  public handleReadMessages(contact: any): void {
+
+    this.socket?.emit('handleRoomMessagesStatus', contact)
+
+  }
+
   public updateContactRoomData(roomData: any): void {
     this.currentUser.contacts = this.currentUser.contacts.map((contact: any) => {
       if (contact && contact.roomId && contact.roomId._id) {
@@ -144,9 +150,6 @@ export class ChatService {
 
       return contact
     })
-
-    this.sortChats()
-
 
   }
 
@@ -265,7 +268,7 @@ export class ChatService {
   }
 
   public getUnreadMessages(roomIds: any[]): Observable<any> {
-    return this.http.post(`${this.boLocalUrl}/messages/getUnreadMessages`, {roomIds})
+    return this.http.post(`${this.boLocalUrl}/messages/getUnreadMessages`, {roomIds, sender: this.currentUser._id})
   }
 
 

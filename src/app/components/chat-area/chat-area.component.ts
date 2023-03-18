@@ -65,7 +65,12 @@ export class ChatAreaComponent implements OnInit {
 
       }
 
-      this.messageArray.push(data);
+      if ( this.selectedUser?.roomId?._id === data?.roomData?.roomId ) {
+
+        this.messageArray.push(data);
+
+      }
+
     });
 
     this.chatService.listenNotification().subscribe((data) => {
