@@ -15,7 +15,13 @@ export class MessageReadDirective implements OnChanges {
 
   public ngOnChanges(){
 
-    this.chatService.unReadMessagesCountMapping[this.selectedChat?.roomId?._id] = 0
+    if ( this.chatService.unReadMessagesCountMapping[this.selectedChat?.roomId?._id] ) {
+
+      this.chatService.handleReadMessages(this.selectedChat)
+
+      this.chatService.unReadMessagesCountMapping[this.selectedChat?.roomId?._id] = 0
+
+    }
 
   }
 
