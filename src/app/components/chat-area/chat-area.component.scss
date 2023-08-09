@@ -304,7 +304,6 @@
       left: 25%;
       white-space: nowrap;
       transition: 1s;
-
     }
 
     .contact-name-hidden {
@@ -633,7 +632,6 @@
       object-fit: cover;
     }
   }
-
 }
 
 .chat-text-box {
@@ -735,7 +733,7 @@
     }
 
     .info-box:before {
-      content: '';
+      content: "";
       position: absolute;
       top: -10px;
       right: -10px;
@@ -801,7 +799,7 @@
         justify-content: center;
         width: 50px;
         border-radius: 4px;
-        transition: .25s;
+        transition: 0.25s;
 
         img {
           height: 30px;
@@ -818,7 +816,7 @@
 
       .nav-icon:hover {
         background: rgb(169 169 169 / 39%);
-        transition: .25s;
+        transition: 0.25s;
       }
 
       mat-icon {
@@ -865,51 +863,51 @@
       justify-content: center;
       padding: 10px;
       position: relative;
+      width: 70%;
+      margin: auto;
 
       .chat-search {
         border: none;
         outline: none;
         height: 30px;
-        width: 200px;
+        width: 100%;
         border-radius: 2px;
         padding: 10px 35px;
         color: gray;
 
-        &:focus~mat-icon {
-          left: 60px;
+        &:focus ~ mat-icon {
+          left: 5%;
           transition: 0.25s;
         }
 
-        &:focus~.place-holder {
+        &:focus ~ .place-holder {
           opacity: 0;
           transition: 0.25s;
         }
       }
 
       .input-filled {
-        left: 60px;
+        left: 5%;
       }
 
       mat-icon {
         position: absolute;
-        left: 0;
+        left: 10%;
         top: 15px;
         font-size: 20px;
-        left: 112px;
         pointer-events: none;
         transition: 0.25s;
       }
 
       .place-holder {
         position: absolute;
-        left: 135px;
+        left: 18%;
         pointer-events: none;
         transition: 0.25s;
       }
     }
 
     .contact-search-container {
-
       align-items: center;
       display: flex;
       justify-content: center;
@@ -925,13 +923,13 @@
         padding: 10px 35px;
         color: gray;
 
-        &:focus~mat-icon {
+        &:focus ~ mat-icon {
           left: 20px;
           top: 16px;
           transition: 0.25s;
         }
 
-        &:focus~.place-holder {
+        &:focus ~ .place-holder {
           opacity: 0;
           transition: 0.25s;
         }
@@ -958,7 +956,6 @@
         pointer-events: none;
         transition: 0.25s;
       }
-
     }
 
     .content {
@@ -968,14 +965,14 @@
       padding: 20px;
       gap: 15px;
       width: 100%;
-      height: 110px;
+      height: 100%;
 
       .contact {
         display: flex;
         align-items: center;
         gap: 15px;
         width: 100%;
-        height: 100%;
+        height: 110px;
         padding: 10px 10px;
         cursor: pointer;
 
@@ -989,12 +986,10 @@
             height: 100%;
             width: 100%;
             object-fit: cover;
-
           }
         }
 
         .contact-details {
-
           width: calc(100% - 65px);
 
           .contact-name {
@@ -1004,7 +999,8 @@
             display: flex;
             padding: 5px 5px 0px 0px;
 
-            .name {}
+            .name {
+            }
 
             .unread-count {
               margin-left: auto;
@@ -1039,11 +1035,10 @@
             .time-stamp {
               width: 35%;
               text-align: end;
+              overflow-wrap: break-word;
             }
           }
-
         }
-
       }
 
       .contact:hover {
@@ -1075,7 +1070,6 @@
     color: #dee2e6;
     cursor: pointer;
   }
-
 }
 
 .online-status {
@@ -1099,28 +1093,39 @@
   font-size: medium;
 }
 
-
-
 // media queries
 
-
-@media only screen and (max-width: 1280px ) {
+@media only screen and (max-width: 1280px) {
   .info-container {
     display: none !important;
   }
 }
 
-@media only screen and (max-width: 768px ) {
-
-  .chat-list-container{
+@media only screen and (max-width: 768px) {
+  .chat-list-container {
     width: 100%;
   }
 
-  .contact:hover{
+  .contact:hover {
     background-color: #a9a9a92e;
   }
-
 }
 
-
-
+@media only screen and (max-width: 280px) {
+  .content {
+    .contact {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      .contact-text {
+        flex-direction: column !important;
+        .text {
+          width: 100% !important;
+        }
+        .time-stamp {
+          width: 100% !important;
+          text-align: unset !important;
+        }
+      }
+    }
+  }
+}

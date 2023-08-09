@@ -1,30 +1,65 @@
-<div style="height: 100%; width:100%" class="flex-container">
-  <div *ngIf="coreService.screenSize > 768 ||  (coreService.screenSize < 768 && !(selectedUser?.contact?.name))" class="chat-list-container">
+<div style="height: 100%; width: 100%" class="flex-container">
+  <div
+    *ngIf="
+      coreService.screenSize > 768 ||
+      (coreService.screenSize < 768 && !selectedUser?.contact?.name)
+    "
+    class="chat-list-container"
+  >
     <div class="chat-list-sidenav">
       <div class="chats-list">
         <div class="search-container">
           <input [(ngModel)]="chatSearchText" class="chat-search" type="text" />
-          <mat-icon [ngClass]="{ 'input-filled': chatSearchText.length }">search</mat-icon>
-          <span *ngIf="!chatSearchText.length" class="place-holder">Search</span>
+          <!-- <mat-icon [ngClass]="{ 'input-filled': chatSearchText.length }"
+            >search</mat-icon
+          > -->
+          <span *ngIf="!chatSearchText.length" class="place-holder"
+            >Search</span
+          >
         </div>
         <div class="content">
-          <div (click)="selectedUserHandler(user)" class="contact" *ngFor="let user of contacts | sortContacts" [ngClass]="{ 'contact-selected': selectedUser?.contact?._id === user?.contact?._id }">
+          <div
+            (click)="selectedUserHandler(user)"
+            class="contact"
+            *ngFor="let user of contacts | sortContacts"
+            [ngClass]="{
+              'contact-selected':
+                selectedUser?.contact?._id === user?.contact?._id
+            }"
+          >
             <div class="profile-pic-container">
-              <img *ngIf="(imageUrls[user?.contact?._id]?.length)" [src]="imageUrls[user?.contact?._id]" class="profile-pic" alt="user" />
-              <img *ngIf="!(imageUrls[user?.contact?._id]?.length)" class="profile-pic" src="../../../assets/images/blank-profile-picture-973460_1280-300x300.jpg" alt="">
+              <img
+                *ngIf="imageUrls[user?.contact?._id]?.length"
+                [src]="imageUrls[user?.contact?._id]"
+                class="profile-pic"
+                alt="user"
+              />
+              <img
+                *ngIf="!imageUrls[user?.contact?._id]?.length"
+                class="profile-pic"
+                src="../../../assets/images/blank-profile-picture-973460_1280-300x300.jpg"
+                alt=""
+              />
             </div>
             <div class="contact-details">
               <div class="contact-name">
                 <span class="name">
                   {{ user?.contact?.name }}
                 </span>
-                <div class="unread-count" *ngIf="getUnreadMessagesCount(user?.roomId?._id)" >
-                  <span>{{getUnreadMessagesCount(user?.roomId?._id)}}</span>
+                <div
+                  class="unread-count"
+                  *ngIf="getUnreadMessagesCount(user?.roomId?._id)"
+                >
+                  <span>{{ getUnreadMessagesCount(user?.roomId?._id) }}</span>
                 </div>
               </div>
               <div class="contact-text">
-                <span class="text">{{user?.roomId?.lastMessage?.message}}</span>
-                <span *ngIf="user?.roomId?.lastChatted" class="time-stamp">{{user?.roomId?.lastChatted | timeStampFormatter}}</span>
+                <span class="text">{{
+                  user?.roomId?.lastMessage?.message
+                }}</span>
+                <span *ngIf="user?.roomId?.lastChatted" class="time-stamp">{{
+                  user?.roomId?.lastChatted | timeStampFormatter
+                }}</span>
               </div>
             </div>
           </div>
@@ -33,30 +68,38 @@
     </div>
   </div>
 
-  <div *ngIf="coreService.screenSize > 768 || (coreService.screenSize < 768 && (selectedUser?.contact?.name))" class="chat-screen">
-    <div class="chat-init-image" *ngIf="!(selectedUser?.contact?.name)">
+  <div
+    *ngIf="
+      coreService.screenSize > 768 ||
+      (coreService.screenSize < 768 && selectedUser?.contact?.name)
+    "
+    class="chat-screen"
+  >
+    <div class="chat-init-image" *ngIf="!selectedUser?.contact?.name">
       <div class="info-container">
         <div class="info-box">
           <div class="info-image">
-            <img style="width: 100%;" src="../../../assets/gifs/Gen Z (3).gif" alt="">
+            <img
+              style="width: 100%"
+              src="../../../assets/gifs/Gen Z (3).gif"
+              alt=""
+            />
           </div>
           <div class="info-content">
-            <div class="header">
-              Check the posts!!
-            </div>
-            <div class="content">
-              check what your friends have posted.
-            </div>
+            <div class="header">Check the posts!!</div>
+            <div class="content">check what your friends have posted.</div>
           </div>
         </div>
         <div class="info-box" routerLink="/Chat/contacts">
           <div class="info-image">
-            <img style="width: 100%;" src="../../../assets/gifs/Get in touch.gif" alt="">
+            <img
+              style="width: 100%"
+              src="../../../assets/gifs/Get in touch.gif"
+              alt=""
+            />
           </div>
           <div class="info-content">
-            <div class="header">
-              Checkout your contacts
-            </div>
+            <div class="header">Checkout your contacts</div>
             <div class="content">
               Lets check who are all you are friends with.
             </div>
@@ -64,44 +107,103 @@
         </div>
       </div>
       <div class="gif-container">
-        <img src="../../../assets/gifs/Texting.gif" alt="">
+        <img src="../../../assets/gifs/Texting.gif" alt="" />
       </div>
     </div>
     <div class="chat-profile" *ngIf="selectedUser?.contact?.name">
-      <div style="cursor: pointer;" (click)="selectedUser = null">Back</div>
+      <mat-icon style="cursor: pointer" (click)="selectedUser = null"
+        >keyboard_backspace</mat-icon
+      >
       <div class="profile-pic-container">
-        <img *ngIf="(imageUrls[selectedUser?.contact?._id]?.length)"  class="profile-pic" [src]="imageUrls[selectedUser?.contact?._id]" width="60" height="60" alt="user" />
-        <img *ngIf="!(imageUrls[selectedUser?.contact?._id]?.length)" class="profile-pic" src="../../../assets/images/blank-profile-picture-973460_1280-300x300.jpg" alt="">
+        <img
+          *ngIf="imageUrls[selectedUser?.contact?._id]?.length"
+          class="profile-pic"
+          [src]="imageUrls[selectedUser?.contact?._id]"
+          width="60"
+          height="60"
+          alt="user"
+        />
+        <img
+          *ngIf="!imageUrls[selectedUser?.contact?._id]?.length"
+          class="profile-pic"
+          src="../../../assets/images/blank-profile-picture-973460_1280-300x300.jpg"
+          alt=""
+        />
       </div>
       <div class="profilehd">
         {{ selectedUser?.contact?.name }}
         <div class="flex-al-c-jc-center online-status">
-          <span>{{selectedUser?.contact?.status}}</span>
-          <mat-icon [ngStyle]="{'color': (selectedUser?.contact?.status === 'online') ? 'green' : 'red' }">fiber_manual_record</mat-icon>
+          <span>{{ selectedUser?.contact?.status }}</span>
+          <mat-icon
+            [ngStyle]="{
+              color:
+                selectedUser?.contact?.status === 'online' ? 'green' : 'red'
+            }"
+            >fiber_manual_record</mat-icon
+          >
         </div>
       </div>
     </div>
-    <div #messageBlock appMessageRead [selectedChat]="selectedUser" class="message-block" *ngIf="selectedUser?.contact?.name">
-      <div [ngClass]="
-          user.sender === currentUser._id
-            ? 'sent-message-wrap'
-            : 'message-wrap'
-        " *ngFor="let user of messageArray">
-        <div class="message" [ngClass]="
+    <div
+      #messageBlock
+      appMessageRead
+      [selectedChat]="selectedUser"
+      class="message-block"
+      *ngIf="selectedUser?.contact?.name"
+    >
+      <div
+        [ngClass]="
+          user.sender === currentUser._id ? 'sent-message-wrap' : 'message-wrap'
+        "
+        *ngFor="let user of messageArray"
+      >
+        <div
+          class="message"
+          [ngClass]="
             user.sender === currentUser._id ? 'sent-message' : 'message'
-          ">
+          "
+        >
           {{ user.message }}
         </div>
       </div>
     </div>
-    <div class="chat-text-box-wrapper" appMessageRead *ngIf="selectedUser?.contact?.name">
-      <emoji-mart *ngIf="isEmojiOpen" [showPreview]="false" class="emoji-mart" title="Pick your emoji…" emoji="point_up" (emojiClick)="handleSelection($event)"></emoji-mart>
+    <div
+      class="chat-text-box-wrapper"
+      appMessageRead
+      *ngIf="selectedUser?.contact?.name"
+    >
+      <emoji-mart
+        *ngIf="isEmojiOpen"
+        [showPreview]="false"
+        class="emoji-mart"
+        title="Pick your emoji…"
+        emoji="point_up"
+        (emojiClick)="handleSelection($event)"
+      ></emoji-mart>
 
-      <mat-icon class="emoji-insert" matBadgeColor="accent" (click)="isEmojiOpen = !isEmojiOpen">insert_emoticon</mat-icon>
+      <mat-icon
+        class="emoji-insert"
+        matBadgeColor="accent"
+        (click)="isEmojiOpen = !isEmojiOpen"
+        >insert_emoticon</mat-icon
+      >
 
-      <input class="chat-text-box" type="text" placeholder="type the text....." [(ngModel)]="messageText" (keyup)="$event.keyCode === 13 && sendMessage()" />
-      <mat-icon class="emoji-insert" matBadgeColor="accent">attach_file</mat-icon>
-      <mat-icon class="emoji-insert" matBadgeColor="accent" (click)="sendMessage()">send</mat-icon>
+      <input
+        class="chat-text-box"
+        type="text"
+        placeholder="type the text....."
+        [(ngModel)]="messageText"
+        (keyup)="$event.keyCode === 13 && sendMessage()"
+      />
+      <mat-icon class="emoji-insert" matBadgeColor="accent"
+        >attach_file</mat-icon
+      >
+      <mat-icon
+        class="emoji-insert"
+        matBadgeColor="accent"
+        (click)="sendMessage()"
+        >send</mat-icon
+      >
     </div>
   </div>
 </div>
