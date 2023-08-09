@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ChatService } from '../../services/chat/chat.service';
@@ -13,7 +13,7 @@ import * as CryptoJS from 'crypto-js';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   public phone: string = '';
   public password: string = '';
   public isPhoneNumberWrong: boolean;
@@ -55,6 +55,14 @@ export class LoginComponent implements OnInit {
         this.password = decrypted;
       }
     }
+  }
+
+
+  ngOnDestroy(): void {
+      this.phone = '';
+      this.password = '';
+      console.log('destry called');
+
   }
 
   public login() {

@@ -18,7 +18,6 @@ import { HttpInterceptorInterceptor } from './interceptors/http-interceptor.inte
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, SharedModule, BrowserAnimationsModule
   ],
   providers: [
-    ChatService,
     AuthenticationServiceService,
     CookieService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorInterceptor, multi: true }

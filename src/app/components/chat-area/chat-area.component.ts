@@ -3,7 +3,7 @@ import { catchError } from 'rxjs';
 
 // service imports
 import { ChatService } from 'src/app/services/chat/chat.service';
-
+import { CoreService } from 'src/app/services/core.service';
 @Component({
   selector: 'app-chat-area',
   templateUrl: './chat-area.component.html',
@@ -35,7 +35,7 @@ export class ChatAreaComponent implements OnInit {
   public toggled: boolean = false
   public isEmojiOpen: boolean = false
 
-  constructor(private chatService: ChatService
+  constructor(private chatService: ChatService, public coreService: CoreService
   ) {
 
     this.chatSearchText = '';

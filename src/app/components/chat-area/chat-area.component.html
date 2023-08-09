@@ -1,5 +1,5 @@
-<div style="height: 100%;" class="flex-container">
-  <div class="chat-list-container">
+<div style="height: 100%; width:100%" class="flex-container">
+  <div *ngIf="coreService.screenSize > 768 ||  (coreService.screenSize < 768 && !(selectedUser?.contact?.name))" class="chat-list-container">
     <div class="chat-list-sidenav">
       <div class="chats-list">
         <div class="search-container">
@@ -33,12 +33,12 @@
     </div>
   </div>
 
-  <div class="chat-screen">
+  <div *ngIf="coreService.screenSize > 768 || (coreService.screenSize < 768 && (selectedUser?.contact?.name))" class="chat-screen">
     <div class="chat-init-image" *ngIf="!(selectedUser?.contact?.name)">
       <div class="info-container">
         <div class="info-box">
           <div class="info-image">
-            <img src="../../../assets/gifs/Gen Z (3).gif" alt="">
+            <img style="width: 100%;" src="../../../assets/gifs/Gen Z (3).gif" alt="">
           </div>
           <div class="info-content">
             <div class="header">
@@ -51,7 +51,7 @@
         </div>
         <div class="info-box" routerLink="/Chat/contacts">
           <div class="info-image">
-            <img src="../../../assets/gifs/Get in touch.gif" alt="">
+            <img style="width: 100%;" src="../../../assets/gifs/Get in touch.gif" alt="">
           </div>
           <div class="info-content">
             <div class="header">
@@ -68,6 +68,7 @@
       </div>
     </div>
     <div class="chat-profile" *ngIf="selectedUser?.contact?.name">
+      <div style="cursor: pointer;" (click)="selectedUser = null">Back</div>
       <div class="profile-pic-container">
         <img *ngIf="(imageUrls[selectedUser?.contact?._id]?.length)"  class="profile-pic" [src]="imageUrls[selectedUser?.contact?._id]" width="60" height="60" alt="user" />
         <img *ngIf="!(imageUrls[selectedUser?.contact?._id]?.length)" class="profile-pic" src="../../../assets/images/blank-profile-picture-973460_1280-300x300.jpg" alt="">

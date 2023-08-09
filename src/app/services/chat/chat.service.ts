@@ -186,6 +186,7 @@ export class ChatService {
       this.socket?.emit('goOnline', this.currentUser)
     } else if (status === 'offline') {
       this.socket?.emit('goOffline', this.currentUser)
+      this.socket?.disconnect()
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { AuthenticationServiceService } from 'src/app/services/chat/authentication-service.service';
@@ -10,7 +10,7 @@ import { ChatService } from 'src/app/services/chat/chat.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, AfterViewInit {
 
   public signUpForm: FormGroup
 
@@ -27,34 +27,39 @@ export class SignupComponent implements OnInit {
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]]
     })
-   }
+  }
 
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     // this.cookieService.deleteAll()
     // this.chatService.emitStatus("offline")
     this.chatService.disconnectSocket()
-   }
 
-  public get userNameValue() : any  {
-    return <AbstractControl> this.signUpForm.get('userName')
   }
 
-  public get phoneValue() : any  {
-    return <AbstractControl> this.signUpForm.get('phone')
+  ngAfterViewInit(): void {
+    this.signUpForm.reset()
   }
 
-  public get passwordValue() : any  {
-    return <AbstractControl> this.signUpForm.get('password')
+  public get userNameValue(): AbstractControl {
+    return <AbstractControl>this.signUpForm.get('userName')
   }
 
-  public get confirmPasswordValue() : any  {
-    return <AbstractControl> this.signUpForm.get('confirmPassword')
+  public get phoneValue(): AbstractControl {
+    return <AbstractControl>this.signUpForm.get('phone')
+  }
+
+  public get passwordValue(): AbstractControl {
+    return <AbstractControl>this.signUpForm.get('password')
+  }
+
+  public get confirmPasswordValue(): AbstractControl {
+    return <AbstractControl>this.signUpForm.get('confirmPassword')
   }
 
 
 
-  public signUp(){
+  public signUp() {
 
     const payload = {
       name: this.userNameValue.value,
@@ -63,11 +68,11 @@ export class SignupComponent implements OnInit {
       confirmPassword: this.confirmPasswordValue.value
     }
 
-    this.authenticationServiceService.signUp(payload).subscribe(data=>{
+    this.authenticationServiceService.signUp(payload).subscribe(data => {
 
       let token
 
-      if(data && data.token) {
+      if (data && data.token) {
 
         token = data.token
 

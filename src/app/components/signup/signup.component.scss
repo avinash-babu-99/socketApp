@@ -12,7 +12,7 @@
   flex-direction: column;
   gap: 20px;
   form {
-    width: auto;
+    width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -24,14 +24,21 @@
     // border-radius: 10px;
     // box-shadow: 0 8px 32px 0 rgb(10 10 9 / 94%);
 
-    label {
-      width: 250px;
+    .form-control-container {
+
+      label {
+        width: 250px;
+      }
+
     }
+
+
 
     .form-error-message {
       text-align: right;
       padding-top: 8px;
       color: #950e26db;
+      width: 100%;
     }
   }
 }
@@ -73,6 +80,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  flex-wrap: wrap;
   label{
     font-size: larger;
     letter-spacing: 1px;
@@ -84,7 +92,7 @@
   position: relative;
   transition: 5000ms;
   height: auto;
-  width: auto;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -126,7 +134,7 @@
   input[type="text"],
   input[type="password"] {
     padding: 15px 10px;
-    width: 260px;
+    width: 100%;
     border: none;
     outline: none;
     color: rgb(8 8 8 / 50%);

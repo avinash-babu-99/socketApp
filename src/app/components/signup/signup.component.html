@@ -1,89 +1,102 @@
+<div class="sign-up-form-container">
+  <div class="header">
+    <h2 style="color: gray;">Create your Account</h2>
+  </div>
+  <form [formGroup]="signUpForm">
 
-    <div class="sign-up-form-container">
-      <div class="header"><h2 style="color: gray;">Create your Account</h2></div>
-      <form [formGroup]="signUpForm"  >
+    <!-- User name -->
+    <div style="width: auto;">
 
-        <div>
-          <div class="form-control-container">
-            <label for="name">User name <span style="color: #950e26db;">*</span> </label>
-            <div class="input-focus-design">
-              <input formControlName="userName" autocomplete="off" type="text" placeholder="Enter a name" id="name">
-              <div class="upper-border"></div>
-              <div class="bottom-border"></div>
-            </div>
-          </div>
-          <div class="form-error-message" *ngIf="userNameValue?.errors?.required && userNameValue?.touched && userNameValue?.dirty">
-            <p>
-              This is required field
-            </p>
-          </div>
+      <div class="form-control-container">
+        <label for="name">User name <span style="color: #950e26db;">*</span> </label>
+        <div class="input-focus-design">
+          <input formControlName="userName" autocomplete="off" type="text" placeholder="Enter a name" id="name">
+          <div class="upper-border"></div>
+          <div class="bottom-border"></div>
         </div>
-
-        <div>
-          <div class="form-control-container">
-            <label for="phone">Phone <span style="color: #950e26db;">*</span> </label>
-            <div class="input-focus-design">
-              <input formControlName="phone" autocomplete="off" type="text" placeholder="Enter the phone number" id="phone">
-              <div class="upper-border"></div>
-              <div class="bottom-border"></div>
-            </div>
-          </div>
-          <div class="form-error-message" *ngIf="phoneValue?.errors?.required && phoneValue?.touched && phoneValue?.dirty">
-            <p>
-              This is required field
-            </p>
-          </div>
-        </div>
-
-        <div>
-          <div class="form-control-container">
-            <label for="password">Password <span style="color: #950e26db;">*</span> </label>
-            <div class="input-focus-design">
-              <input formControlName="password" autocomplete="off" type="password" placeholder="Enter the password" id="password">
-              <div class="upper-border"></div>
-              <div class="bottom-border"></div>
-            </div>
-          </div>
-          <div class="form-error-message" *ngIf="passwordValue?.errors?.required && passwordValue?.touched && passwordValue?.dirty">
-            <p>
-              This is required field
-            </p>
-          </div>
-        </div>
-
-        <div>
-          <div class="form-control-container">
-            <label for="confirmPassword">Confirm password <span style="color: #950e26db;">*</span> </label>
-            <div class="input-focus-design">
-              <input type="hidden" name="randomValue">
-              <input formControlName="confirmPassword" id="user" autocomplete="off" type="password" placeholder="Enter the password again" id="confirmPassword">
-              <div class="upper-border"></div>
-              <div class="bottom-border"></div>
-            </div>
-          </div>
-          <div class="form-error-message" *ngIf="confirmPasswordValue?.errors?.required && confirmPasswordValue?.touched && confirmPasswordValue.dirty">
-            <p>
-              This is required field
-            </p>
-          </div>
-          <div class="form-error-message" *ngIf="!confirmPasswordValue?.errors?.required && !passwordValue?.errors?.required && (confirmPasswordValue?.value !== passwordValue?.value)">
-            <p>
-              The password is mismatching
-            </p>
-          </div>
-        </div>
-
-        <div style="margin-top: 20px;">
-          <input type="button" (click)="signUp()" value="Sign up" [disabled]="!this.signUpForm.valid" class="save-btn">
-        </div>
-
-      </form>
-      <div class="footer">
-        <span>
-          By clicking the Sign Up button, you agree to our
-        </span>
-        <span>
-          <span style="color: #5870b3;">terms & Conditions</span> and <span style="color: #5870b3;">private Policy</span>
-        </span>
-        </div>
+      </div>
+      <div class="form-error-message" *ngIf="userNameValue?.errors?.['required'] && userNameValue?.touched && userNameValue?.dirty">
+        <p>
+          This is required field
+        </p>
+      </div>
     </div>
+
+    <!-- Phone -->
+    <div style="width: auto;">
+
+      <div class="form-control-container">
+        <label for="phone">Phone <span style="color: #950e26db;">*</span> </label>
+        <div class="input-focus-design">
+          <input formControlName="phone" autocomplete="off" type="text" placeholder="Enter the phone number" id="phone">
+          <div class="upper-border"></div>
+          <div class="bottom-border"></div>
+        </div>
+      </div>
+      <div class="form-error-message" *ngIf="phoneValue?.errors?.['required'] && phoneValue?.touched && phoneValue?.dirty">
+        <p>
+          This is required field
+        </p>
+      </div>
+    </div>
+
+
+    <!-- Password -->
+    <div style="width: auto;">
+
+      <div class="form-control-container">
+        <label for="password">Password <span style="color: #950e26db;">*</span> </label>
+        <div class="input-focus-design">
+          <input formControlName="password" autocomplete="off" type="password" placeholder="Enter the password" id="password">
+          <div class="upper-border"></div>
+          <div class="bottom-border"></div>
+        </div>
+      </div>
+      <div class="form-error-message" *ngIf="passwordValue?.errors?.['required'] && passwordValue?.touched && passwordValue?.dirty">
+        <p>
+          This is required field
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- Confirm password -->
+
+    <div style="width: auto;">
+      <div class="form-control-container">
+        <label for="confirmPassword">Confirm password <span style="color: #950e26db;">*</span> </label>
+        <div class="input-focus-design">
+          <input type="hidden" name="randomValue">
+          <input formControlName="confirmPassword" id="user" autocomplete="off" type="password" placeholder="Enter the password again" id="confirmPassword">
+          <div class="upper-border"></div>
+          <div class="bottom-border"></div>
+        </div>
+      </div>
+      <div class="form-error-message" *ngIf="confirmPasswordValue?.errors?.['required'] && confirmPasswordValue?.touched && confirmPasswordValue.dirty">
+        <p>
+          This is required field
+        </p>
+      </div>
+      <div class="form-error-message" *ngIf="!confirmPasswordValue?.errors?.['required'] && !passwordValue?.errors?.['required'] && (confirmPasswordValue?.value !== passwordValue?.value)">
+        <p>
+          The password is mismatching
+        </p>
+      </div>
+    </div>
+
+
+    <div style="margin-top: 20px;">
+      <input type="button" (click)="signUp()" value="Sign up" [disabled]="!this.signUpForm.valid" class="save-btn">
+    </div>
+
+  </form>
+  <div class="footer">
+    <span>
+      By clicking the Sign Up button, you agree to our
+    </span>
+    <span>
+      <span style="color: #5870b3;">terms & Conditions</span> and <span style="color: #5870b3;">private Policy</span>
+    </span>
+  </div>
+</div>
