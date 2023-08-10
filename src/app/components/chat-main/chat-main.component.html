@@ -3,12 +3,12 @@
     <!-- Chat container -->
     <div class="chat-container">
 
-      <div class="flex-container" style="transition: 0.25s ease-in-out; position: relative;" [ngStyle]="navBarOpen ? {width: '250px'} : {width: '100px'}">
+      <div *ngIf="isMenuBarVisible" class="flex-container" style="transition: 0.25s ; position: relative;" [ngStyle]="(navBarOpen && coreService.screenSize <= 768) ? {width: '100%'}: navBarOpen?{width: '250px'} : {width: '100px'}">
 
-        <div *ngIf="navBarOpen" (click)="navBarOpen=false" class="close-wrapper">
-          <mat-icon style="color: #f8f9fa;" matBadgeColor="accent">keyboard_arrow_left</mat-icon>
+        <div style="transition: 0.25s" (click)="navBarOpen=false" class="close-wrapper">
+          <mat-icon *ngIf="navBarOpen" style="color: #f8f9fa;" matBadgeColor="accent">keyboard_arrow_left</mat-icon>
         </div>
-        <mat-drawer-container class="nav-container" [ngClass]="{ 'nav-container-open': navBarOpen }" autosize>
+        <mat-drawer-container style="transition: 0.25s" [ngStyle]="(navBarOpen && coreService.screenSize <= 768) ? {width: '100%'}: navBarOpen?{width: '250px'} : {width: '100px'}" class="nav-container" [ngClass]="{ 'nav-container-open': navBarOpen }" autosize>
           <div class="content">
             <div class="hamburger">
               <div class="dots-container" (click)="navBarOpen=!navBarOpen">
@@ -71,7 +71,7 @@
 
       </div>
 
-      <div style="transition: 0.25s ease-in-out;" [ngStyle]="navBarOpen ? {width: 'calc(100% - 250px)'} : {width: 'calc(100% - 100px)'}">
+      <div style="transition: 0.25s;" [ngStyle]="(coreService.screenSize <= 768 && navBarOpen)?{width: '0%'}: navBarOpen ? {width: 'calc(100% - 250px)'} : {width: 'calc(100% - 100px)'}">
         <router-outlet></router-outlet>
       </div>
 

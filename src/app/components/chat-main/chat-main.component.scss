@@ -662,21 +662,24 @@
 
 .close-wrapper {
   position: absolute;
-  left: 90%;
+  justify-content: end;
+  width: 100%;
+  padding-right: 10px;
+  overflow: hidden;
   top: 12px;
   display: flex;
   align-items: center;
   z-index: 2;
   cursor: pointer;
   border-radius: 4px 0px 0px 4px;
-  background: #454e52;
+  background: transparent;
 }
 
 .nav-container {
   width: 100px;
   height: 100%;
   background: #263238e3;
-  transition: .25s ease-in-out;
+  transition: .25s;
 
   .content {
     width: 100%;
@@ -808,7 +811,7 @@
         flex-direction: column;
         justify-content: center;
         overflow: hidden;
-        transition: .25s ease-in-out;
+        transition: .25s;
         padding-left: 20px;
 
         .user-name {
@@ -893,14 +896,14 @@
 
 .nav-container-open {
   width: 250px;
-  transition: .25s ease-in-out;
+  transition: .25s;
 
   .content {
 
     .hamburger {
       justify-content: space-between;
       padding-left: 30px;
-      transition: 1s;
+      transition: .25s;
     }
 
     .nav-header {
@@ -912,7 +915,7 @@
         justify-content: center;
         padding: 10px;
         overflow: hidden;
-        transition: .25s ease-in-out;
+        transition: .25s;
       }
     }
 

@@ -27,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.coreService.screenSize = event.target.innerWidth
+    this.coreService.screenSizeSubject.next(event.target.innerWidth)
   }
 
 

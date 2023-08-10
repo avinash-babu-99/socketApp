@@ -14,6 +14,7 @@ import { catchError } from 'rxjs';
 // Services imports
 import { ChatService } from '../../services/chat/chat.service';
 import { CookieService } from 'ngx-cookie-service';
+import { CoreService } from 'src/app/services/core.service';
 
 @Component({
   selector: 'app-chat-main',
@@ -50,11 +51,13 @@ export class ChatMainComponent implements OnInit, OnDestroy {
   public profileUrl: string = '';
   public profilePictureModalOpen: boolean = false;
   public navBarOpen: boolean = false
+  public isMenuBarVisible: boolean = true
 
   constructor(
     public chatService: ChatService,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    public coreService: CoreService
   ) {
     this.isBotModalOpen = false;
     this.chatBotMessage = '';
